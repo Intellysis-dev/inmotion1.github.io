@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="orientation" content="portrait">
+    <link rel="icon" href="https://lh3.googleusercontent.com/d/1ZVbqUh4gOAcn5pDp9lHpYkyM0UMeVrGs=s2000">
+    <title>InMotion I (02-26)</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        touch-action: manipulation;
+      }
+      html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-size: 1em;
+        font-family: sans-serif;
+        background: #000;
+      }
+      .app {
+        width: 100vw;
+        height: 100vh;
+        aspect-ratio: 9 / 16;
+        background-image: url("https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s3000");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: #FFF;
+        font-size: 1.2em;
+        position: relative;
+      }
+      nav {
+        position: absolute;
+        top: 1em;
+        right: 1em;
+        display: flex;
+        gap: 1em;
+        font-size: 0.6em;
+      }
+      nav a {
+        background: rgba(0,0,0,0.5);
+        padding: 0.5em 0.8em;
+        border-radius: 0.5em;
+        text-decoration: none;
+        color: #FFF;
+      }
+      .overlay {
+        position: absolute;
+        top: 42%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.45);
+        padding: 2em;
+        border-radius: 1em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5em;
+      }
+      .top-message {
+        position: absolute;
+        top: 4.0em;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.6em;
+        background: rgba(0,0,0,0.6);
+        padding: 0.5em 1em;
+        border-radius: 0.5em;
+        display: none;
+        text-align: center;
+      }
+      button {
+        padding: 1em 2em;
+        font-size: 0.6em;
+        border-radius: 0.5em;
+        border: none;
+        background: #FF0000;
+        color: #FFF;
+      }
+      .footer {
+        position: absolute;
+        bottom: 1em;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.6em;
+        text-align: center;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <nav>
+        <a href="https://Intellysis-dev.github.io/pnd.html.com" target="_blank"><ins>Info</ins></a>
+        <a href="https://Intellysis-dev.github.io/pnd.html.com" target="_blank"><ins>Contact</ins></a>
+        <a href="https://Intellysis-dev.github.io/pnd.html.com" target="_blank"><ins>Demo</ins></a>
+      </nav>
+      <div class="top-message" id="topMessage">
+        Actualmente NO disponible.
+      </div>
+      <div class="overlay">
+        <img src="https://lh3.googleusercontent.com/d/1fmcoGqh42KfW61XaDSgcpJuyS7tjcRay=s3000" alt="Background" style="width: 10em; max-width: 160%; height: auto;">
+        <button id="actionBtn">Iniciar</button>
+      </div>
+      <div class="footer">
+        Creado por <b>NVIV</b> (2026). Todos los derechos reservados.
+      </div>
+    </div>
+    <script>
+      if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock("portrait").catch(() => {});
+      }
+      const btn = document.getElementById("actionBtn");
+      const msg = document.getElementById("topMessage");
+      btn.addEventListener("click", () => {
+        msg.style.display = "block";
+        setTimeout(() => {
+          msg.style.display = "none";
+        }, 5000);
+      });
+    </script>
+  </body>
+</html>
