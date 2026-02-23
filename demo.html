@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="icon" href="https://lh3.googleusercontent.com/d/1ZVbqUh4gOAcn5pDp9lHpYkyM0UMeVrGs=s2000">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <meta name="copyright" content="© NVIV 2025. Todos los derechos reservados.">
+    <title>InMotion1/Demo</title>    
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+        font-family: Quicksand;
+        background-color: #111;
+        font-size: 15px;
+        background-image: url('https://lh3.googleusercontent.com/d/1WLxVSOoVILoWv8WjyDn1TLfE5PRY76x_=s3000');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+      }
+      * { box-sizing: border-box; }
+      div {
+        text-align: center;
+      }
+      .fullscreen {
+        width: 100vw;
+        height: 100vh;
+        aspect-ratio: 9 / 16;
+        position: relative;
+        overflow: hidden;
+      }
+      .center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .hidden {
+        display: none !important;
+      }
+      #parte1, #parte2, #parte3 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: opacity 1s ease, transform 1s ease;
+      }
+      #boton1 {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background-color: #000;
+        border: none;
+        box-shadow: 0 0 20px 5px #FFF;
+        animation: pulse 3s infinite;
+      }
+      .overlay-img {
+        width: 100%;
+        max-width: 240px;
+      }
+      .overlay-img2 {
+        width: 80%;
+      }
+      .overlay-img3 {
+        width: 30%;
+        max-width: 240px;
+      }
+      @keyframes pulse {
+        0% { box-shadow: 0 0 10px #FFF; }
+        50% { box-shadow: 0 0 50px #FFF; }
+        100% { box-shadow: 0 0 10px #FFF; }
+      }
+      #botones-estilos {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        width: 100vw;
+        height: auto;
+        padding: 0 10px;
+        justify-items: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .estilo-btn {
+        width: 110px;
+        height: 60px;
+        font-size: 2em;
+        color: #FFF;
+        border: none;
+        cursor: pointer;
+      }
+      #parte3 {
+        overflow: hidden;
+      }
+      [data-autor="NVIV"]::after {
+        content: " ";
+        font-size: 0;
+        visibility: hidden;
+        position: absolute;
+      }
+      .pagina-principal {
+        width: 100vw;
+        height: 100vh;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+      }
+      .pagina-secundaria {
+        width: 100vw;
+        height: 100vh;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+      }
+      .texto-secundario {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #FFF;
+        text-shadow: 1px 1px #000;
+        text-align: center;
+        display: none;
+        font-size: 1.1em;
+        width: 80%;
+      }
+      .boton-control {
+        position: fixed;
+        bottom: 10px;
+        right: 20px;
+        z-index: 1000;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background-color: #333;
+        color: #FFF;
+        border: none;
+        margin-bottom: 10px;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+      }
+      .nombre-cancion {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        color: #FFF;
+        font-size: 0.8em;
+        font-weight: bold;
+      }
+      .pulsante-texto {
+        text-align: center;
+        font-size: 3em;
+        color: #FFF;
+        margin-top: 100px;
+        margin-bottom: 10px;
+        animation: pulseText 4s infinite;
+      }
+      @keyframes pulseText {
+        0% { text-shadow: 0 0 5px #FFF; }
+        50% { text-shadow: 0 0 25px #FFF; }
+        100% { text-shadow: 0 0 5px #FFF; }
+      }
+      .profile-container {
+        text-align: center;
+        max-width: 100%;
+      }
+      .profile-photo {
+        width: 40vw;
+        max-width: 300px;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease;
+        cursor: pointer;
+      }
+      .profile-photo:active {
+        transform: scale(0.95);
+      }
+      .profile-name {
+        font-size: 1em;
+        margin: 1rem 0 0.5rem;
+        color: #FFF;
+        font-weight: bold;
+      }
+      .profile-description {
+        font-size: 0.8em;
+        color: #666;
+        padding: 0 1rem;
+      }
+      .img_private {
+        pointer-events: none;
+        touch-action: none;  
+      }
+      .links {
+        width: 95%;
+        height: 10em;
+        background-color: #000;
+        color: #FFF;
+        background-repeat: no-repeat;
+        background-size: fixed;
+        background-position: center;
+        background-size: contain;
+        cursor: pointer;
+      }
+      .w50 { 
+        width: 50%;
+      }
+      #blocker { 
+        display: none; 
+        height: 100vh; 
+        width: 100vw; 
+        background-color: #000; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        text-align: center;
+      }
+      @media screen and (max-width: 2712px) { 
+        #app { 
+          display: block; 
+        } 
+        #blocker { 
+          display: none; 
+        }
+      }
+      @media screen and (min-width: 1220px) { 
+        #app { 
+          display: none;
+        }
+        #blocker { 
+          display: flex;
+        }
+      }
+      @media screen and (orientation: portrait) { 
+        #app { 
+          display: block;
+        }
+        #blocker {
+          display: none;
+        }
+      }
+      @media screen and (orientation: landscape) { 
+        #app { 
+          display: none;
+        }
+        #blocker {
+          display: flex;
+        }
+      }
+      .rotada { 
+        transform: rotate(-90deg); 
+        transform-origin: center; 
+        display: block;
+      }
+      @media screen and (orientation: landscape) { 
+        html, body {
+          margin: 0; 
+          padding: 0; 
+          overflow: hidden; 
+          width: 100vw;
+          height: 100vh; 
+        }
+        #blocker.pagina {
+          position: fixed; 
+          top: 0; 
+          left: 0; 
+          width: 100vw; 
+          height: 100vh; 
+          z-index: 999999; 
+          background-size: cover; 
+          background-position: center; 
+          background-repeat: no-repeat; 
+          background-attachment: fixed;
+        } 
+      }
+      mt35 {
+        margin-top: 2.3em;
+      }
+      .btn-glow {
+        cursor: pointer;
+        animation: pulseBtn 2s infinite;
+      }
+      @keyframes pulseBtn {
+        0% { text-shadow: 0 0 6px #FFF; }
+        50% { text-shadow: 0 0 15px #FFF; }
+        100% { text-shadow: 0 0 6px #FFF; }
+      }
+      .contenedor {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .grid-botones {
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        grid-gap: 12px;
+        justify-items: center;
+      }
+      .boton {
+        width: 6rem;
+        height: 4rem;
+        background-color: #262626;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        background-size: cover;
+        background-position: center;
+      }
+      .boton-link {
+        display: inline-block;
+      }
+      .mt2 {
+        margin-top: 2em;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="blocker" class="pagina">
+      <img src="https://lh3.googleusercontent.com/d/1opiJb6BEu4HxaRDGMr3zdI3D2X3BHTWL=s2000" alt="error" class="rotada w50">
+    </div>
+    <div data-autor="NVIV">
+      <div id="parte1" class="fullscreen center" style="background-image: url('https://lh3.googleusercontent.com/d/16Bq38k73RNYH54WwmyQ9wAUa8SaVkYK-=s3000'); background-repeat: no-repeat; background-size: cover; 
+        background-position: center; background-attachment: fixed;">
+        <button id="boton1"><img src="https://lh3.googleusercontent.com/d/1s5QmxMDXdhIj3dJxuTwjbHB_TC5u47Ch=s2000" class="overlay-img" alt="titulo1"></button>
+      </div>
+      <div id="parte2" class="fullscreen hidden" style="background-image: url('https://lh3.googleusercontent.com/d/16Bq38k73RNYH54WwmyQ9wAUa8SaVkYK-=s3000'); background-repeat: no-repeat; background-size: cover; 
+        background-position: center; background-attachment: fixed;">
+        <div class="pulsante-texto">
+          <img src="https://lh3.googleusercontent.com/d/1s5QmxMDXdhIj3dJxuTwjbHB_TC5u47Ch=s2000" class="overlay-img2" alt="titulo2">
+        </div>
+        <div id="botones-estilos" class="mt35">
+          <button class="estilo-btn" style="background-color:#FF0000" data-index="2"><i class="fa-solid fa-skull"></i></button>
+          <button class="estilo-btn" style="background-color:#0F0F0F" data-index="3"><i class="fa-solid fa-ghost"></i></button>
+          <button class="estilo-btn" style="background-color:#A6A6A6" data-index="4"><i class="fa-solid fa-face-frown"></i></button>
+          <button class="estilo-btn" style="background-color:#FFFFFF; color: #000" data-index="5"><i class="fa-solid fa-pills"></i></button>
+          <button class="estilo-btn" style="background-color:#FFCCFF" data-index="6"><i class="fa-solid fa-heart"></i></button>
+          <button class="estilo-btn" style="background-color:#00B0F0" data-index="7"><i class="fa-solid fa-cloud"></i></button>
+          <button class="estilo-btn" style="background-color:#FF9933" data-index="8"><i class="fa-solid fa-lemon"></i></button>
+          <button class="estilo-btn" style="background-color:#00B050" data-index="9"><i class="fa-solid fa-leaf"></i></button>
+          <button class="estilo-btn" style="background-color:#FFFF00; color: #000" data-index="10"><i class="fa-solid fa-cake-candles"></i></button>
+          <button class="estilo-btn btn-glow" style="background-color:#262626" data-index="12"><i class="fa-solid fa-circle-info"></i></button>
+          <button class="estilo-btn" style="background-color:#262626" data-index="13"><i class="fa-solid fa-comment-dots"></i></button>
+          <button style="background-color:#262626; color: #FFF; width: 110px; height: 60px; font-size: 2em; border: none;" onclick="location.reload()"><i class="fa-solid fa-circle-xmark"></i></button>
+          <br><br>
+          <button style="background-color:#262626; color: #FFF; width: 110px; height: 60px; font-size: 2em; border: none;" onclick="compartir()"><i class="fa-solid fa-share-from-square"></i></button>
+        </div>
+        <p style="position: absolute; bottom: 20px; width: 100%; text-align: center; font-size: 0.5em; color: #888;">
+          Creado por <b>NVIV</b> (2025). Todos los derechos reservados.
+        </p>
+      </div>
+      <div id="parte3" class="fullscreen hidden">
+        <div id="contenedor-paginas" style="display:flex; width:100%; height:100%; overflow-x: scroll; scroll-snap-type: x mandatory;">
+          <div class="pagina-principal" data-index="2" style="display: none;">
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/11DUD7DT4Wvd0zEIhKhiOikL3FhcPIoiW=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1re3SVPFJcbwIloCSn6rq_Fe2LbANaGsk=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1FOTGAqSDXkZKSiHdkN8Slup5ToAK2dgW=s2000" alt="red-0" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1NXYsKW6k3QH5ZtN4varh5uKc0MMT1r9e=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1ptbT0FqaBa-UgmEja6F4Jm3E3NZvmB49=s2000" alt="red-1" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1C1wWA3RLdHMUOqwL_vVo0uhaSaXU53qR=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1yEhkz-MXW4EKGK85KRMyHibQg5JLRBFH=s2000" alt="red-2" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1CkBMJMCkjfDEKCDoN_OW-GO_vV9k7WM1=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1MOYwXtiGVXNCTtVs0Hu1cWgp6ZHog74-=s2000" alt="red-3" style="width: 100%;">
+              </div>
+            </div>
+          </div>
+          <div class="pagina-principal" data-index="3" style="display:none;">
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1fYY_oWXZOgwe1mHZZy67YgFenbqlJCoI=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1fjabmXt5Q7wtSnukTo51olfjKbLfZgAJ=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1EGaZf1MkFuWFVbGwLGVqSrT1OikVxP02=s2000" alt="black-0" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1TA3w5KMVXPiusOzXzlM1Pij6iskDeWHz=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1zBqUYJ7mCC0t94ejfq7nN4XnfHKiF013=s2000" alt="black-1" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1i5yh61eq-EVndmbXYs326VURtvK1wUFJ=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1zqzwbKsSG7Iz4zmzpt_Lg1xxm9LLHoWD=s2000" alt="black-2" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1bdZJJQmlPX4EnnRkTR11Gy6CT4T_sa4R=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1EJdwf6MB7uCLfspoT9k08M7iQnYm98s7=s2000" alt="black-3" style="width: 100%;">
+              </div>
+            </div>
+          </div>
+          <div class="pagina-principal" data-index="4" style="display:none;">
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1nl0ZHdF18_ycd5rAPyceAwPzc2HbO5jq=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/13wOViM_Hlcp4cX7lUnSX-kqn_ftB0_Bw=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1Kjzrhs47ZDSp8Zbu5hLqKWRON0gk4n7A=s2000" alt="gray-0" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1Zns8IUwJmHql2hyMlTjRd5PKjafOcIzL=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1A2Xxv4hm3I-ogljRVi-d1UUJZXWTV9Y2=s2000" alt="gray-1" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1lORXcJL36TFRSd7vzbCLnUBHOenba3Cu=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1J0mEg_lFeWNz6dXJtMjZGmfjhezRttQA=s2000" alt="gray-2" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1c_v42wwmUuQTQDVaG9gXfR-c9hk1sz84=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/17q1R4uVB_zMqiuXPLS85Tjd3eZR8H_qp=s2000" alt="gray-3" style="width: 100%;">
+              </div>
+            </div>
+          </div>
+          <div class="pagina-principal" data-index="5" style="display:none;">
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1jrFfWm2dmdPEKELGQuiO5JC1Qsb3fHEC=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1duD8aOc9FnrFun11ef2vLYQwSn04GGDD=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1_M6ZDXuVWABjV4iHQt8wnzI5MVlrr_2T=s2000" alt="white-0" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1wV-v-PsQS6CdurqUKZFEklUoyyoOpwBP=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1n3Jz-z1cTFq889VUF7rOI_3FbtCL_sKN=s2000" alt="white-1" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/19NtEKeD1Ig7KVQDJIST-u8GN6LmWPWdt=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1gB5SC2brndVnrdMDpEJUCj5j6y6PRwj0=s2000" alt="white-2" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/17aYh5vS11i15ivzZ0xCvxYXvqzYdXNYD=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1_cQFCkMiis2qb9ABqp-E24WRQ5XcWr0_=s2000" alt="white-3" style="width: 100%;">
+              </div>
+            </div>
+          </div>
+          <div class="pagina-principal" data-index="6" style="display:none;">
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1e_Wag7QK2E7QXrZxBFBYieYg0AJQmDYP=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1hD-IQYyhGNyaEeMIOQdlfQGKgL2FpmSm=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/12TQNW642hxy1Epcxs_zVQhM4lkcJ9XYe=s2000" alt="pink-0" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1GR7W6IQN_of6deuxdqt6EWmSpEQAnOFp=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1DdshJxQXLCs-o8Ypg-Z7dDzhObULvMWx=s2000" alt="pink-1" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1uv3t6f8HtdZ6xO9XKVoJlMnfaRQLyXIo=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1ALnc9bGffjj8l7_ll8rNGD6ZSOgKoMGA=s2000" alt="pink-2" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/12OSiDafDzRhIzCclosj72dQnm7tyEOsn=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/18E9WTztNYn12iNvdlEiIYucv-Ih8-taA=s2000" alt="pink-3" style="width: 100%;">
+              </div>
+            </div>
+          </div>
+          <div class="pagina-principal" data-index="7" style="display:none;">
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1jmob1X7uKUKBMrevPELLj8lu76ot0_Uo=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1W6dnB2Hkc_8Hn7ClFH4iDryLSkDXlTk-=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1To4aHnSvDoHnLo7uwOvzBSOEK9cuGdN9=s2000" alt="blue-0" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1816aBL-0LRzD9GdyWz9bWtCAMLad7M1Y=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1Wyj2oyCvHcEwNOvj-1mXJzz9x4JftPJA=s2000" alt="blue-1" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1__6vYVk-_EE_Qs0DFNyNLRlRBmPn0eCo=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1BIQeF5MVwsM8zZAU0clXC2UxAEv46ve_=s2000" alt="blue-2" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1yM0V8dGcssewobjeeEEqvObQRUDkrPWv=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/11QYFWRE-MDD9pYiNfe_fkPafwsqw6Zci=s2000" alt="blue-3" style="width: 100%;">
+              </div>
+            </div>
+          </div>
+          <div class="pagina-principal" data-index="8" style="display:none;">
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/10Pn4KQmjhm0n3KvoLLvkqXHkomsAhlyZ=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1ju2Grwox2RKx9aHnamtSb2iP9TONC_rh=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1ePIbNORN_kS4gG08TKKRqcBUVhkQ1TBU=s2000" alt="orange-0" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/15t3qTcDGwOnmqr4OJ5ouy-0M3kKjXlxG=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1mk-_Jj8n7YCRWRUCIxGy7HCC9nwrIPkI=s2000" alt="orange-1" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1LGCuXzynVWXFZqvY9HThky7wc03dq7WA=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1QxP_w9Vn8qZdDiWA1XCiHnb4jsNLlRdV=s2000" alt="orange-2" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/16b52bWPPluyauEqEAyhPW3Q_luZbSmTz=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1mx6-c2quLCJPmQUp3_80wArgIoJRIHLg=s2000" alt="orange-3" style="width: 100%;">
+              </div>
+            </div>
+          </div>
+          <div class="pagina-principal" data-index="9" style="display:none;">            
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1M5sXno1AqZAjtkLBsTNkNUPz2m5tJuAR=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1cAXhJLkDzzCOat4HPBaQHrjrEjxio_Lh=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/14r_wQCSvqygKXcf5LP-tU_R-o3jrwNm-=s2000" alt="green-0" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1qGLKXwMqQqGu8R1XSDz1U-07s7jrvs8U=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1oDDKKHUzPxtRlNZElzBIqyZRpdpWM32G=s2000" alt="green-1" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1JyjLpYa1kOZUVYe6RI71Mxvt0w3xcnsN=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1xf69jrEK9t3BgAf6b7h6dhBVmd66pnrj=s2000" alt="green-2" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/17eF-_l11I2yjoi6e2pokqVel-ZuMAl_A=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1HjysaQjNVG8Mvg5vXbJU7qfZQQnHIPwo=s2000" alt="green-3" style="width: 100%;">
+              </div>
+            </div>
+          </div>
+          <div class="pagina-principal" data-index="10" style="display:none;">
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/16XeV2gOrYCPg1DBVP9pLwOxQiLz5GXn-=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1YDDF-onF7PuXjo_Kq99cbzijaH3JdvPe=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1bEHxhOvOEZaXldRgPnfidC0P700D_Bby=s2000" alt="yellow-0" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1NuDqJql-uXfeCC9XNh-wDcNJhOu9D8xW=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/16ozGDyII8d1StAEO3upVlT6V3ZEfGEfs=s2000" alt="yellow-1" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1rcpgYQr9BH-Ddj_FPic_Z6sSf6rGSoDo=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1PkGD-gUV1mSCp7wnBTRyNrzxdEdh1tBC=s2000" alt="yellow-2" style="width: 100%;">
+              </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1AwJzATzsRE3Ptla65L3GN3BkiC-SKNI7=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+                <img src="https://lh3.googleusercontent.com/d/1MqT7nu00jowU5LjJO951H_eMhjOeg_2T=s2000" alt="yellow-3" style="width: 100%;">
+              </div>
+            </div>
+          </div>
+          <div class="pagina-principal" data-index="12" style="display:none;">
+            <div class="profile-container img_private" style="background-image: url('https://lh3.googleusercontent.com/d/1JT-eiz810vSuPOr0mZ-0GiSWIUwUbzyo=s2000');">
+              <div>
+                <img src="https://lh3.googleusercontent.com/d/19QnnnVcahkKVoItbG-5boT5PSQN2e4I5=s2000" class="overlay-img3 mt2" alt="info-title">
+              </div>
+              <div class="profile-description img_private" style="margin-bottom: 2em;">
+                <img src="https://lh3.googleusercontent.com/d/1Y0LbU2udgTOf6ZfWx4R-_sSXyWXqHlR4=s2000" alt="info1" style="width: 100%; margin-bottom: 1em;">
+                <img src="https://lh3.googleusercontent.com/d/1pS06e0zG1KuMuUHohAG1-Po2m2WXqUEK=s2000" alt="info2" style="width: 100%; margin-bottom: 20em;">
+              </div>
+            </div>
+          </div>
+          <div class="pagina-principal" data-index="13" style="display:none; background-image: url('https://lh3.googleusercontent.com/d/1JT-eiz810vSuPOr0mZ-0GiSWIUwUbzyo=s2000');">
+            <div class="profile-container">
+              <div>
+                <img src="https://lh3.googleusercontent.com/d/1lV1kTWwLsDqysuj-ZZgf51WY3dXy1Wjq=s2000" class="overlay-img3 mt2" alt="contact-title">
+              </div>
+              <div class="profile-description">
+                <img src="https://lh3.googleusercontent.com/d/13tpd3iV-ZndCukEoeTNbcvj29IPFAPfM=s2000" alt="contact-info" style="width: 100%; margin-bottom: 1em;">
+                <div class="contenedor">
+                  <div class="grid-botones">
+                    <a class="boton-link" href="https://t.me/NVIV_devs" target="_blank">
+                      <button class="boton" style="background-image:url('https://lh3.googleusercontent.com/d/1y5gM0W1iCIMg_qhoXv_E54txd9mRLmJC=s2000');"></button>
+                    </a>
+                    <a class="boton-link">
+                      <button class="boton" style="background-image:url('https://lh3.googleusercontent.com/d/17zLDBQRCmgB13iwaVsHT6Wtfe98J6Ra0=s2000');"></button>
+                    </a>
+                    <a class="boton-link">
+                      <button class="boton" style="background-image:url('https://lh3.googleusercontent.com/d/1d6BEdQOkP4DrLfV6cYpDmFOJ2uPAy6TD=s2000');"></button>
+                    </a>
+                    <a class="boton-link">
+                      <button class="boton" style="background-image:url('https://lh3.googleusercontent.com/d/114BT45IfiGRY4-RpwMzppg-3OYQ8oapt=s2000');"></button>
+                    </a>
+                    <a class="boton-link">
+                      <button class="boton" style="background-image:url('https://lh3.googleusercontent.com/d/1Iq-kK1GK7A26lZpGT9rGfaCU-DKHTYe4=s2000');"></button>
+                    </a>
+                    <a class="boton-link">
+                      <button class="boton" style="background-image:url('https://lh3.googleusercontent.com/d/1wbrbzPgYSS438BxywvVN8hJZqFE2twvH=s2000');"></button>
+                    </a>
+                    <div style="margin-bottom: 600px"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button id="boton12" class="boton-control" style="font-size: 1.4em;"><i class="fa-solid fa-house"></i></button>
+        <button id="boton13" class="boton-control" style="font-size: 1.4em; bottom: 90px;"><i class="fa-solid fa-forward"></i></button>
+        <div class="nombre-cancion" id="nombre-cancion" style="font-weight: bold;">N V I V</div>
+      </div>
+      <div id="player"></div>
+      <script>
+        const playlistIDs = {
+          2: 'PLTsg_kaNc_ZYkkTHKegOh0VaP5QRJR-kg', 3: 'PLTsg_kaNc_Zb20PtNCUE3L19-Syid8thP', 4: 'PLTsg_kaNc_ZZozvOKb4gSFy8HGEnNGmgd', 5: 'PLTsg_kaNc_ZYDfnRHW3MqPLTA7cwxc2PE', 6: 'PLTsg_kaNc_ZaD757Z6SCmNuR-aXScOT87',
+          7: 'PLTsg_kaNc_ZbSw81VEgdFrY4B5WcazCmK', 8: 'PLTsg_kaNc_ZYSzEWV886_sSuyy2SusRuc', 9: 'PLTsg_kaNc_ZaAG0p-kG2VrDiCm6QdrfNM', 10: 'PLTsg_kaNc_Zb2Ctac4jLZvA3gUQY95hH_', 11: 'PLTsg_kaNc_ZZGWFbw1Bodj2bSKnj40f3l',
+          12: 'PLTsg_kaNc_ZZnOAqD3s6s095YZuK4zzh7'
+        };
+        let currentPlaylist = '';
+        let player;
+        document.getElementById('boton1').onclick = () => {
+          document.getElementById('parte1').classList.add('hidden');
+          document.getElementById('parte2').classList.remove('hidden');
+        };
+        document.querySelectorAll('.estilo-btn').forEach(btn => {
+          btn.onclick = () => {
+            const idx = btn.dataset.index;
+            currentPlaylist = playlistIDs[idx];
+            loadYouTube(currentPlaylist);
+            document.querySelectorAll('.pagina-principal').forEach(div => {
+              div.style.display = div.dataset.index === idx ? 'flex' : 'none';
+            });
+            document.getElementById('parte2').classList.add('hidden');
+            document.getElementById('parte3').classList.remove('hidden');
+            document.getElementById('nombre-cancion').style.color = btn.style.backgroundColor;
+          };
+        });
+        document.getElementById('boton12').onclick = () => {
+          document.getElementById('parte3').classList.add('hidden');
+          document.getElementById('parte2').classList.remove('hidden');
+          if (player) player.stopVideo();
+          document.querySelectorAll('.pagina-principal').forEach(div => {
+            div.style.display = 'none';
+          });
+        };
+        document.getElementById('boton13').onclick = () => {
+          if (player && typeof player.getPlaylist === 'function') {
+            const playlist = player.getPlaylist();
+            if (playlist && playlist.length > 0) {
+              const randomIndex = Math.floor(Math.random() * playlist.length);
+              player.playVideoAt(randomIndex);
+            }
+          }
+        };
+        function onYouTubeIframeAPIReady() {
+          player = new YT.Player('player', {
+            height: '0', width: '0',
+            playerVars: {
+              autoplay: 1,
+              controls: 0,
+              loop: 1,
+              playlist: '',
+              rel: 0
+            },
+            events: {
+              onReady: e => e.target.setVolume(100),
+            }
+          });
+        }
+        function loadYouTube(id) {
+          if (!window.YT) {
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            document.body.appendChild(tag);
+          } else {
+            player.loadPlaylist({
+              listType: 'playlist',
+              list: id,
+              index: 0,
+              suggestedQuality: 'large'
+            });
+          }
+        }
+        window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+        document.getElementById('boton1').addEventListener('click', () => {
+          const docEl = document.documentElement;
+          if (docEl.requestFullscreen) {
+            docEl.requestFullscreen();
+          } else if (docEl.webkitRequestFullscreen) {
+            docEl.webkitRequestFullscreen();
+          } else if (docEl.msRequestFullscreen) {
+            docEl.msRequestFullscreen();
+          }
+        });
+        const paginas = document.querySelectorAll('.pagina-secundaria');
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            const el = entry.target;
+            if (entry.isIntersecting) {
+              if (el.dataset.bg) {
+                el.style.backgroundImage = `url('${el.dataset.bg}')`;
+                delete el.dataset.bg;
+              } else {
+                const url = el.style.backgroundImage.slice(5, -2);
+                el.style.backgroundImage = "none";
+                setTimeout(() => {
+                  el.style.backgroundImage = `url('${url}?t=${Date.now()}')`;
+                }, 50);
+              }
+            }
+          });
+        }, { root: null, rootMargin: "0px", threshold: 0.6 });
+        paginas.forEach(p => observer.observe(p));
+        function compartir() { 
+          const url = window.location.href;
+          const mensaje = encodeURIComponent("Prueba InMotion, ¡Es increíble! ");
+          const telegramUrl = "https://t.me/share/url?url=" + encodeURIComponent(url) + "&text=" + mensaje;
+          window.open(telegramUrl, "_blank");
+        }
+      </script>
+    </div>
+  </body>
+</html>
