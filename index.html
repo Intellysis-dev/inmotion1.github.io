@@ -24,7 +24,8 @@
       }
       .app {
         width: 100vw;
-        height: 100vh;
+        height: 100dvh;
+        min-height: 100svh;
         aspect-ratio: 9 / 16;
         background-image: url("https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s3000");
         background-size: cover;
@@ -84,17 +85,92 @@
         color: #FFF;
       }
       .footer {
+        width: 100%;
         position: absolute;
         bottom: 1em;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 0.6em;
+        font-size: 0.4em;
         text-align: center;
         opacity: 0.8;
+      }
+      .w50 { 
+        width: 50%;
+      }
+      #blocker { 
+        display: none; 
+        height: 100vh; 
+        width: 100vw; 
+        background-color: #000; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        text-align: center;
+      }
+      @media screen and (max-width: 2712px) { 
+        #app { 
+          display: block; 
+        } 
+        #blocker { 
+          display: none; 
+        }
+      }
+      @media screen and (min-width: 1220px) { 
+        #app { 
+          display: none;
+        }
+        #blocker { 
+          display: flex;
+        }
+      }
+      @media screen and (orientation: portrait) { 
+        #app { 
+          display: block;
+        }
+        #blocker {
+          display: none;
+        }
+      }
+      @media screen and (orientation: landscape) { 
+        #app { 
+          display: none;
+        }
+        #blocker {
+          display: flex;
+        }
+      }
+      .rotada { 
+        transform: rotate(-90deg); 
+        transform-origin: center; 
+        display: block;
+      }
+      @media screen and (orientation: landscape) { 
+        html, body {
+          margin: 0; 
+          padding: 0; 
+          overflow: hidden; 
+          width: 100vw;
+          height: 100vh; 
+        } 
+        #blocker.pagina {
+          position: fixed; 
+          top: 0; 
+          left: 0; 
+          width: 100vw; 
+          height: 100vh; 
+          z-index: 999999; 
+          background-size: cover; 
+          background-position: center; 
+          background-repeat: no-repeat; 
+          background-attachment: fixed;
+        } 
       }
     </style>
   </head>
   <body>
+    <div id="blocker" class="pagina">
+      <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" alt="error" class="rotada w50">
+    </div>
     <div class="app">
       <nav>
         <a href="https://intellysis-dev.github.io/inmotion1.github.io/info.html" target="_blank"><ins>Info</ins></a>
@@ -106,11 +182,11 @@
         Actualmente NO disponible.
       </div>
       <div class="overlay">
-        <img src="https://lh3.googleusercontent.com/d/1fmcoGqh42KfW61XaDSgcpJuyS7tjcRay=s3000" alt="Background" style="width: 10em; max-width: 160%; height: auto;">
+        <img src="https://lh3.googleusercontent.com/d/1jEx5U5KKlkfqdgKoSeXjIl7f19aNvVWu=s3000" alt="logo" style="width: 10em; max-width: 160%; height: auto;">
         <button id="actionBtn">Iniciar</button>
       </div>
       <div class="footer">
-        Creado por <b>NVIV</b> (2026). Todos los derechos reservados.
+        Creado por <b>NVIV</b> (2025). Todos los derechos reservados.
       </div>
     </div>
     <script>
@@ -128,7 +204,3 @@
     </script>
   </body>
 </html>
-
-
-
-
