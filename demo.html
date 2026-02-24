@@ -98,6 +98,7 @@
         color: #FFF;
         border: none;
         cursor: pointer;
+        border-radius: 10%;
       }
       #parte3 {
         overflow: hidden;
@@ -328,6 +329,20 @@
       .mt2 {
         margin-top: 2em;
       }
+      .boton-compra {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 12px 24px;
+        font-size: 14px;
+        background-color: #FF0000;
+        color: #FFF;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
     </style>
   </head>
   <body>
@@ -356,9 +371,7 @@
           <button class="estilo-btn" style="background-color:#FFFF00; color: #000" data-index="10"><i class="fa-solid fa-cake-candles"></i></button>
           <button class="estilo-btn btn-glow" style="background-color:#262626" data-index="12"><i class="fa-solid fa-circle-info"></i></button>
           <button class="estilo-btn" style="background-color:#262626" data-index="13"><i class="fa-solid fa-comment-dots"></i></button>
-          <button style="background-color:#262626; color: #FFF; width: 110px; height: 60px; font-size: 2em; border: none;" onclick="location.reload()"><i class="fa-solid fa-circle-xmark"></i></button>
-          <br><br>
-          <button style="background-color:#262626; color: #FFF; width: 110px; height: 60px; font-size: 2em; border: none;" onclick="compartir()"><i class="fa-solid fa-share-from-square"></i></button>
+          <button style="background-color:#262626; color: #FFF; width: 110px; height: 60px; font-size: 2em; border: none; border-radius: 10%;" onclick="location.reload()"><i class="fa-solid fa-circle-xmark"></i></button>
         </div>
         <p style="position: absolute; bottom: 20px; width: 100%; text-align: center; font-size: 0.5em; color: #888;">
           Creado por <b>NVIV</b> (2025). Todos los derechos reservados.
@@ -394,12 +407,19 @@
                 <img src="https://lh3.googleusercontent.com/d/1MOYwXtiGVXNCTtVs0Hu1cWgp6ZHog74-=s2000" alt="red-3" style="width: 100%;">
               </div>
             </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1ZJx-vCTXjRBcYQYs0IbCiRu7cI2dc9A9=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+              </div>
+              <img src="https://lh3.googleusercontent.com/d/1M0iFm59mciawPWzVAceJoIRlI8TADJ1j=s2000" style="width: 100%;" alt="compra">
+              <button class="boton-compra" onclick="window.open('https://intellysis-dev.github.io/inmotion1.github.io/index.html', '_blank')">¡Suscribirse!</button>
+            </div>
           </div>
           <div class="pagina-principal" data-index="3" style="display:none;">
             <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1fYY_oWXZOgwe1mHZZy67YgFenbqlJCoI=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
               this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
             </div>
-            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1fjabmXt5Q7wtSnukTo51olfjKbLfZgAJ=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1VHzhxreChn5GB_pm4qnPZTtP_ukeMvZL=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
               this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
               <div class="texto-secundario img_private">
                 <img src="https://lh3.googleusercontent.com/d/1EGaZf1MkFuWFVbGwLGVqSrT1OikVxP02=s2000" alt="black-0" style="width: 100%;">
@@ -422,6 +442,13 @@
               <div class="texto-secundario img_private">
                 <img src="https://lh3.googleusercontent.com/d/1EJdwf6MB7uCLfspoT9k08M7iQnYm98s7=s2000" alt="black-3" style="width: 100%;">
               </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1ZJx-vCTXjRBcYQYs0IbCiRu7cI2dc9A9=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+              </div>
+              <img src="https://lh3.googleusercontent.com/d/1M0iFm59mciawPWzVAceJoIRlI8TADJ1j=s2000" style="width: 100%;" alt="compra">
+              <button class="boton-compra" onclick="window.open('https://intellysis-dev.github.io/inmotion1.github.io/index.html', '_blank')">¡Suscribirse!</button>
+            </div>
             </div>
           </div>
           <div class="pagina-principal" data-index="4" style="display:none;">
@@ -452,6 +479,13 @@
                 <img src="https://lh3.googleusercontent.com/d/17q1R4uVB_zMqiuXPLS85Tjd3eZR8H_qp=s2000" alt="gray-3" style="width: 100%;">
               </div>
             </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1ZJx-vCTXjRBcYQYs0IbCiRu7cI2dc9A9=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+              </div>
+              <img src="https://lh3.googleusercontent.com/d/1M0iFm59mciawPWzVAceJoIRlI8TADJ1j=s2000" style="width: 100%;" alt="compra">
+              <button class="boton-compra" onclick="window.open('https://intellysis-dev.github.io/inmotion1.github.io/index.html', '_blank')">¡Suscribirse!</button>
+            </div>
           </div>
           <div class="pagina-principal" data-index="5" style="display:none;">
             <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1jrFfWm2dmdPEKELGQuiO5JC1Qsb3fHEC=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
@@ -480,6 +514,13 @@
               <div class="texto-secundario img_private">
                 <img src="https://lh3.googleusercontent.com/d/1_cQFCkMiis2qb9ABqp-E24WRQ5XcWr0_=s2000" alt="white-3" style="width: 100%;">
               </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1ZJx-vCTXjRBcYQYs0IbCiRu7cI2dc9A9=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+              </div>
+              <img src="https://lh3.googleusercontent.com/d/1M0iFm59mciawPWzVAceJoIRlI8TADJ1j=s2000" style="width: 100%;" alt="compra">
+              <button class="boton-compra" onclick="window.open('https://intellysis-dev.github.io/inmotion1.github.io/index.html', '_blank')">¡Suscribirse!</button>
             </div>
           </div>
           <div class="pagina-principal" data-index="6" style="display:none;">
@@ -510,6 +551,13 @@
                 <img src="https://lh3.googleusercontent.com/d/18E9WTztNYn12iNvdlEiIYucv-Ih8-taA=s2000" alt="pink-3" style="width: 100%;">
               </div>
             </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1ZJx-vCTXjRBcYQYs0IbCiRu7cI2dc9A9=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+              </div>
+              <img src="https://lh3.googleusercontent.com/d/1M0iFm59mciawPWzVAceJoIRlI8TADJ1j=s2000" style="width: 100%;" alt="compra">
+              <button class="boton-compra" onclick="window.open('https://intellysis-dev.github.io/inmotion1.github.io/index.html', '_blank')">¡Suscribirse!</button>
+            </div>
           </div>
           <div class="pagina-principal" data-index="7" style="display:none;">
             <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1jmob1X7uKUKBMrevPELLj8lu76ot0_Uo=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
@@ -538,6 +586,13 @@
               <div class="texto-secundario img_private">
                 <img src="https://lh3.googleusercontent.com/d/11QYFWRE-MDD9pYiNfe_fkPafwsqw6Zci=s2000" alt="blue-3" style="width: 100%;">
               </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1ZJx-vCTXjRBcYQYs0IbCiRu7cI2dc9A9=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+              </div>
+              <img src="https://lh3.googleusercontent.com/d/1M0iFm59mciawPWzVAceJoIRlI8TADJ1j=s2000" style="width: 100%;" alt="compra">
+              <button class="boton-compra" onclick="window.open('https://intellysis-dev.github.io/inmotion1.github.io/index.html', '_blank')">¡Suscribirse!</button>
             </div>
           </div>
           <div class="pagina-principal" data-index="8" style="display:none;">
@@ -568,6 +623,13 @@
                 <img src="https://lh3.googleusercontent.com/d/1mx6-c2quLCJPmQUp3_80wArgIoJRIHLg=s2000" alt="orange-3" style="width: 100%;">
               </div>
             </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1ZJx-vCTXjRBcYQYs0IbCiRu7cI2dc9A9=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+              </div>
+              <img src="https://lh3.googleusercontent.com/d/1M0iFm59mciawPWzVAceJoIRlI8TADJ1j=s2000" style="width: 100%;" alt="compra">
+              <button class="boton-compra" onclick="window.open('https://intellysis-dev.github.io/inmotion1.github.io/index.html', '_blank')">¡Suscribirse!</button>
+            </div>
           </div>
           <div class="pagina-principal" data-index="9" style="display:none;">            
             <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1M5sXno1AqZAjtkLBsTNkNUPz2m5tJuAR=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
@@ -596,6 +658,13 @@
               <div class="texto-secundario img_private">
                 <img src="https://lh3.googleusercontent.com/d/1HjysaQjNVG8Mvg5vXbJU7qfZQQnHIPwo=s2000" alt="green-3" style="width: 100%;">
               </div>
+            </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1ZJx-vCTXjRBcYQYs0IbCiRu7cI2dc9A9=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+              </div>
+              <img src="https://lh3.googleusercontent.com/d/1M0iFm59mciawPWzVAceJoIRlI8TADJ1j=s2000" style="width: 100%;" alt="compra">
+              <button class="boton-compra" onclick="window.open('https://intellysis-dev.github.io/inmotion1.github.io/index.html', '_blank')">¡Suscribirse!</button>
             </div>
           </div>
           <div class="pagina-principal" data-index="10" style="display:none;">
@@ -626,6 +695,13 @@
                 <img src="https://lh3.googleusercontent.com/d/1MqT7nu00jowU5LjJO951H_eMhjOeg_2T=s2000" alt="yellow-3" style="width: 100%;">
               </div>
             </div>
+            <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1ZJx-vCTXjRBcYQYs0IbCiRu7cI2dc9A9=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
+              this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
+              <div class="texto-secundario img_private">
+              </div>
+              <img src="https://lh3.googleusercontent.com/d/1M0iFm59mciawPWzVAceJoIRlI8TADJ1j=s2000" style="width: 100%;" alt="compra">
+              <button class="boton-compra" onclick="window.open('https://intellysis-dev.github.io/inmotion1.github.io/index.html', '_blank')">¡Suscribirse!</button>
+            </div>
           </div>
           <div class="pagina-principal" data-index="12" style="display:none;">
             <div class="profile-container img_private" style="background-image: url('https://lh3.googleusercontent.com/d/1JT-eiz810vSuPOr0mZ-0GiSWIUwUbzyo=s2000');">
@@ -633,7 +709,7 @@
                 <img src="https://lh3.googleusercontent.com/d/19QnnnVcahkKVoItbG-5boT5PSQN2e4I5=s2000" class="overlay-img3 mt2" alt="info-title">
               </div>
               <div class="profile-description img_private" style="margin-bottom: 2em;">
-                <img src="https://lh3.googleusercontent.com/d/1Y0LbU2udgTOf6ZfWx4R-_sSXyWXqHlR4=s2000" alt="info1" style="width: 100%; margin-bottom: 1em;">
+                <img src="https://lh3.googleusercontent.com/d/129wIn3vhZG1Hx75PcAKvAG_H8z20MsXf=s2000" alt="info1" style="width: 100%; margin-bottom: 1em;">
                 <img src="https://lh3.googleusercontent.com/d/1pS06e0zG1KuMuUHohAG1-Po2m2WXqUEK=s2000" alt="info2" style="width: 100%; margin-bottom: 20em;">
               </div>
             </div>
@@ -647,7 +723,7 @@
                 <img src="https://lh3.googleusercontent.com/d/13tpd3iV-ZndCukEoeTNbcvj29IPFAPfM=s2000" alt="contact-info" style="width: 100%; margin-bottom: 1em;">
                 <div class="contenedor">
                   <div class="grid-botones">
-                    <a class="boton-link" href="https://t.me/NVIV_devs" target="_blank">
+                    <a class="boton-link" href="https://t.me/+FtH5vBZmJns0MTJh" target="_blank">
                       <button class="boton" style="background-image:url('https://lh3.googleusercontent.com/d/1y5gM0W1iCIMg_qhoXv_E54txd9mRLmJC=s2000');"></button>
                     </a>
                     <a class="boton-link">
@@ -663,7 +739,7 @@
                       <button class="boton" style="background-image:url('https://lh3.googleusercontent.com/d/1Iq-kK1GK7A26lZpGT9rGfaCU-DKHTYe4=s2000');"></button>
                     </a>
                     <a class="boton-link">
-                      <button class="boton" style="background-image:url('https://lh3.googleusercontent.com/d/1wbrbzPgYSS438BxywvVN8hJZqFE2twvH=s2000');"></button>
+                      <button class="boton" style="background-image:url('https://lh3.googleusercontent.com/d/1euULW8Bt4nV2U-PRl6pQdJBZ2LBExvKc=s2000');"></button>
                     </a>
                     <div style="margin-bottom: 600px"></div>
                   </div>
@@ -787,5 +863,4 @@
       </script>
     </div>
   </body>
-
 </html>
