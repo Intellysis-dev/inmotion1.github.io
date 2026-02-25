@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>InMotion1/Contact</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://lh3.googleusercontent.com/d/1ZVbqUh4gOAcn5pDp9lHpYkyM0UMeVrGs=s2000">
+    <style>
+      body {
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        background: url('https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s3000') no-repeat center center;
+        background-size: cover;
+      }
+      a {
+        display: inline-block;
+        margin-bottom: 40px;
+        padding: 15px 30px;
+        font-size: 3vw;
+        background-color: #000;
+        color: #FF0000;
+        border-radius: 12px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+        touch-action: manipulation;
+      }
+      .w50 { 
+        width: 50%;
+      }
+      #blocker { 
+        display: none; 
+        height: 100vh; 
+        width: 100vw; 
+        background-color: #000; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        text-align: center;
+      }
+      @media screen and (max-width: 2712px) { 
+        #app { 
+          display: block; 
+        } 
+        #blocker { 
+          display: none; 
+        }
+      }
+      @media screen and (min-width: 1220px) { 
+        #app { 
+          display: none;
+        }
+        #blocker { 
+          display: flex;
+        }
+      }
+      @media screen and (orientation: portrait) { 
+        #app { 
+          display: block;
+        }
+        #blocker {
+          display: none;
+        }
+      }
+      @media screen and (orientation: landscape) { 
+        #app { 
+          display: none;
+        }
+        #blocker {
+          display: flex;
+        }
+      }
+      .rotada { 
+        transform: rotate(-90deg); 
+        transform-origin: center; 
+        display: block;
+      }
+      @media screen and (orientation: landscape) {
+        html, body {
+          margin: 0; 
+          padding: 0; 
+          overflow: hidden; 
+          width: 100vw;
+          height: 100vh; 
+        } 
+        #blocker.pagina {
+          position: fixed; 
+          top: 0; 
+          left: 0; 
+          width: 100vw; 
+          height: 100vh; 
+          z-index: 999999; 
+          background-size: cover; 
+          background-position: center; 
+          background-repeat: no-repeat; 
+          background-attachment: fixed;
+        } 
+      }
+    </style>
+  </head>
+  <body>
+    <div id="blocker" class="pagina">
+      <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" alt="error" class="rotada w50">
+    </div>
+    <div style="position:fixed; top:50%; left:50%; transform:translate(-50%,-60%); text-align:center; width:100%;">
+      <p style="margin:20px 0 10px 0; font-size:22px;">
+        <a href="mailto:inmotion.contact.info@gmail.com" style="color:#FF0000; text-decoration:none;">
+          Envía un correo
+        </a>
+      </p>
+      <p style="margin:10px 0 0 0; font-size:22px;">
+        <a href="https://t.me/+FtH5vBZmJns0MTJh" target="_blank" style="color:#FF0000; text-decoration:none;">
+          Únete al grupo
+        </a>
+      </p>
+    </div>
+    <div style="position:fixed; bottom:40px; left:50%; transform:translateX(-50%); text-align:center; width:100%;">
+      <a href="https://intellysis-dev.github.io/inmotion1.github.io/index.html" style="color:#FF0000; text-decoration:none; font-size:10px;">
+        <ins>Ir al Inicio</ins>
+      </a>
+    </div>
+  </body>
+</html>
