@@ -731,8 +731,8 @@
                     <a class="boton-link">
                       <button class="boton" style="background-image:url('https://lh3.googleusercontent.com/d/1_GdHRiY06zqCaUXVMeIvKWAfbIX7LImd=s2000');"></button>
                     </a>
-                    <a class="boton-link">
-                      <button class="boton" style="background-image:url('https://lh3.googleusercontent.com/d/1eD0IHQBLhpW8BgbdSpJMnbgSrQqA72Ea=s2000');"></button>
+                    <a class="boton-link" href="https://intellysis-dev.github.io/inmotion1.github.io/index.html" target="_blank">
+                      <button class="boton" style="background-image:url('https://lh3.googleusercontent.com/d/15LoO9aTBhMtyRI_KYfIuo-mwtVO2pwiX=s2000');"></button>
                     </a>
                     <a class="boton-link">
                       <button class="boton" style="background-image:url('https://lh3.googleusercontent.com/d/1PtneETgEDy23b76ATDCPses5saD_eYby=s2000');"></button>
@@ -786,6 +786,23 @@
         };
         document.querySelectorAll('.estilo-btn').forEach(btn => {
           btn.onclick = () => {
+            function asegurarPantallaCompleta() {
+              if (!document.fullscreenElement) {
+                const elem = document.documentElement;
+                if (elem.requestFullscreen) {
+                  elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) { 
+                  elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) { 
+                  elem.msRequestFullscreen();
+                }
+              }
+            }
+            document.querySelectorAll('#parte2 .estilo-btn').forEach(btn => {
+              btn.addEventListener('click', () => {
+                asegurarPantallaCompleta();
+              });
+            });
             const bg = window.getComputedStyle(btn).backgroundColor;
             const color = window.getComputedStyle(btn).color;
             const botonHome = document.getElementById("boton12");
