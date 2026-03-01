@@ -139,19 +139,22 @@
         font-size: 1.1em;
         width: 80%;
       }
-      .boton-control {
-        position: fixed;
-        bottom: 10px;
-        right: 20px;
-        z-index: 1000;
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        background-color: #333;
-        color: #FFF;
-        border: none;
-        margin-bottom: 10px;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+      #control-stack{
+        position:fixed;
+        right:20px;
+        bottom:20px;
+        display:flex;
+        flex-direction:column;
+        gap:15px;
+      }
+      .boton-control{
+        width:60px;
+        height:60px;
+        border-radius:50%;
+        border:none;
+        font-size:1.4em;
+        cursor:pointer;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
       }
       .nombre-cancion {
         position: fixed;
@@ -410,7 +413,7 @@
               this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
               <div class="texto-secundario img_private">
               </div>
-              <img src="https://lh3.googleusercontent.com/d/1-gfqpkq28-hdfaujHfGtZ1XFSWX-0qbo=s2000" style="width: 100%;" alt="title-end">
+              <img src="https://lh3.googleusercontent.com/d/14m4ZzSecmFwSBUM1nwUFjme0wOpih48I=s2000" style="width: 100%;" alt="title-end">
               <button class="boton-compra" onclick="window.open('https://intellysis-dev.github.io/inmotion1.github.io/index.html', '_blank')">¡Suscribirse!</button>
             </div>
           </div>
@@ -446,7 +449,7 @@
               this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
               <div class="texto-secundario img_private">
               </div>
-              <img src="https://lh3.googleusercontent.com/d/1-gfqpkq28-hdfaujHfGtZ1XFSWX-0qbo=s2000" style="width: 100%;" alt="title-end">
+              <img src="https://lh3.googleusercontent.com/d/14m4ZzSecmFwSBUM1nwUFjme0wOpih48I=s2000" style="width: 100%;" alt="title-end">
               <button class="boton-compra" onclick="window.open('https://intellysis-dev.github.io/inmotion1.github.io/index.html', '_blank')">¡Suscribirse!</button>
             </div>
           </div>
@@ -482,7 +485,7 @@
               this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
               <div class="texto-secundario img_private">
               </div>
-              <img src="https://lh3.googleusercontent.com/d/1-gfqpkq28-hdfaujHfGtZ1XFSWX-0qbo=s2000" style="width: 100%;" alt="title-end">
+              <img src="https://lh3.googleusercontent.com/d/14m4ZzSecmFwSBUM1nwUFjme0wOpih48I=s2000" style="width: 100%;" alt="title-end">
               <button class="boton-compra" onclick="window.open('https://intellysis-dev.github.io/inmotion1.github.io/index.html', '_blank')">¡Suscribirse!</button>
             </div>
           </div>
@@ -518,7 +521,7 @@
               this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
               <div class="texto-secundario img_private">
               </div>
-              <img src="https://lh3.googleusercontent.com/d/1-gfqpkq28-hdfaujHfGtZ1XFSWX-0qbo=s2000" style="width: 100%;" alt="title-end">
+              <img src="https://lh3.googleusercontent.com/d/14m4ZzSecmFwSBUM1nwUFjme0wOpih48I=s2000" style="width: 100%;" alt="title-end">
               <button class="boton-compra" onclick="window.open('https://intellysis-dev.github.io/inmotion1.github.io/index.html', '_blank')">¡Suscribirse!</button>
             </div>
           </div>
@@ -554,7 +557,7 @@
               this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
               <div class="texto-secundario img_private">
               </div>
-              <img src="https://lh3.googleusercontent.com/d/1-gfqpkq28-hdfaujHfGtZ1XFSWX-0qbo=s2000" style="width: 100%;" alt="title-end">
+              <img src="https://lh3.googleusercontent.com/d/14m4ZzSecmFwSBUM1nwUFjme0wOpih48I=s2000" style="width: 100%;" alt="title-end">
               <button class="boton-compra" onclick="window.open('https://intellysis-dev.github.io/inmotion1.github.io/index.html', '_blank')">¡Suscribirse!</button>
             </div>
           </div>
@@ -590,7 +593,7 @@
               this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
               <div class="texto-secundario img_private">
               </div>
-              <img src="https://lh3.googleusercontent.com/d/1-gfqpkq28-hdfaujHfGtZ1XFSWX-0qbo=s2000" style="width: 100%;" alt="title-end">
+              <img src="https://lh3.googleusercontent.com/d/14m4ZzSecmFwSBUM1nwUFjme0wOpih48I=s2000" style="width: 100%;" alt="title-end">
               <button class="boton-compra" onclick="window.open('https://intellysis-dev.github.io/inmotion1.github.io/index.html', '_blank')">¡Suscribirse!</button>
             </div>
           </div>
@@ -626,7 +629,7 @@
               this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
               <div class="texto-secundario img_private">
               </div>
-              <img src="https://lh3.googleusercontent.com/d/1-gfqpkq28-hdfaujHfGtZ1XFSWX-0qbo=s2000" style="width: 100%;" alt="title-end">
+              <img src="https://lh3.googleusercontent.com/d/14m4ZzSecmFwSBUM1nwUFjme0wOpih48I=s2000" style="width: 100%;" alt="title-end">
               <button class="boton-compra" onclick="window.open('https://intellysis-dev.github.io/inmotion1.github.io/index.html', '_blank')">¡Suscribirse!</button>
             </div>
           </div>
@@ -662,7 +665,7 @@
               this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
               <div class="texto-secundario img_private">
               </div>
-              <img src="https://lh3.googleusercontent.com/d/1-gfqpkq28-hdfaujHfGtZ1XFSWX-0qbo=s2000" style="width: 100%;" alt="title-end">
+              <img src="https://lh3.googleusercontent.com/d/14m4ZzSecmFwSBUM1nwUFjme0wOpih48I=s2000" style="width: 100%;" alt="title-end">
               <button class="boton-compra" onclick="window.open('https://intellysis-dev.github.io/inmotion1.github.io/index.html', '_blank')">¡Suscribirse!</button>
             </div>
           </div>
@@ -698,7 +701,7 @@
               this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
               <div class="texto-secundario img_private">
               </div>
-              <img src="https://lh3.googleusercontent.com/d/1-gfqpkq28-hdfaujHfGtZ1XFSWX-0qbo=s2000" style="width: 100%;" alt="title-end">
+              <img src="https://lh3.googleusercontent.com/d/14m4ZzSecmFwSBUM1nwUFjme0wOpih48I=s2000" style="width: 100%;" alt="title-end">
               <button class="boton-compra" onclick="window.open('https://intellysis-dev.github.io/inmotion1.github.io/index.html', '_blank')">¡Suscribirse!</button>
             </div>
           </div>
@@ -747,16 +750,33 @@
             </div>
           </div>
         </div>
-        <button id="boton12" class="boton-control" style="font-size: 1.4em;"><i class="fa-solid fa-house"></i></button>
-        <button id="boton13" class="boton-control" style="font-size: 1.4em; bottom: 90px;"><i class="fa-solid fa-forward"></i></button>
+        <div id="control-stack">
+          <button id="boton12" class="boton-control">
+            <i class="fa-solid fa-house"></i>
+          </button>
+          <button id="botonPause" class="boton-control">
+            <i class="fa-solid fa-pause"></i>
+          </button>
+          <button id="boton13" class="boton-control">
+            <i class="fa-solid fa-forward"></i>
+          </button>
+        </div>
         <div class="nombre-cancion" id="nombre-cancion" style="font-weight: bold;">N V I V</div>
       </div>
       <div id="player"></div>
       <script>
         const playlistIDs = {
-          2: 'PLzRvuWZjOiCCOSvIOo363RJEK9iEH4vMp', 3: 'PLzRvuWZjOiCC4oYNToLZYavmw4mRHTBUU', 4: 'PLzRvuWZjOiCBB09Jazs5ygdF-VxsSkx10', 5: 'PLzRvuWZjOiCBwKMLumHY8-OTHV8pd38tG', 6: 'PLzRvuWZjOiCAMN2i3frsQllszmftQL7bd',
-          7: 'PLzRvuWZjOiCCr_lyT_PaspF8uupPYd8jV', 8: 'PLzRvuWZjOiCCGdihwpsYCdA_62nkN99WE', 9: 'PLzRvuWZjOiCCzvfBYISL2y6KZhxRWvcvr', 10: 'PLzRvuWZjOiCD70D9mrMzvuwVr0_tUYqfJ', 11: '',
-          12: ''
+          2: 'PLzRvuWZjOiCCOSvIOo363RJEK9iEH4vMp', 
+          3: 'PLzRvuWZjOiCC4oYNToLZYavmw4mRHTBUU', 
+          4: 'PLzRvuWZjOiCBB09Jazs5ygdF-VxsSkx10', 
+          5: 'PLzRvuWZjOiCBwKMLumHY8-OTHV8pd38tG', 
+          6: 'PLzRvuWZjOiCAMN2i3frsQllszmftQL7bd',
+          7: 'PLzRvuWZjOiCCr_lyT_PaspF8uupPYd8jV', 
+          8: 'PLzRvuWZjOiCCGdihwpsYCdA_62nkN99WE', 
+          9: 'PLzRvuWZjOiCCzvfBYISL2y6KZhxRWvcvr', 
+          10: 'PLzRvuWZjOiCD70D9mrMzvuwVr0_tUYqfJ', 
+          11: 'PLzRvuWZjOiCBDuu_URvAwtKL1R1u6g8_-',
+          12: 'PLzRvuWZjOiCBDuu_URvAwtKL1R1u6g8_-'
         };
         let currentPlaylist = '';
         let player;
@@ -766,6 +786,23 @@
         };
         document.querySelectorAll('.estilo-btn').forEach(btn => {
           btn.onclick = () => {
+            const bg = window.getComputedStyle(btn).backgroundColor;
+            const color = window.getComputedStyle(btn).color;
+            const botonHome = document.getElementById("boton12");
+            const botonNext = document.getElementById("boton13");
+            const botonP = document.getElementById("botonPause");
+            if (botonHome) {
+              botonHome.style.backgroundColor = bg;
+              botonHome.style.color = color;
+            }
+            if (botonNext) {
+              botonNext.style.backgroundColor = bg;
+              botonNext.style.color = color;
+            }
+            if (botonP) {
+              botonP.style.backgroundColor = bg;
+              botonP.style.color = color;
+            }
             const idx = btn.dataset.index;
             currentPlaylist = playlistIDs[idx];
             loadYouTube(currentPlaylist);
@@ -805,23 +842,32 @@
               rel: 0
             },
             events: {
-              onReady: e => e.target.setVolume(100),
+              onReady: e => {
+                e.target.setVolume(100);
+                if (pendingPlaylist) {
+                  loadYouTube(pendingPlaylist);
+                  pendingPlaylist = null;
+                }
+              }
             }
           });
         }
         function loadYouTube(id) {
-          if (!window.YT) {
-            const tag = document.createElement('script');
-            tag.src = 'https://www.youtube.com/iframe_api';
-            document.body.appendChild(tag);
-          } else {
-            player.loadPlaylist({
-              listType: 'playlist',
-              list: id,
-              index: 0,
-              suggestedQuality: 'large'
-            });
+          if (!window.YT || !player || typeof player.loadPlaylist !== "function") {
+            pendingPlaylist = id;
+            if (!window.YT) {
+              const tag = document.createElement('script');
+              tag.src = 'https://www.youtube.com/iframe_api';
+              document.body.appendChild(tag);
+            }
+            return;
           }
+          player.loadPlaylist({
+            listType: 'playlist',
+            list: id,
+            index: 0,
+            suggestedQuality: 'large'
+          });
         }
         window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
         document.getElementById('boton1').addEventListener('click', () => {
@@ -835,19 +881,36 @@
           }
         });
         const paginas = document.querySelectorAll('.pagina-secundaria');
+        let activeGif = null;
         const observer = new IntersectionObserver(entries => {
           entries.forEach(entry => {
             const el = entry.target;
+            const url = el.dataset.bg || el.dataset.originalBg;
+            if (!url) return;
+            const isGif = url.toLowerCase().includes('.gif');
             if (entry.isIntersecting) {
-              if (el.dataset.bg) {
-                el.style.backgroundImage = `url('${el.dataset.bg}')`;
+              // PNG normal
+              if (!isGif) {
+                if (el.dataset.bg) {
+                  el.style.backgroundImage = `url('${url}')`;
+                  el.dataset.originalBg = url;
+                  delete el.dataset.bg;
+                }
+              }
+              if (isGif) {
+                if (activeGif && activeGif !== el) {
+                  activeGif.style.backgroundImage = "none";
+                  activeGif.dataset.bg = activeGif.dataset.originalBg;
+                }
+                el.style.backgroundImage = `url('${url}?t=${Date.now()}')`;
+                el.dataset.originalBg = url;
                 delete el.dataset.bg;
-              } else {
-                const url = el.style.backgroundImage.slice(5, -2);
+                activeGif = el;
+              }
+            } else {
+              if (isGif) {
                 el.style.backgroundImage = "none";
-                setTimeout(() => {
-                  el.style.backgroundImage = `url('${url}?t=${Date.now()}')`;
-                }, 50);
+                el.dataset.bg = el.dataset.originalBg;
               }
             }
           });
@@ -859,8 +922,22 @@
           const telegramUrl = "https://t.me/share/url?url=" + encodeURIComponent(url) + "&text=" + mensaje;
           window.open(telegramUrl, "_blank");
         }
+        let isPaused = false;
+        const botonPause = document.getElementById("botonPause");
+        const iconPause = botonPause.querySelector("i");
+        botonPause.onclick = () => {
+          if (!player) return;
+          if (!isPaused) {
+            player.pauseVideo();
+            iconPause.className = "fa-solid fa-play";
+            isPaused = true;
+          } else {
+            player.playVideo();
+            iconPause.className = "fa-solid fa-pause";
+            isPaused = false;
+          }
+        };
       </script>
     </div>
   </body>
 </html>
-
