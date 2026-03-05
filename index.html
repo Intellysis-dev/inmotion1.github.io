@@ -106,6 +106,7 @@
         font-size: 0.5em;
         text-align: center;
         opacity: 0.8;
+        color: #FFF;
       }
       .p2 {
         width: 100%;
@@ -144,7 +145,7 @@
         color: #FFF;
         text-align: center;
       }
-      .basic, .pro, .premium {
+      .s, .g, .d {
         background:url('https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s2000') center/cover no-repeat;
       }
       .card {
@@ -184,9 +185,26 @@
         padding: 0;
         z-index: 10;
       }
+      #floatingMsg{
+        position:fixed;
+        top:20px;
+        left:50%;
+        transform:translateX(-50%);
+        background:#000;
+        color:#FF0000;
+        padding:10px 20px;
+        border-radius:10px;
+        font-size:0.5em;
+        z-index:999999;
+        display:none;
+        text-align:center;
+        align-items:center;
+        justify-content:center;
+      }
     </style>
   </head>
   <body>
+    <div id="floatingMsg">Actualmente no disponible.<br>Comprueba la fecha de la última actualización.</div>
     <div id="blocker">
       <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" class="rotada">
     </div>
@@ -209,51 +227,54 @@
       </div>
       <div class="p2" id="p2">
         <div class="slider" id="slider">
-          <div class="screen membership basic">
+          <div class="screen membership s">
             <div class="card">
               <img src="https://lh3.googleusercontent.com/d/1SA2mOB3ZneDVEnUF65Vv9rBLky-6Fg-9=s2000" style="width: 100%;">
-              <a href="https://tusitio.com/basica" class="button-link" data-msg="Me interesa la categoría S, plan 3 x $40">
+              <a class="button-link" s="0" data-msg="Me interesa la categoría S, plan 3 x $40">
                 <img src="https://lh3.googleusercontent.com/d/1jYGETvrlWTM8tVxVM-uVKgQVh_5KlmkF=s2000" style="width: 50%">
               </a>
-              <a href="https://tusitio.com/basica" class="button-link" data-msg="Me interesa la categoría S, plan 7 x $60">
+              <a class="button-link" s="1" data-msg="Me interesa la categoría S, plan 7 x $60">
                 <img src="https://lh3.googleusercontent.com/d/1LNUTpj_L7XLYQ1_hf3bwrE3pI8fRoQYd=s2000" style="width: 50%">
               </a>
-              <a href="https://tusitio.com/basica" class="button-link" data-msg="Me interesa la categoría S, plan 15 x $100">
+              <a class="button-link" s="1" data-msg="Me interesa la categoría S, plan 15 x $100">
                 <img src="https://lh3.googleusercontent.com/d/1qR6xvfyRLRJtHDcc2EnLtm057KsiQQDZ=s2000" style="width: 50%">
               </a>
             </div>
             <button class="home-btn"><i class="fa-solid fa-house"></i></button>
           </div>
-          <div class="screen membership pro">
+          <div class="screen membership g">
             <div class="card">
               <img src="https://lh3.googleusercontent.com/d/10GQIb-QklOgI8tpqKWUsgQnhcf7PezVB=s2000" style="width: 100%;">
-              <a href="https://tusitio.com/basica" class="button-link" data-msg="Me interesa la categoría G, plan 3 x $100">
+              <a class="button-link" s="0" data-msg="Me interesa la categoría G, plan 3 x $100">
                 <img src="https://lh3.googleusercontent.com/d/1NzRJhnzFW9Wp3eE9gj5L091iVFaWdr_l=s2000" style="width: 50%">
               </a>
-              <a href="https://tusitio.com/basica" class="button-link" data-msg="Me interesa la categoría G, plan 7 x $150">
+              <a class="button-link" s="1" data-msg="Me interesa la categoría G, plan 7 x $150">
                 <img src="https://lh3.googleusercontent.com/d/1y4y8_09mT_VNr9c5oIbqVYDHYMOwl6Rs=s2000" style="width: 50%">
               </a>
-              <a href="https://tusitio.com/basica" class="button-link" data-msg="Me interesa la categoría G, plan 15 x $250">
+              <a class="button-link" s="1" data-msg="Me interesa la categoría G, plan 15 x $250">
                 <img src="https://lh3.googleusercontent.com/d/1XSCzUl6wqQQQJo51oO4NSePIh-WXW-Ni=s2000" style="width: 50%">
               </a>
             </div>
             <button class="home-btn"><i class="fa-solid fa-house"></i></button>
           </div>
-          <div class="screen membership premium">
+          <div class="screen membership d">
             <div class="card">
               <img src="https://lh3.googleusercontent.com/d/1KsjmZxtciCdxBmoR6riu6oHdG021_12m=s2000" style="width: 100%;">
-              <a href="https://tusitio.com/basica" class="button-link" data-msg="Me interesa la categoría D, plan 3 x $150">
+              <a class="button-link" s="0" data-msg="Me interesa la categoría D, plan 3 x $150">
                 <img src="https://lh3.googleusercontent.com/d/15RMspVs4fdfe4dlU5c9cPrXaoYyCkaq-=s2000" style="width: 50%">
               </a>
-              <a href="https://tusitio.com/basica" class="button-link" data-msg="Me interesa la categoría D, plan 7 x $250">
+              <a class="button-link" s="1" data-msg="Me interesa la categoría D, plan 7 x $250">
                 <img src="https://lh3.googleusercontent.com/d/1oUsc6VgUQ5uMPtm9kj4DQn-lNB88ZMWo=s2000" style="width: 50%">
               </a>
-              <a href="https://tusitio.com/basica" class="button-link" data-msg="Me interesa la categoría D, plan 15 x $350">
+              <a class="button-link" s="1" data-msg="Me interesa la categoría D, plan 15 x $350">
                 <img src="https://lh3.googleusercontent.com/d/1bkTRXDjtC8g3Lp7Us3rwdg1-2W42BfKG=s2000" style="width: 50%">
               </a>
             </div>
             <button class="home-btn"><i class="fa-solid fa-house"></i></button>
           </div>
+        </div>
+        <div class="footer">
+          Fecha de última actualización: <b>04/03/2026</b>.
         </div>
       </div>
     </div>
@@ -261,50 +282,62 @@
       const p1 = document.getElementById("p1");
       const p2 = document.getElementById("p2");
       const slider=document.getElementById("slider");
+      const floating=document.getElementById("floatingMsg");
       let current=0;
       const total=slider.children.length;
-      document.getElementById("startBtn").addEventListener("click", ()=> {
-        requestAnimationFrame(()=> {
+      document.getElementById("startBtn").addEventListener("click", ()=>{
+        requestAnimationFrame(()=>{
           p2.classList.add("active");
           p1.classList.add("fade-out");
           setTimeout(()=>{ p1.style.display="none"; },500);
         });
       });
-      document.querySelectorAll(".home-btn").forEach(btn=> {
-        btn.addEventListener("click", ()=> {
+      document.querySelectorAll(".home-btn").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
           p2.classList.remove("active");
-          setTimeout(()=> {
-            p1.style.display="block";
-            current = 0;
-            slider.style.transform = `translateX(0%)`;
-            void p1.offsetWidth;
-            p1.classList.remove("fade-out");
+          setTimeout(()=>{
+              p1.style.display="block";
+              current = 0;
+              slider.style.transform = `translateX(0%)`;
+              void p1.offsetWidth;
+              p1.classList.remove("fade-out");
           },600);
-        });
       });
-      window.addEventListener("resize", ()=> {
+      });
+      window.addEventListener("resize", ()=>{
         slider.style.transform=`translateX(-${current*100}%)`;
       });
-      document.querySelectorAll(".button-link").forEach(btn=> {
-        btn.addEventListener("click",(e)=> {
-          e.preventDefault();
-          const mensaje=btn.dataset.msg;
-          const telefono="525577984626";
-          const url="https://t.me/+"+telefono+"?text="+encodeURIComponent(mensaje);
-          window.open(url,"_blank");
-        });
+      function showMsg(){
+        floating.style.display="block";
+        setTimeout(()=>{
+          floating.style.display="none";
+        },5000);
+      }
+      document.querySelectorAll(".button-link").forEach(btn=>{
+      btn.addEventListener("click",(e)=>{
+      e.preventDefault();
+      const modo=btn.getAttribute("s");
+      const mensaje=btn.dataset.msg;
+      if(modo==="1"){
+        showMsg();
+        return;
+      }
+      const telefono="525577984626";
+      const url="https://t.me/"+telefono+"?text="+encodeURIComponent(mensaje);
+      window.open(url,"_blank");
+      });
       });
       let startX=0;
-      document.addEventListener("touchstart",e=> {
-        startX=e.touches[0].clientX;
+      document.addEventListener("touchstart",e=>{
+      startX=e.touches[0].clientX;
       },{passive:true});
-      document.addEventListener("touchend",e=> {
-        const endX=e.changedTouches[0].clientX;
-        const threshold=60;
-        if(startX-endX>threshold&&current<total-1) {current++;}
-        else if(endX-startX>threshold&&current>0) {current--;}
-        slider.style.transform=`translateX(-$ {current*100}%)`;
-      }, {passive:true});
+      document.addEventListener("touchend",e=>{
+      const endX=e.changedTouches[0].clientX;
+      const threshold=60;
+      if(startX-endX>threshold&&current<total-1){current++;}
+      else if(endX-startX>threshold&&current>0){current--;}
+      slider.style.transform=`translateX(-${current*100}%)`;
+      },{passive:true});
     </script>
   </body>
 </html>
