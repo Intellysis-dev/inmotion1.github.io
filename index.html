@@ -185,26 +185,53 @@
         padding: 0;
         z-index: 10;
       }
-      #floatingMsg{
-        position:fixed;
-        top:20px;
-        left:50%;
-        transform:translateX(-50%);
-        background:#000;
-        color:#FF0000;
-        padding:10px 20px;
-        border-radius:10px;
-        font-size:0.5em;
-        z-index:999999;
-        display:none;
-        text-align:center;
-        align-items:center;
-        justify-content:center;
+      #floatingMsg {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #000;
+        color: #FF0000;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-size: 0.5em;
+        z-index: 999999;
+        display: none;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+      }
+      .updateBox {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        background: #FF0000;
+        color: #000;
+        padding: 20px 25px;
+        border-radius: 10px;
+        width: 70%;
+        max-width: 320px;
+        font-size: 0.6em;
+        text-align: center;
+        z-index: 9999999;
+      }
+      .updateBox .closeUpdate {
+        position: absolute;
+        top: 6px;
+        right: 10px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1em;
       }
     </style>
   </head>
   <body>
-    <div id="floatingMsg">Actualmente no disponible.<br>Comprueba la fecha de la última actualización.</div>
+    <div id="updateNotice" class="updateBox">
+      <div class="closeUpdate" id="closeUpdate"><i class="fa-solid fa-xmark"></i></div>
+      <img src="https://lh3.googleusercontent.com/d/16RN1xhA71TkCQQ1g9hKUQ7hPzLNIrsda=s2000" style="width: 100%;">
+    </div>
+    <div id="floatingMsg">Aún no disponible.</div>
     <div id="blocker">
       <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" class="rotada">
     </div>
@@ -274,7 +301,7 @@
           </div>
         </div>
         <div class="footer">
-          Fecha de última actualización: <b>04/03/2026</b>.
+          Creado por <b>NVIV</b> (2025). Todos los derechos reservados.
         </div>
       </div>
     </div>
@@ -338,6 +365,12 @@
       else if(endX-startX>threshold&&current>0){current--;}
       slider.style.transform=`translateX(-${current*100}%)`;
       },{passive:true});
+      const updateNotice=document.getElementById("updateNotice");
+      const closeUpdate=document.getElementById("closeUpdate");
+      
+      closeUpdate.addEventListener("click",()=>{
+        updateNotice.remove();
+      });
     </script>
   </body>
 </html>
