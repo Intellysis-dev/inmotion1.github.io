@@ -2,38 +2,64 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="screen-orientation" content="portrait">
-    <meta name="orientation" content="portrait">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="icon" href="https://lh3.googleusercontent.com/d/1ZVbqUh4gOAcn5pDp9lHpYkyM0UMeVrGs=s2000">
-    <title>InMotion I (02-26)</title>
+    <title>InMotion I</title>
     <style>
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
         touch-action: manipulation;
+        font-family: Arial, sans-serif;
       }
       html, body {
         width: 100%;
         height: 100%;
         overflow: hidden;
-        font-size: 1em;
-        font-family: sans-serif;
         background: #000;
       }
-      .app {
-        width: 100vw;
+      .main-wrapper {
+        width: 100%;
         height: 100dvh;
-        min-height: 100svh;
-        aspect-ratio: 9 / 16;
-        background-image: url("https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s3000");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        color: #FFF;
-        font-size: 1.2em;
         position: relative;
+      }
+      #blocker {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #000;
+        z-index: 999999;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .rotada {
+        transform: rotate(-90deg);
+        transform-origin: center;
+        width: 50%;
+      }
+      @media screen and (orientation: landscape) {
+        #blocker{
+          display: flex;
+        }
+      }
+      .p1 {
+        width: 100%;
+        height: 100%;
+        background: url("https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s3000") center/cover no-repeat;
+        color: #FFF;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 1;
+        transition: opacity 0.6s ease;
+        z-index: 2;
       }
       nav {
         position: absolute;
@@ -41,7 +67,7 @@
         right: 1em;
         display: flex;
         gap: 1em;
-        font-size: 0.6em;
+        font-size: 0.7em;
       }
       nav a {
         background: rgba(0,0,0,0.5);
@@ -55,30 +81,17 @@
         top: 42%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: rgba(0, 0, 0, 0.45);
+        background: rgba(0,0,0,0.45);
         padding: 2em;
         border-radius: 1em;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
         gap: 1.5em;
-      }
-      .top-message {
-        position: absolute;
-        top: 4.0em;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 0.6em;
-        background: rgba(0,0,0,0.6);
-        padding: 0.5em 1em;
-        border-radius: 0.5em;
-        display: none;
-        text-align: center;
       }
       button {
         padding: 1em 2em;
-        font-size: 0.6em;
+        font-size: 0.7em;
         border-radius: 0.5em;
         border: none;
         background: #FF0000;
@@ -90,118 +103,208 @@
         bottom: 1em;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 0.4em;
+        font-size: 0.5em;
         text-align: center;
         opacity: 0.8;
       }
-      .w50 { 
-        width: 50%;
+      .p2 {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 0.6s ease;
+        z-index: 1;
+        pointer-events: none;
       }
-      #blocker { 
-        display: none; 
-        height: 100vh; 
-        width: 100vw; 
-        background-color: #000; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
+      .p2.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .p1.fade-out {
+        opacity: 0;
+      }
+      .slider {
+        display: flex;
+        height: 100%;
+        transition: transform 0.4s ease;
+      }
+      .screen {
+        min-width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+      .membership {
+        flex-direction: column;
+        padding: 30px;
+        color: #FFF;
         text-align: center;
       }
-      @media screen and (max-width: 2712px) { 
-        #app { 
-          display: block; 
-        } 
-        #blocker { 
-          display: none; 
-        }
+      .basic, .pro, .premium {
+        background:url('https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s2000') center/cover no-repeat;
       }
-      @media screen and (min-width: 1220px) { 
-        #app { 
-          display: none;
-        }
-        #blocker { 
-          display: flex;
-        }
+      .card {
+        width: 100%;
+        padding: 30px;
+        border-radius: 20px;
+        background: rgba(0,0,0,0.25);
+        backdrop-filter: blur(8px);
       }
-      @media screen and (orientation: portrait) { 
-        #app { 
-          display: block;
-        }
-        #blocker {
-          display: none;
-        }
-      }
-      @media screen and (orientation: landscape) { 
-        #app { 
-          display: none;
-        }
-        #blocker {
-          display: flex;
-        }
-      }
-      .rotada { 
-        transform: rotate(-90deg); 
-        transform-origin: center; 
+      .button-link {
         display: block;
+        margin: 5% auto 0;
+        padding: 14px;
+        width: 75%;
+        font-size: 0.7em;
+        text-decoration: none;
+        background: #FF0000;
+        color: #FFF;
+        font-weight: bold;
+        border-radius: 12px;
       }
-      @media screen and (orientation: landscape) { 
-        html, body {
-          margin: 0; 
-          padding: 0; 
-          overflow: hidden; 
-          width: 100vw;
-          height: 100vh; 
-        } 
-        #blocker.pagina {
-          position: fixed; 
-          top: 0; 
-          left: 0; 
-          width: 100vw; 
-          height: 100vh; 
-          z-index: 999999; 
-          background-size: cover; 
-          background-position: center; 
-          background-repeat: no-repeat; 
-          background-attachment: fixed;
-        } 
+      .home-btn {
+        position: absolute;
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #FF0000;
+        color: #FFF;
+        border: none;
+        font-weight: bold;
+        font-size: 1.2em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        z-index: 10;
       }
     </style>
   </head>
   <body>
-    <div id="blocker" class="pagina">
-      <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" alt="error" class="rotada w50">
+    <div id="blocker">
+      <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" class="rotada">
     </div>
-    <div class="app">
-      <nav>
-        <a href="https://intellysis-dev.github.io/inmotion1.github.io/info.html" target="_blank"><ins>Info</ins></a>
-        <a href="https://intellysis-dev.github.io/inmotion1.github.io/demo.html" target="_blank"><ins>Demo</ins></a>
-        <a href="https://intellysis-dev.github.io/inmotion1.github.io/contact.html" target="_blank"><ins>Contact</ins></a>
-        <a href="https://intellysis-dev.github.io/inmotion1.github.io/faq.html" target="_blank"><ins>FAQ</ins></a>
-        <a href="https://intellysis-dev.github.io/inmotion1.github.io/tc.html" target="_blank"><ins>T&amp;C</ins></a>
-      </nav>
-      <div class="top-message" id="topMessage">
-        Actualmente NO disponible.
+    <div class="main-wrapper">
+      <div class="p1" id="p1">
+        <nav>
+          <a href="https://intellysis-dev.github.io/inmotion1.github.io/info.html" target="_blank">Info</a>
+          <a href="https://intellysis-dev.github.io/inmotion1.github.io/demo.html" target="_blank">Demo</a>
+          <a href="https://intellysis-dev.github.io/inmotion1.github.io/contact.html" target="_blank">Contact</a>
+          <a href="https://intellysis-dev.github.io/inmotion1.github.io/faq.html" target="_blank">FAQ</a>
+          <a href="https://intellysis-dev.github.io/inmotion1.github.io/tc.html" target="_blank">T&amp;C</a>
+        </nav>
+        <div class="overlay">
+          <img src="https://lh3.googleusercontent.com/d/1jEx5U5KKlkfqdgKoSeXjIl7f19aNvVWu=s3000" style="width: 12em;">
+          <button id="startBtn" style="width: 12em; border-radius: 12px;">Seleccionar plan</button>
+        </div>
+        <div class="footer">
+          Creado por <b>NVIV</b> (2025). Todos los derechos reservados.
+        </div>
       </div>
-      <div class="overlay">
-        <img src="https://lh3.googleusercontent.com/d/1jEx5U5KKlkfqdgKoSeXjIl7f19aNvVWu=s3000" alt="logo" style="width: 10em; max-width: 160%; height: auto;">
-        <button id="actionBtn">Iniciar</button>
-      </div>
-      <div class="footer">
-        Creado por <b>NVIV</b> (2025). Todos los derechos reservados.
+      <div class="p2" id="p2">
+        <div class="slider" id="slider">
+          <div class="screen membership basic">
+            <div class="card">
+              <img src="https://lh3.googleusercontent.com/d/1SA2mOB3ZneDVEnUF65Vv9rBLky-6Fg-9=s2000" style="width: 100%;">
+              <a href="https://tusitio.com/basica" class="button-link" data-msg="Me interesa la categoría S, plan 3 x $40">
+                <img src="https://lh3.googleusercontent.com/d/1jYGETvrlWTM8tVxVM-uVKgQVh_5KlmkF=s2000" style="width: 50%">
+              </a>
+              <a href="https://tusitio.com/basica" class="button-link" data-msg="Me interesa la categoría S, plan 7 x $60">
+                <img src="https://lh3.googleusercontent.com/d/1LNUTpj_L7XLYQ1_hf3bwrE3pI8fRoQYd=s2000" style="width: 50%">
+              </a>
+              <a href="https://tusitio.com/basica" class="button-link" data-msg="Me interesa la categoría S, plan 15 x $100">
+                <img src="https://lh3.googleusercontent.com/d/1qR6xvfyRLRJtHDcc2EnLtm057KsiQQDZ=s2000" style="width: 50%">
+              </a>
+            </div>
+            <button class="home-btn"><i class="fa-solid fa-house"></i></button>
+          </div>
+          <div class="screen membership pro">
+            <div class="card">
+              <img src="https://lh3.googleusercontent.com/d/10GQIb-QklOgI8tpqKWUsgQnhcf7PezVB=s2000" style="width: 100%;">
+              <a href="https://tusitio.com/basica" class="button-link" data-msg="Me interesa la categoría G, plan 3 x $100">
+                <img src="https://lh3.googleusercontent.com/d/1NzRJhnzFW9Wp3eE9gj5L091iVFaWdr_l=s2000" style="width: 50%">
+              </a>
+              <a href="https://tusitio.com/basica" class="button-link" data-msg="Me interesa la categoría G, plan 7 x $150">
+                <img src="https://lh3.googleusercontent.com/d/1y4y8_09mT_VNr9c5oIbqVYDHYMOwl6Rs=s2000" style="width: 50%">
+              </a>
+              <a href="https://tusitio.com/basica" class="button-link" data-msg="Me interesa la categoría G, plan 15 x $250">
+                <img src="https://lh3.googleusercontent.com/d/1XSCzUl6wqQQQJo51oO4NSePIh-WXW-Ni=s2000" style="width: 50%">
+              </a>
+            </div>
+            <button class="home-btn"><i class="fa-solid fa-house"></i></button>
+          </div>
+          <div class="screen membership premium">
+            <div class="card">
+              <img src="https://lh3.googleusercontent.com/d/1KsjmZxtciCdxBmoR6riu6oHdG021_12m=s2000" style="width: 100%;">
+              <a href="https://tusitio.com/basica" class="button-link" data-msg="Me interesa la categoría D, plan 3 x $150">
+                <img src="https://lh3.googleusercontent.com/d/15RMspVs4fdfe4dlU5c9cPrXaoYyCkaq-=s2000" style="width: 50%">
+              </a>
+              <a href="https://tusitio.com/basica" class="button-link" data-msg="Me interesa la categoría D, plan 7 x $250">
+                <img src="https://lh3.googleusercontent.com/d/1oUsc6VgUQ5uMPtm9kj4DQn-lNB88ZMWo=s2000" style="width: 50%">
+              </a>
+              <a href="https://tusitio.com/basica" class="button-link" data-msg="Me interesa la categoría D, plan 15 x $350">
+                <img src="https://lh3.googleusercontent.com/d/1bkTRXDjtC8g3Lp7Us3rwdg1-2W42BfKG=s2000" style="width: 50%">
+              </a>
+            </div>
+            <button class="home-btn"><i class="fa-solid fa-house"></i></button>
+          </div>
+        </div>
       </div>
     </div>
     <script>
-      if (screen.orientation && screen.orientation.lock) {
-        screen.orientation.lock("portrait").catch(() => {});
-      }
-      const btn = document.getElementById("actionBtn");
-      const msg = document.getElementById("topMessage");
-      btn.addEventListener("click", () => {
-        msg.style.display = "block";
-        setTimeout(() => {
-          msg.style.display = "none";
-        }, 5000);
+      const p1 = document.getElementById("p1");
+      const p2 = document.getElementById("p2");
+      const slider=document.getElementById("slider");
+      let current=0;
+      const total=slider.children.length;
+      document.getElementById("startBtn").addEventListener("click", ()=> {
+        requestAnimationFrame(()=> {
+          p2.classList.add("active");
+          p1.classList.add("fade-out");
+          setTimeout(()=>{ p1.style.display="none"; },500);
+        });
       });
+      document.querySelectorAll(".home-btn").forEach(btn=> {
+        btn.addEventListener("click", ()=> {
+          p2.classList.remove("active");
+          setTimeout(()=> {
+            p1.style.display="block";
+            current = 0;
+            slider.style.transform = `translateX(0%)`;
+            void p1.offsetWidth;
+            p1.classList.remove("fade-out");
+          },600);
+        });
+      });
+      window.addEventListener("resize", ()=> {
+        slider.style.transform=`translateX(-${current*100}%)`;
+      });
+      document.querySelectorAll(".button-link").forEach(btn=> {
+        btn.addEventListener("click",(e)=> {
+          e.preventDefault();
+          const mensaje=btn.dataset.msg;
+          const telefono="525577984626";
+          const url="https://t.me/+"+telefono+"?text="+encodeURIComponent(mensaje);
+          window.open(url,"_blank");
+        });
+      });
+      let startX=0;
+      document.addEventListener("touchstart",e=> {
+        startX=e.touches[0].clientX;
+      },{passive:true});
+      document.addEventListener("touchend",e=> {
+        const endX=e.changedTouches[0].clientX;
+        const threshold=60;
+        if(startX-endX>threshold&&current<total-1) {current++;}
+        else if(endX-startX>threshold&&current>0) {current--;}
+        slider.style.transform=`translateX(-$ {current*100}%)`;
+      }, {passive:true});
     </script>
   </body>
 </html>
