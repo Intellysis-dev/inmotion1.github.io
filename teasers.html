@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>InMotion/Teasers</title>
+    <link rel="icon" href="https://lh3.googleusercontent.com/d/1ZVbqUh4gOAcn5pDp9lHpYkyM0UMeVrGs=s2000">
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      .wrapper {
+        width: 100vw;
+        height: 100vh;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+      .screen {
+        width: 100vw;
+        height: 100vh;
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-image: url('https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s2000');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        text-align: center;
+      }
+      .top-nav {
+        position: fixed;
+        top: 10px;
+        left: 15px;
+        z-index: 9999;
+      }
+      .top-nav a {
+        color: red;
+        text-decoration: underline;
+        font-size: 12px;
+        font-family: Arial, sans-serif;
+      }
+      .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+      }
+      .center-image {
+        max-width: 70%;
+        max-height: 50%;
+        object-fit: contain;
+      }
+      .play-button {
+        padding: 12px 22px;
+        font-size: 14px;
+        border: none;
+        background: #FF0000;
+        color: #FFF;
+        cursor: pointer;
+        border-radius: 6px;
+      }
+      .play-button:hover {
+        background: #CC0000;
+      }
+      #player {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- PAGINA 3 -->
+      <section class="screen">
+        <nav class="top-nav">
+          <a href="https://intellysis-dev.github.io/inmotion1.github.io/index.html">Ir al Inicio</a>
+        </nav>
+        <div class="content">
+          <img class="center-image" src="https://lh3.googleusercontent.com/d/1xw3-nHUfeb3D_pyOuiulztrTXE31GU45=s2000">
+          <img class="center-image" src="https://lh3.googleusercontent.com/d/1hHTMUwY7qe9sfB7PFOuqLPQo5yeeuiIO=s2000">
+          <button class="play-button" onclick="playPlaylist('')">
+            No Disponible
+          </button>
+        </div>
+      </section>
+      <!-- PAGINA 2 -->
+      <section class="screen">
+        <nav class="top-nav">
+          <a href="https://intellysis-dev.github.io/inmotion1.github.io/index.html">Ir al Inicio</a>
+        </nav>
+        <div class="content">
+          <img class="center-image" src="https://lh3.googleusercontent.com/d/1cRsreBackwwbfBRx0m0ToSf1ZJ8421PB=s2000">
+          <img class="center-image" src="https://lh3.googleusercontent.com/d/1-SigJlT0OVqz8_cpyNM9wIg1ODJK-ONa=s2000">
+          <button class="play-button" onclick="playPlaylist('')">
+            No Disponible
+          </button>
+        </div>
+      </section>
+      <!-- PAGINA 1 -->
+      <section class="screen">
+        <nav class="top-nav">
+          <a href="https://intellysis-dev.github.io/inmotion1.github.io/index.html">Ir al Inicio</a>
+        </nav>
+        <div class="content">
+          <img class="center-image" src="https://lh3.googleusercontent.com/d/1X_UkPY6heh5bLZ01rCrakClIKla4o7gR=s2000">
+          <img class="center-image" src="https://lh3.googleusercontent.com/d/1l6KIUHjg0hONccs1sXgXQaKK__qXQ0sF=s2000">
+          <button class="play-button" onclick="playPlaylist('PLzRvuWZjOiCDyJdCv6JRW302UFH80ssBz')">
+            Preview S01
+          </button>
+        </div>
+      </section>
+    </div>
+    <div id="player"></div>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+      let player
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height:'0',
+          width:'0',
+          playerVars:{
+            autoplay:1,
+            controls:0
+          }
+        })
+      }
+      function playPlaylist(playlistID) {
+        if(player) {
+          player.stopVideo()
+          player.loadPlaylist({
+            listType:'playlist',
+            list:playlistID
+          })
+        }
+      }
+    </script>
+  </body>
+</html>
