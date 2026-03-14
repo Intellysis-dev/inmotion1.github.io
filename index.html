@@ -224,6 +224,28 @@
         cursor: pointer;
         font-size: 1em;
       }
+      .overlay-img {
+        width: 60%;
+        max-width: 240px;
+      }
+      .img_private {
+        pointer-events: none;
+        touch-action: none; 
+      }
+      footer {
+        width: 100%;
+        text-align: center;
+        position:absolute;
+        bottom: calc(env(safe-area-inset-bottom) + 10px);
+        left:50%;
+        transform:translateX(-50%);
+      }
+      .w100 {
+        width: 100%;
+      }
+      .w50 {
+        width: 50%;
+      }
     </style>
   </head>
   <body>
@@ -249,61 +271,57 @@
           <img src="https://lh3.googleusercontent.com/d/1SROoTwpSUj3eRXodLVwlT66-j3gfT3DV=s3000" style="width: 12em;">
           <button id="startBtn" style="width: 12em; border-radius: 12px;">Seleccionar plan</button>
         </div>
-        <div class="footer">
-          Creado por <b>NVIV</b> (2025). Todos los derechos reservados.
-        </div>
+        <footer><img src="https://lh3.googleusercontent.com/d/18YSjkbc-8c0tAYAfk8gv8NRMx4O3DI8m=s2000" class="overlay-img img_private" alt="info-1.2"></footer>
       </div>
       <div class="p2" id="p2">
         <div class="slider" id="slider">
           <div class="screen membership s">
             <div class="card">
-              <img src="https://lh3.googleusercontent.com/d/1SA2mOB3ZneDVEnUF65Vv9rBLky-6Fg-9=s2000" style="width: 100%;">
+              <img src="https://lh3.googleusercontent.com/d/1trFb2zEA90ceTHEh3lDVT5EhbG-vk-L5=s2000" class="w100 img_private">
               <a class="button-link" s="0" data-msg="Me interesa la categoría S, plan 3 x $40">
-                <img src="https://lh3.googleusercontent.com/d/1jYGETvrlWTM8tVxVM-uVKgQVh_5KlmkF=s2000" style="width: 50%">
+                <img src="https://lh3.googleusercontent.com/d/1jYGETvrlWTM8tVxVM-uVKgQVh_5KlmkF=s2000" class="w50 img_private">
               </a>
               <a class="button-link" s="1" data-msg="Me interesa la categoría S, plan 7 x $60">
-                <img src="https://lh3.googleusercontent.com/d/1LNUTpj_L7XLYQ1_hf3bwrE3pI8fRoQYd=s2000" style="width: 50%">
+                <img src="https://lh3.googleusercontent.com/d/1LNUTpj_L7XLYQ1_hf3bwrE3pI8fRoQYd=s2000" class="w50 img_private">
               </a>
               <a class="button-link" s="1" data-msg="Me interesa la categoría S, plan 15 x $100">
-                <img src="https://lh3.googleusercontent.com/d/1qR6xvfyRLRJtHDcc2EnLtm057KsiQQDZ=s2000" style="width: 50%">
+                <img src="https://lh3.googleusercontent.com/d/1qR6xvfyRLRJtHDcc2EnLtm057KsiQQDZ=s2000" class="w50 img_private">
               </a>
             </div>
             <button class="home-btn"><i class="fa-solid fa-house"></i></button>
           </div>
           <div class="screen membership g">
             <div class="card">
-              <img src="https://lh3.googleusercontent.com/d/10GQIb-QklOgI8tpqKWUsgQnhcf7PezVB=s2000" style="width: 100%;">
+              <img src="https://lh3.googleusercontent.com/d/1KhTDlSiVp26if-x8PCUpWUauu4MECojU=s2000" class="w100 img_private">
               <a class="button-link" s="0" data-msg="Me interesa la categoría G, plan 3 x $100">
-                <img src="https://lh3.googleusercontent.com/d/1NzRJhnzFW9Wp3eE9gj5L091iVFaWdr_l=s2000" style="width: 50%">
+                <img src="https://lh3.googleusercontent.com/d/1NzRJhnzFW9Wp3eE9gj5L091iVFaWdr_l=s2000" class="w50 img_private">
               </a>
               <a class="button-link" s="1" data-msg="Me interesa la categoría G, plan 7 x $150">
-                <img src="https://lh3.googleusercontent.com/d/1y4y8_09mT_VNr9c5oIbqVYDHYMOwl6Rs=s2000" style="width: 50%">
+                <img src="https://lh3.googleusercontent.com/d/1y4y8_09mT_VNr9c5oIbqVYDHYMOwl6Rs=s2000" class="w50 img_private">
               </a>
               <a class="button-link" s="1" data-msg="Me interesa la categoría G, plan 15 x $250">
-                <img src="https://lh3.googleusercontent.com/d/1XSCzUl6wqQQQJo51oO4NSePIh-WXW-Ni=s2000" style="width: 50%">
+                <img src="https://lh3.googleusercontent.com/d/1XSCzUl6wqQQQJo51oO4NSePIh-WXW-Ni=s2000" class="w50 img_private">
               </a>
             </div>
             <button class="home-btn"><i class="fa-solid fa-house"></i></button>
           </div>
           <div class="screen membership d">
             <div class="card">
-              <img src="https://lh3.googleusercontent.com/d/1KsjmZxtciCdxBmoR6riu6oHdG021_12m=s2000" style="width: 100%;">
+              <img src="https://lh3.googleusercontent.com/d/1LBU_q2eUH5H2WtPyoJCWb9344DSb016I=s2000" class="w100 img_private">
               <a class="button-link" s="0" data-msg="Me interesa la categoría D, plan 3 x $150">
-                <img src="https://lh3.googleusercontent.com/d/15RMspVs4fdfe4dlU5c9cPrXaoYyCkaq-=s2000" style="width: 50%">
+                <img src="https://lh3.googleusercontent.com/d/15RMspVs4fdfe4dlU5c9cPrXaoYyCkaq-=s2000" class="w50 img_private">
               </a>
               <a class="button-link" s="1" data-msg="Me interesa la categoría D, plan 7 x $250">
-                <img src="https://lh3.googleusercontent.com/d/1oUsc6VgUQ5uMPtm9kj4DQn-lNB88ZMWo=s2000" style="width: 50%">
+                <img src="https://lh3.googleusercontent.com/d/1oUsc6VgUQ5uMPtm9kj4DQn-lNB88ZMWo=s2000" class="w50 img_private">
               </a>
               <a class="button-link" s="1" data-msg="Me interesa la categoría D, plan 15 x $350">
-                <img src="https://lh3.googleusercontent.com/d/1bkTRXDjtC8g3Lp7Us3rwdg1-2W42BfKG=s2000" style="width: 50%">
+                <img src="https://lh3.googleusercontent.com/d/1bkTRXDjtC8g3Lp7Us3rwdg1-2W42BfKG=s2000" class="w50 img_private">
               </a>
             </div>
             <button class="home-btn"><i class="fa-solid fa-house"></i></button>
           </div>
         </div>
-        <div class="footer">
-          Creado por <b>NVIV</b> (2025). Todos los derechos reservados.
-        </div>
+        <footer><img src="https://lh3.googleusercontent.com/d/18YSjkbc-8c0tAYAfk8gv8NRMx4O3DI8m=s2000" class="overlay-img img_private" alt="info-1.2"></footer>
       </div>
     </div>
     <script>
@@ -317,7 +335,7 @@
         requestAnimationFrame(()=>{
           p2.classList.add("active");
           p1.classList.add("fade-out");
-          setTimeout(()=>{ p1.style.display="none"; },500);
+          setTimeout(()=>{ p1.style.display="none"; },400);
         });
       });
       document.querySelectorAll(".home-btn").forEach(btn=>{
@@ -375,6 +393,3 @@
     </script>
   </body>
 </html>
-
-
-
