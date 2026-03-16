@@ -142,7 +142,26 @@
           background-position: center; 
           background-repeat: no-repeat; 
           background-attachment: fixed;
-        } 
+        }
+      }
+      .overlay-img {
+        width: 60%;
+        max-width: 240px;
+      }
+      .img_private {
+        pointer-events: none;
+        touch-action: none; 
+      }
+      footer {
+        width: 100%;
+        text-align: center;
+        position:absolute;
+        bottom: calc(env(safe-area-inset-bottom) + 10px);
+        left:50%;
+        transform:translateX(-50%);
+      }
+      .mb120 {
+        margin-bottom: 120px;
       }
     </style>
   </head>
@@ -156,9 +175,9 @@
         <nav class="top-nav">
           <a href="https://intellysis-dev.github.io/inmotion1.github.io/index.html">Ir al Inicio</a>
         </nav>
-        <div class="content">
-          <img class="center-image" src="https://lh3.googleusercontent.com/d/1dCD3S0fTvX68yaG5Dbt0x7z8_FNJKSsI=s2000">
-          <img class="center-image" src="https://lh3.googleusercontent.com/d/1hHTMUwY7qe9sfB7PFOuqLPQo5yeeuiIO=s2000">
+        <div class="content mb120">
+          <img class="center-image img_private" src="https://lh3.googleusercontent.com/d/1-WRwJT4PMiaNAs8VvRTXQeClqssNPFGA=s2000" alt="pre_s3">
+          <img class="center-image img_private" src="https://lh3.googleusercontent.com/d/1hHTMUwY7qe9sfB7PFOuqLPQo5yeeuiIO=s2000" alt="cover-s3">
           <button class="play-button" onclick="playPlaylist('')">
             No Disponible
           </button>
@@ -169,9 +188,9 @@
         <nav class="top-nav">
           <a href="https://intellysis-dev.github.io/inmotion1.github.io/index.html">Ir al Inicio</a>
         </nav>
-        <div class="content">
-          <img class="center-image" src="https://lh3.googleusercontent.com/d/1cRsreBackwwbfBRx0m0ToSf1ZJ8421PB=s2000">
-          <img class="center-image" src="https://lh3.googleusercontent.com/d/1-SigJlT0OVqz8_cpyNM9wIg1ODJK-ONa=s2000">
+        <div class="content mb120">
+          <img class="center-image img_private" src="https://lh3.googleusercontent.com/d/1GvNf3UdkUqJ3P-rAk1xddPsvL0r8vmYj=s2000" alt="pre_s2">
+          <img class="center-image img_private" src="https://lh3.googleusercontent.com/d/1-SigJlT0OVqz8_cpyNM9wIg1ODJK-ONa=s2000" alt="cover-s2">
           <button class="play-button" onclick="playPlaylist('')">
             No Disponible
           </button>
@@ -182,14 +201,15 @@
         <nav class="top-nav">
           <a href="https://intellysis-dev.github.io/inmotion1.github.io/index.html">Ir al Inicio</a>
         </nav>
-        <div class="content">
-          <img class="center-image" src="https://lh3.googleusercontent.com/d/1X_UkPY6heh5bLZ01rCrakClIKla4o7gR=s2000">
-          <img class="center-image" src="https://lh3.googleusercontent.com/d/1l6KIUHjg0hONccs1sXgXQaKK__qXQ0sF=s2000">
-          <button class="play-button" onclick="playPlaylist('PLzRvuWZjOiCDyJdCv6JRW302UFH80ssBz')">
+        <div class="content mb120">
+          <img class="center-image img_private" src="https://lh3.googleusercontent.com/d/1Gf9MmejEK3fvJFWF0mHc3LyInvFnf29l=s2000" alt="pre_s1">
+          <img class="center-image img_private" src="https://lh3.googleusercontent.com/d/1l6KIUHjg0hONccs1sXgXQaKK__qXQ0sF=s2000" alt="cover-s1">
+          <button class="play-button" onclick="playPlaylist('TFk14fV9JqU')">
             Preview S01
           </button>
         </div>
       </section>
+      <footer><img src="https://lh3.googleusercontent.com/d/18YSjkbc-8c0tAYAfk8gv8NRMx4O3DI8m=s2000" class="overlay-img img_private" alt="info-1.2"></footer>
     </div>
     <div id="player"></div>
     <script src="https://www.youtube.com/iframe_api"></script>
@@ -205,17 +225,20 @@
           }
         })
       }
-      function playPlaylist(playlistID) {
+      function playPlaylist(id) {
         if(player) {
           player.stopVideo()
-          player.loadPlaylist({
-            listType:'playlist',
-            list:playlistID
-          })
+          
+          if(id.length === 11){
+            player.loadVideoById(id)
+          } else {
+            player.loadPlaylist({
+              listType:'playlist',
+              list:id
+            })
+          }
         }
       }
     </script>
   </body>
-
 </html>
-
