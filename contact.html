@@ -128,6 +128,22 @@
         padding: 10px 20px;
         border-radius: 8px;
       }
+      .overlay-img {
+        width: 60%;
+        max-width: 240px;
+      }
+      .img_private {
+        pointer-events: none;
+        touch-action: none; 
+      }
+      footer {
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        bottom: calc(env(safe-area-inset-bottom) + 10px);
+        left: 50%;
+        transform: translateX(-50%);
+      }
     </style>
   </head>
   <body>
@@ -151,5 +167,6 @@
         </button>
       </p>
     </div>
+    <footer><img src="https://lh3.googleusercontent.com/d/18YSjkbc-8c0tAYAfk8gv8NRMx4O3DI8m=s2000" class="overlay-img img_private" alt="info-1.2"></footer>
   </body>
 </html>
