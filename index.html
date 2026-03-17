@@ -1,268 +1,54 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <title>InMotion I</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="icon" href="https://lh3.googleusercontent.com/d/1ZVbqUh4gOAcn5pDp9lHpYkyM0UMeVrGs=s2000">
-    <title>InMotion I</title>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        -webkit-tap-highlight-color: transparent;
-        touch-action: manipulation;
-        font-family: Arial, sans-serif;
-      }
-      html, body {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        background: #000;
-      }
-      .main-wrapper {
-        width: 100%;
-        height: 100dvh;
-        position: relative;
-      }
-      #blocker {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: #000;
-        z-index: 999999;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-      }
-      .rotada {
-        transform: rotate(-90deg);
-        transform-origin: center;
-        width: 50%;
-      }
-      @media screen and (orientation: landscape) {
-        #blocker{
-          display: flex;
-        }
-      }
-      .p1 {
-        width: 100%;
-        height: 100%;
-        background: url("https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s3000") center/cover no-repeat;
-        color: #FFF;
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 1;
-        transition: opacity 0.6s ease;
-        z-index: 2;
-      }
-      nav {
-        position: absolute;
-        top: 1em;
-        right: 1em;
-        display: flex;
-        gap: 1em;
-        font-size: 0.7em;
-      }
-      nav a {
-        background: rgba(0,0,0,0.5);
-        padding: 0.5em 0.8em;
-        border-radius: 0.5em;
-        text-decoration: none;
-        color: #FFF;
-      }
-      .overlay {
-        position: absolute;
-        top: 42%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: rgba(0,0,0,0.45);
-        padding: 2em;
-        border-radius: 1em;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5em;
-      }
-      button {
-        padding: 1em 2em;
-        font-size: 0.7em;
-        border-radius: 0.5em;
-        border: none;
-        background: #FF0000;
-        color: #FFF;
-      }
-      .footer {
-        width: 100%;
-        position: absolute;
-        bottom: 1em;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 0.5em;
-        text-align: center;
-        opacity: 0.8;
-        color: #FFF;
-      }
-      .p2 {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        transition: opacity 0.6s ease;
-        z-index: 1;
-        pointer-events: none;
-      }
-      .p2.active {
-        opacity: 1;
-        pointer-events: auto;
-      }
-      .p1.fade-out {
-        opacity: 0;
-      }
-      .slider {
-        display: flex;
-        height: 100%;
-        transition: transform 0.4s ease;
-      }
-      .screen {
-        min-width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-      }
-      .membership {
-        flex-direction: column;
-        padding: 30px;
-        color: #FFF;
-        text-align: center;
-      }
-      .s, .g, .d {
-        background:url('https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s2000') center/cover no-repeat;
-      }
-      .card {
-        width: 100%;
-        padding: 30px;
-        border-radius: 20px;
-        background: rgba(0,0,0,0.25);
-        backdrop-filter: blur(8px);
-      }
-      .button-link {
-        display: block;
-        margin: 5% auto 0;
-        padding: 14px;
-        width: 75%;
-        font-size: 0.7em;
-        text-decoration: none;
-        background: #FF0000;
-        color: #FFF;
-        font-weight: bold;
-        border-radius: 12px;
-      }
-      .home-btn {
-        position: absolute;
-        bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
-        right: 20px;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background: #FF0000;
-        color: #FFF;
-        border: none;
-        font-weight: bold;
-        font-size: 1.2em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        z-index: 10;
-      }
-      #floatingMsg {
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #000;
-        color: #FF0000;
-        padding: 10px 20px;
-        border-radius: 10px;
-        font-size: 0.5em;
-        z-index: 999999;
-        display: none;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
-      }
-      .updateBox {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-        background: #FF0000;
-        color: #000;
-        padding: 20px 25px;
-        border-radius: 10px;
-        width: 70%;
-        max-width: 320px;
-        font-size: 0.6em;
-        text-align: center;
-        z-index: 9999999;
-      }
-      .updateBox .closeUpdate {
-        position: absolute;
-        top: 6px;
-        right: 10px;
-        font-weight: bold;
-        cursor: pointer;
-        font-size: 1em;
-      }
-      .overlay-img {
-        width: 60%;
-        max-width: 240px;
-      }
-      .img_private {
-        pointer-events: none;
-        touch-action: none; 
-      }
-      footer {
-        width: 100%;
-        text-align: center;
-        position:absolute;
-        bottom: calc(env(safe-area-inset-bottom) + 10px);
-        left:50%;
-        transform:translateX(-50%);
-      }
-      .w100 {
-        width: 100%;
-      }
-      .w50 {
-        width: 50%;
-      }
-      .w12e {
-        width: 12em;
-      }
-      .btn1 {
-        width: 12em;
-        border-radius: 12px;
-      }
+      * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; touch-action: manipulation; font-family: Arial, sans-serif; }
+      html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+      .main-wrapper { width: 100%; height: 100dvh; position: relative; }
+      #blocker { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 999999; align-items: center; justify-content: center; text-align: center; }
+      .rotada { transform: rotate(-90deg); transform-origin: center; width: 50%; }
+      @media screen and (orientation: landscape) { #blocker { display: flex; } }
+      .p1 { width: 100%; height: 100%; background: url("https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s3000") center/cover no-repeat; color: #FFF; position: absolute; top: 0; left: 0; opacity: 1; transition: opacity 0.6s ease; z-index: 2; }
+      nav { position: absolute; top: 1em; right: 1em; display: flex; gap: 1em; font-size: 0.7em; }
+      nav a { background: rgba(0,0,0,0.5); padding: 0.5em 0.8em; border-radius: 0.5em; text-decoration: none; color: #FFF; }
+      .overlay { position: absolute; top: 42%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.45); padding: 2em; border-radius: 1em; display: flex; flex-direction: column; align-items: center; gap: 1.5em; }
+      button { padding: 1em 2em; font-size: 0.7em; border-radius: 0.5em; border: none; background: #FF0000; color: #FFF; }
+      .footer { width: 100%; position: absolute; bottom: 1em; left: 50%; transform: translateX(-50%); font-size: 0.5em; text-align: center; opacity: 0.8; color: #FFF; }
+      .p2 { width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.6s ease; z-index: 1; pointer-events: none; }
+      .p2.active { opacity: 1; pointer-events: auto; }
+      .p1.fade-out { opacity: 0; }
+      .slider { display: flex; height: 100%; transition: transform 0.4s ease; }
+      .screen { min-width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; position: relative; }
+      .membership { flex-direction: column; padding: 30px; color: #FFF; text-align: center; }
+      .s, .g, .d { background:url('https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s2000') center/cover no-repeat; }
+      .card { width: 100%; padding: 30px; border-radius: 20px; background: rgba(0,0,0,0.25); backdrop-filter: blur(8px); }
+      .button-link { display: block; margin: 5% auto 0; padding: 14px; width: 75%; font-size: 0.7em; text-decoration: none; background: #FF0000; color: #FFF; font-weight: bold; border-radius: 12px; }
+      .home-btn { position: absolute; bottom: calc(env(safe-area-inset-bottom, 0px) + 20px); right: 20px; width: 60px; height: 60px; border-radius: 50%; background: #FF0000; color: #FFF; border: none; font-weight: bold; font-size: 1.2em; display: flex; align-items: center; justify-content: center; padding: 0; z-index: 10; }
+      #floatingMsg { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #000; color: #FF0000; padding: 10px 20px; border-radius: 10px; font-size: 0.5em; z-index: 999999; display: none; text-align: center; align-items: center; justify-content: center; }
+      .updateBox { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); background: #FF0000; color: #000; padding: 20px 25px; border-radius: 10px; width: 70%; max-width: 320px; font-size: 0.6em; text-align: center; z-index: 9999999; }
+      .updateBox .closeUpdate { position: absolute; top: 6px; right: 10px; font-weight: bold; cursor: pointer; font-size: 1em; }
+      .overlay-img { width: 60%; max-width: 240px; }
+      .img_private { pointer-events: none; touch-action: none; }
+      footer { width: 100%; text-align: center; position:absolute; bottom: calc(env(safe-area-inset-bottom) + 10px); left:50%; transform:translateX(-50%); }
+      .w100 { width: 100%; }
+      .w50 { width: 50%; }
+      .w12e { width: 12em; }
+      .btn1 { width: 12em; border-radius: 12px; }
     </style>
   </head>
   <body>
     <div id="updateNotice" class="updateBox">
       <div class="closeUpdate" id="closeUpdate"><i class="fa-solid fa-xmark"></i></div>
-      <img src="https://lh3.googleusercontent.com/d/1MMoaSxwNBnZVA_BaSZdcJJg3j28cYZar=s2000" class="w100">
+      <img src="https://lh3.googleusercontent.com/d/1MMoaSxwNBnZVA_BaSZdcJJg3j28cYZar=s2000" class="w100 img_private">
     </div>
     <div id="floatingMsg">Aún no disponible.</div>
     <div id="blocker">
-      <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" class="rotada">
+      <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" class="rotada img_private">
     </div>
     <div class="main-wrapper">
       <div class="p1" id="p1">
@@ -275,7 +61,7 @@
           <a href="https://intellysis-dev.github.io/inmotion1.github.io/tc.html" target="_blank">T&amp;C</a>
         </nav>
         <div class="overlay">
-          <img src="https://lh3.googleusercontent.com/d/1SROoTwpSUj3eRXodLVwlT66-j3gfT3DV=s3000" class="w12e">
+          <img src="https://lh3.googleusercontent.com/d/1SROoTwpSUj3eRXodLVwlT66-j3gfT3DV=s3000" class="w12e img_private">
           <button id="startBtn" class="btn1">Seleccionar plan</button>
         </div>
         <footer><img src="https://lh3.googleusercontent.com/d/18YSjkbc-8c0tAYAfk8gv8NRMx4O3DI8m=s2000" class="overlay-img img_private" alt="info-1.2"></footer>
