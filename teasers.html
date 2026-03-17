@@ -1,173 +1,38 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <title>InMotion/Teasers</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>InMotion/Teasers</title>
     <link rel="icon" href="https://lh3.googleusercontent.com/d/1ZVbqUh4gOAcn5pDp9lHpYkyM0UMeVrGs=s2000">
     <style>
-      html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-      }
-      .wrapper {
-        width: 100vw;
-        height: 100vh;
-        overflow-y: scroll;
-        scroll-snap-type: y mandatory;
-        -webkit-overflow-scrolling: touch;
-      }
-      .screen {
-        width: 100vw;
-        height: 100vh;
-        scroll-snap-align: start;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-image: url('https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s2000');
-        background-size: cover;
-        background-position: center;
-        position: relative;
-        text-align: center;
-      }
-      .top-nav {
-        position: fixed;
-        top: 10px;
-        left: 15px;
-        z-index: 9999;
-      }
-      .top-nav a {
-        color: red;
-        text-decoration: underline;
-        font-size: 12px;
-        font-family: Arial, sans-serif;
-      }
-      .content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-      }
-      .center-image {
-        max-width: 70%;
-        max-height: 50%;
-        object-fit: contain;
-      }
-      .play-button {
-        padding: 12px 22px;
-        font-size: 14px;
-        border: none;
-        background: #FF0000;
-        color: #FFF;
-        cursor: pointer;
-        border-radius: 6px;
-      }
-      .play-button:hover {
-        background: #CC0000;
-      }
-      #player {
-        display: none;
-      }
-      .w50 { 
-        width: 50%;
-      }
-      #blocker { 
-        display: none; 
-        height: 100vh; 
-        width: 100vw; 
-        background-color: #000; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-        text-align: center;
-      }
-      @media screen and (max-width: 2712px) { 
-        #app { 
-          display: block; 
-        } 
-        #blocker { 
-          display: none; 
-        }
-      }
-      @media screen and (min-width: 1220px) { 
-        #app { 
-          display: none;
-        }
-        #blocker { 
-          display: flex;
-        }
-      }
-      @media screen and (orientation: portrait) { 
-        #app { 
-          display: block;
-        }
-        #blocker {
-          display: none;
-        }
-      }
-      @media screen and (orientation: landscape) { 
-        #app { 
-          display: none;
-        }
-        #blocker {
-          display: flex;
-        }
-      }
-      .rotada { 
-        transform: rotate(-90deg); 
-        transform-origin: center; 
-        display: block;
-      }
-      @media screen and (orientation: landscape) { 
-        html, body {
-          margin: 0; 
-          padding: 0; 
-          overflow: hidden; 
-          width: 100vw;
-          height: 100vh; 
-        } 
-        #blocker.pagina {
-          position: fixed; 
-          top: 0; 
-          left: 0; 
-          width: 100vw; 
-          height: 100vh; 
-          z-index: 999999; 
-          background-size: cover; 
-          background-position: center; 
-          background-repeat: no-repeat; 
-          background-attachment: fixed;
-        }
-      }
-      .overlay-img {
-        width: 60%;
-        max-width: 240px;
-      }
-      .img_private {
-        pointer-events: none;
-        touch-action: none; 
-      }
-      footer {
-        width: 100%;
-        text-align: center;
-        position:absolute;
-        bottom: calc(env(safe-area-inset-bottom) + 10px);
-        left:50%;
-        transform:translateX(-50%);
-      }
-      .mb120 {
-        margin-bottom: 120px;
-      }
+      html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }
+      .wrapper { width: 100vw; height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; }
+      .screen { width: 100vw; height: 100vh; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; align-items: center; background-image: url('https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s2000'); background-size: cover; background-position: center; position: relative; text-align: center; }
+      .top-nav { position: fixed; top: 10px; left: 15px; z-index: 9999; }
+      .top-nav a { color: red; text-decoration: underline; font-size: 12px; }
+      .content { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px; }
+      .center-image { max-width: 70%; max-height: 50%; object-fit: contain; }
+      .play-button { padding: 12px 22px; font-size: 14px; border: none; background: #FF0000; color: #FFF; cursor: pointer; border-radius: 6px; }
+      .play-button:hover { background: #CC0000; }
+      #player { display: none; }
+      .w50 {  width: 50%; }
+      #blocker { display: none; height: 100vh; width: 100vw; background-color: #000; display: flex; align-items: center; justify-content: center; text-align: center; }
+      @media screen and (max-width: 2712px) { #app { display: block; } #blocker { display: none; } }
+      @media screen and (min-width: 1220px) { #app { display: none; } #blocker { display: flex; } }
+      @media screen and (orientation: portrait) { #app { display: block; } #blocker { display: none; } }
+      @media screen and (orientation: landscape) { #app { display: none; } #blocker { display: flex; } }
+      .rotada { transform: rotate(-90deg); transform-origin: center; display: block; }
+      @media screen and (orientation: landscape) { html, body { margin: 0;  padding: 0;  overflow: hidden;  width: 100vw; height: 100vh; } #blocker.pagina { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 999999; background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; } }
+      .overlay-img { width: 60%; max-width: 240px; }
+      .img_private { pointer-events: none; touch-action: none; }
+      footer { width: 100%; text-align: center; position: absolute; bottom: calc(env(safe-area-inset-bottom) + 10px); left: 50%; transform: translateX(-50%); }
+      .mb120 { margin-bottom: 120px; }
     </style>
   </head>
   <body>
     <div id="blocker" class="pagina">
-      <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" alt="error" class="rotada w50">
+      <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" alt="error" class="rotada w50 img_private">
     </div>
     <div class="wrapper">
       <!-- PAGINA 3 -->
