@@ -1,174 +1,37 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <title>InMotion/Info</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>InMotion/Info</title>
     <link rel="icon" href="https://lh3.googleusercontent.com/d/1ZVbqUh4gOAcn5pDp9lHpYkyM0UMeVrGs=s2000">
     <style>
-      html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-      }
-      .wrapper {
-        width: 100vw;
-        height: 100vh;
-        overflow-y: scroll;
-        scroll-snap-type: y mandatory;
-        -webkit-overflow-scrolling: touch;
-      }
-      .screen {
-        width: 100vw;
-        height: 100vh;
-        scroll-snap-align: start;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-image: url('https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s2000');
-        background-size: cover;
-        background-position: center;
-        position: relative;
-        text-align: center;
-      }
-      .top-nav {
-        position: fixed;
-        top: 10px;
-        left: 15px;
-        z-index: 9999;
-      }
-      .top-nav a {
-        color: #FF0000;
-        text-decoration: underline;
-        font-size: 12px;
-        font-family: Arial, sans-serif;
-      }
-      .w50 { 
-        width: 50%;
-      }
-      .mb100 {
-        margin-bottom: 100px;
-      }
-      .mb60 {
-        margin-bottom: 60px;
-      }
-      .mb40 {
-        margin-bottom: 40px;
-      }
-      #blocker { 
-        display: none; 
-        height: 100vh; 
-        width: 100vw; 
-        background-color: #000; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-        text-align: center;
-      }
-      @media screen and (max-width: 2712px) { 
-        #app { 
-          display: block; 
-        } 
-        #blocker { 
-          display: none; 
-        }
-      }
-      @media screen and (min-width: 1220px) { 
-        #app { 
-          display: none;
-        }
-        #blocker { 
-          display: flex;
-        }
-      }
-      @media screen and (orientation: portrait) { 
-        #app { 
-          display: block;
-        }
-        #blocker {
-          display: none;
-        }
-      }
-      @media screen and (orientation: landscape) { 
-        #app { 
-          display: none;
-        }
-        #blocker {
-          display: flex;
-        }
-      }
-      .rotada { 
-        transform: rotate(-90deg); 
-        transform-origin: center; 
-        display: block;
-      }
-      @media screen and (orientation: landscape) { 
-        html, body {
-          margin: 0; 
-          padding: 0; 
-          overflow: hidden; 
-          width: 100vw;
-          height: 100vh; 
-        } 
-        #blocker.pagina {
-          position: fixed; 
-          top: 0; 
-          left: 0; 
-          width: 100vw; 
-          height: 100vh; 
-          z-index: 999999; 
-          background-size: cover; 
-          background-position: center; 
-          background-repeat: no-repeat; 
-          background-attachment: fixed;
-        }
-      }
-      .video-wrapper {
-        width: 90%;
-        aspect-ratio: 9 / 16;
-      }
-      .video-wrapper iframe {
-        width: 90%;
-        height: 90%;
-        border: none;
-      }
-      .page-2 img {
-        width: 75%;
-        max-width: 300px;
-      }
-      .page-2 button {
-        padding: 14px 32px;
-        font-size: 12px;
-        border-radius: 30px;
-        border: none;
-        background-color: #FF0000;
-        color: #FFF;
-        cursor: pointer;
-      }
-      .overlay-img {
-        width: 60%;
-        max-width: 240px;
-      }
-      footer {
-        width: 100%;
-        text-align: center;
-        position:absolute;
-        bottom: calc(env(safe-area-inset-bottom) + 125px);
-        left:50%;
-        transform:translateX(-50%);
-      }
-      .img_private {
-        pointer-events: none;
-        touch-action: none;  
-      }
+      html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }
+      .wrapper { width: 100vw; height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; }
+      .screen { width: 100vw; height: 100vh; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; align-items: center; background-image: url('https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s2000'); background-size: cover; background-position: center; position: relative; text-align: center; }
+      .top-nav { position: fixed; top: 10px; left: 15px; z-index: 9999; }
+      .top-nav a { color: #FF0000; text-decoration: underline; font-size: 12px; font-family: Arial, sans-serif; }
+      .w50 { width: 50%; }
+      .mb100 { margin-bottom: 100px; }
+      .mb60 { margin-bottom: 60px; }
+      .mb40 { margin-bottom: 40px; }
+      #blocker { display: none; height: 100vh; width: 100vw; background-color: #000; display: flex; align-items: center; justify-content: center; text-align: center; }
+      @media screen and (max-width: 2712px) { #app { display: block; } #blocker { display: none; } } @media screen and (min-width: 1220px) { #app { display: none; } #blocker { display: flex; } }
+      @media screen and (orientation: portrait) { #app { display: block; } #blocker { display: none; } } @media screen and (orientation: landscape) { #app { display: none; } #blocker { display: flex; } }
+      .rotada { transform: rotate(-90deg); transform-origin: center; display: block; }
+      @media screen and (orientation: landscape) { html, body { margin: 0; padding: 0; overflow: hidden; width: 100vw; height: 100vh; } #blocker.pagina { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 999999; background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; } }
+      .video-wrapper { width: 90%; aspect-ratio: 9 / 16; }
+      .video-wrapper iframe { width: 90%; height: 90%; border: none; }
+      .page-2 img { width: 75%; max-width: 300px; }
+      .page-2 button { padding: 14px 32px; font-size: 12px; border-radius: 30px; border: none; background-color: #FF0000; color: #FFF; cursor: pointer; }
+      .overlay-img { width: 60%; max-width: 240px; }
+      footer { width: 100%; text-align: center; position:absolute; bottom: calc(env(safe-area-inset-bottom) + 125px); left:50%; transform:translateX(-50%); }
+      .img_private { pointer-events: none; touch-action: none; }
     </style>
   </head>
   <body>
     <div id="blocker">
-      <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" alt="error" class="rotada w50">
+      <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" alt="error" class="rotada w50 img_private">
     </div>
     <div class="wrapper">
       <!-- PAGINA 1 -->
@@ -178,10 +41,7 @@
         </nav>
         <div class="video-wrapper mb60">
           <iframe
-            id="youtubePlayer"
-            src="https://www.youtube.com/embed/videoseries?list=PLTsg_kaNc_ZZT6rK5kmtSBRgMvIBVby3U&controls=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
-            allow="autoplay; encrypted-media"
-            allowfullscreen>
+            id="youtubePlayer" src="https://www.youtube.com/embed/videoseries?list=PLTsg_kaNc_ZZT6rK5kmtSBRgMvIBVby3U&controls=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1" allow="autoplay; encrypted-media" allowfullscreen>
           </iframe>
         </div>
         <footer><img src="https://lh3.googleusercontent.com/d/1TGx3ob_bI6BYZqjHpBGW9-rx3FObFY0N=s2000" class="overlay-img img_private" alt="info-1.1"></footer>
