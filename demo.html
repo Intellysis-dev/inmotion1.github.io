@@ -1,452 +1,86 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <title>InMotion1/Demo</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="icon" href="https://lh3.googleusercontent.com/d/1ZVbqUh4gOAcn5pDp9lHpYkyM0UMeVrGs=s2000">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <meta name="copyright" content="© NVIV 2025. Todos los derechos reservados.">
-    <title>InMotion1/Demo</title>
     <style>
-      html, body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        width: 100vw;
-        height: 100vh;
-        font-family: Quicksand;
-        background-color: #111;
-        font-size: 15px;
-        background-image: url('https://lh3.googleusercontent.com/d/1vj5zBMZduwk2uFZVLnamB0KlfRYPfA30=s3000');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-      }
-      * { 
-        box-sizing: border-box;
-      }
-      div {
-        text-align: center;
-      }
-      .fullscreen {
-        width: 100vw;
-        height: 100vh;
-        aspect-ratio: 9 / 16;
-        position: relative;
-        overflow: hidden;
-      }
-      .center {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .hidden {
-        display: none !important;
-      }
-      #parte1, #parte2, #parte3 {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        transition: opacity 1s ease, transform 1s ease;
-      }
-      #boton1 {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        background-color: #000;
-        border: none;
-        box-shadow: 0 0 20px 5px #FFF;
-        animation: pulse 3s infinite;
-      }
-      .overlay-img {
-        width: 100%;
-        max-width: 240px;
-      }
-      .overlay-img2 {
-        width: 80%;
-      }
-      .overlay-img3 {
-        width: 30%;
-        max-width: 240px;
-      }
-      .overlay-img4 {
-        max-width: 120px;
-      }
-      @keyframes pulse {
-        0% { box-shadow: 0 0 10px #FFF; }
-        50% { box-shadow: 0 0 50px #FFF; }
-        100% { box-shadow: 0 0 10px #FFF; }
-      }
-      #botones-estilos {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 15px;
-        width: 100vw;
-        height: auto;
-        padding: 0 10px;
-        justify-items: center;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-      .estilo-btn {
-        width: 110px;
-        height: 60px;
-        font-size: 2em;
-        color: #FFF;
-        border: none;
-        cursor: pointer;
-        border-radius: 10%;
-      }
-      #parte3 {
-        overflow: hidden;
-      }
-      [data-autor="NVIV"]::after {
-        content: " ";
-        font-size: 0;
-        visibility: hidden;
-        position: absolute;
-      }
-      .pagina-principal {
-        width: 100vw;
-        height: 100vh;
-        flex-shrink: 0;
-        display: flex;
-        flex-direction: column;
-        overflow-y: scroll;
-        scroll-snap-type: y mandatory;
-      }
-      .pagina-secundaria {
-        width: 100vw;
-        height: 100vh;
-        flex-shrink: 0;
-        scroll-snap-align: start;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        position: relative;
-      }
-      .texto-secundario {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: #FFF;
-        text-shadow: 1px 1px #000;
-        text-align: center;
-        display: none;
-        font-size: 1.1em;
-        width: 80%;
-      }
-      #control-stack{
-        position:fixed;
-        right:20px;
-        bottom:20px;
-        display:flex;
-        flex-direction:column;
-        gap:15px;
-      }
-      .boton-control{
-        width:60px;
-        height:60px;
-        border-radius:50%;
-        border:none;
-        font-size:1.4em;
-        cursor:pointer;
-        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-      }
-      .nombre-cancion {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        text-align: center;
-      }
-      .pulsante-texto {
-        text-align: center;
-        font-size: 3em;
-        color: #FFF;
-        margin-top: 100px;
-        margin-bottom: 10px;
-        animation: pulseText 4s infinite;
-      }
-      @keyframes pulseText {
-        0% { text-shadow: 0 0 5px #FFF; }
-        50% { text-shadow: 0 0 25px #FFF; }
-        100% { text-shadow: 0 0 5px #FFF; }
-      }
-      .pg-info {
-        text-align: center;
-        max-width: 100%;
-      }
-      .profile-photo {
-        width: 40vw;
-        max-width: 300px;
-        border-radius: 50%;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        transition: transform 0.3s ease;
-        cursor: pointer;
-      }
-      .profile-photo:active {
-        transform: scale(0.95);
-      }
-      .profile-name {
-        font-size: 1em;
-        margin: 1rem 0 0.5rem;
-        color: #FFF;
-        font-weight: bold;
-      }
-      .pg-desc {
-        font-size: 0.8em;
-        color: #666;
-        padding: 0 1rem;
-      }
-      .img_private {
-        pointer-events: none;
-        touch-action: none;  
-      }
-      .links {
-        width: 95%;
-        height: 10em;
-        background-color: #000;
-        color: #FFF;
-        background-repeat: no-repeat;
-        background-size: fixed;
-        background-position: center;
-        background-size: contain;
-        cursor: pointer;
-      }
-      .w50 { 
-        width: 50%;
-      }
-      #blocker { 
-        display: none; 
-        height: 100vh; 
-        width: 100vw; 
-        background-color: #000; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-        text-align: center;
-      }
-      @media screen and (max-width: 2712px) { 
-        #app { 
-          display: block; 
-        } 
-        #blocker { 
-          display: none; 
-        }
-      }
-      @media screen and (min-width: 1220px) { 
-        #app { 
-          display: none;
-        }
-        #blocker { 
-          display: flex;
-        }
-      }
-      @media screen and (orientation: portrait) { 
-        #app { 
-          display: block;
-        }
-        #blocker {
-          display: none;
-        }
-      }
-      @media screen and (orientation: landscape) { 
-        #app { 
-          display: none;
-        }
-        #blocker {
-          display: flex;
-        }
-      }
-      .rotada { 
-        transform: rotate(-90deg); 
-        transform-origin: center; 
-        display: block;
-      }
-      @media screen and (orientation: landscape) { 
-        html, body {
-          margin: 0; 
-          padding: 0; 
-          overflow: hidden; 
-          width: 100vw;
-          height: 100vh; 
-        }
-        #blocker.pagina {
-          position: fixed; 
-          top: 0; 
-          left: 0; 
-          width: 100vw; 
-          height: 100vh; 
-          z-index: 999999; 
-          background-size: cover; 
-          background-position: center; 
-          background-repeat: no-repeat; 
-          background-attachment: fixed;
-        } 
-      }
-      mt35 {
-        margin-top: 2.3em;
-      }
-      .btn-glow {
-        cursor: pointer;
-        animation: pulseBtn 2s infinite;
-      }
-      @keyframes pulseBtn {
-        0% { text-shadow: 0 0 6px #FFF; }
-        50% { text-shadow: 0 0 15px #FFF; }
-        100% { text-shadow: 0 0 6px #FFF; }
-      }
-      .contenedor {
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .grid-botones {
-        display: grid;
-        grid-template-columns: repeat(3, auto);
-        grid-gap: 12px;
-        justify-items: center;
-      }
-      .boton {
-        width: 6rem;
-        height: 4rem;
-        background-color: #262626;
-        border: none;
-        padding: 0;
-        cursor: pointer;
-        background-size: cover;
-        background-position: center;
-      }
-      .boton-link {
-        display: inline-block;
-      }
-      .mt2 {
-        margin-top: 2em;
-      }
-      .boton-compra {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 12px 24px;
-        font-size: 14px;
-        background-color: #FF0000;
-        color: #FFF;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-      footer {
-        width: 100%;
-        text-align: center;
-        position:absolute;
-        bottom: calc(env(safe-area-inset-bottom) + 10px);
-        left:50%;
-        transform:translateX(-50%);
-      }
-      .w100 {
-        width: 100%;
-      }
-      .b1 {
-        background-image: url('https://lh3.googleusercontent.com/d/1NdXmAeIZrelfhPacrjN8iBgFT6Jg5uGS=s3000'); 
-        background-repeat: no-repeat; 
-        background-size: cover; 
-        background-position: center; 
-        background-attachment: fixed;
-      }
-      .b2 {
-        background-image: url('https://lh3.googleusercontent.com/d/16Bq38k73RNYH54WwmyQ9wAUa8SaVkYK-=s3000');
-        background-repeat: no-repeat;
-        background-size: cover; 
-        background-position: center;
-        background-attachment: fixed;
-      }
-      .b3 {
-        background-image: url('https://lh3.googleusercontent.com/d/1cVLbDhKEkKoUgScDFaXcyr4YDe-10rcM=s2000');
-        background-repeat: no-repeat;
-        background-size: cover; 
-        background-position: center;
-        background-attachment: fixed;
-      }
-      .red {
-        background-color: #FF0000;
-      }
-      .black {
-        background-color: #0F0F0F;
-      }
-      .gray {
-        background-color: #A6A6A6;
-      }
-      .white {
-        background-color: #FFFFFF;
-        color: #000;
-      }
-      .pink {
-        background-color: #FFCCFF;
-      }
-      .blue {
-        background-color: #00B0F0;
-      }
-      .orange {
-        background-color: #FF9933;
-      }
-      .green {
-        background-color: #00B050;
-      }
-      .yellow {
-        background-color: #FFFF00;
-        color: #000;
-      }
-      .black2 {
-        background-color: #262626;
-      }
-      .close-btn {
-        background-color: #262626;
-        color: #FFF;
-        width: 110px;
-        height: 60px;
-        font-size: 2em;
-        border: none;
-        border-radius: 10%;
-      }
-      .pg-config {
-        display:flex;
-        width: 100%;
-        height:100%;
-        overflow-x: scroll;
-        scroll-snap-type: x mandatory;
-      }
-      .nodisp {
-        display: none;
-      }
-      .mb2e {
-        margin-bottom: 2em;
-      }
-      .mb1e {
-        margin-bottom: 1em;
-      }
-      .mb20e {
-        margin-bottom: 20em;
-      }
-      .mb600 {
-        margin-bottom: 600px;
-      }
+      html, body { margin: 0; padding: 0; overflow: hidden; width: 100vw; height: 100vh; background-color: #111; font-size: 15px; background-image: url('https://lh3.googleusercontent.com/d/1vj5zBMZduwk2uFZVLnamB0KlfRYPfA30=s3000'); background-repeat: no-repeat; background-size: cover; background-position: center; background-attachment: fixed; }
+      * { box-sizing: border-box; }
+      div { text-align: center; }
+      .fullscreen { width: 100vw; height: 100vh; aspect-ratio: 9 / 16; position: relative; overflow: hidden; }
+      .center { display: flex; align-items: center; justify-content: center; }
+      .hidden { display: none !important; }
+      #parte1, #parte2, #parte3 { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transition: opacity 1s ease, transform 1s ease; }
+      #boton1 { width: 120px; height: 120px; border-radius: 50%; background-color: #000; border: none; box-shadow: 0 0 20px 5px #FFF; animation: pulse 3s infinite; }
+      .overlay-img { width: 100%; max-width: 240px; }
+      .overlay-img2 { width: 80%; }
+      .overlay-img3 { width: 30%; max-width: 240px; }
+      .overlay-img4 { max-width: 120px; }
+      @keyframes pulse { 0% { box-shadow: 0 0 10px #FFF; } 50% { box-shadow: 0 0 50px #FFF; } 100% { box-shadow: 0 0 10px #FFF; } }
+      #botones-estilos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; width: 100vw; height: auto; padding: 0 10px; justify-items: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+      .estilo-btn { width: 110px; height: 60px; font-size: 2em; color: #FFF; border: none; cursor: pointer; border-radius: 10%; }
+      #parte3 { overflow: hidden; }
+      [data-autor="NVIV"]::after { content: " "; font-size: 0; visibility: hidden; position: absolute; }
+      .pagina-principal { width: 100vw; height: 100vh; flex-shrink: 0; display: flex; flex-direction: column; overflow-y: scroll; scroll-snap-type: y mandatory; }
+      .pagina-secundaria { width: 100vw; height: 100vh; flex-shrink: 0; scroll-snap-align: start; background-size: cover; background-position: center; background-repeat: no-repeat; position: relative; }
+      .texto-secundario { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #FFF; text-shadow: 1px 1px #000; text-align: center; display: none; font-size: 1.1em; width: 80%; }
+      #control-stack { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 15px; }
+      .boton-control { width: 60px; height: 60px; border-radius: 50%; border: none; font-size: 1.4em; cursor: pointer; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); }
+      .nombre-cancion { position: fixed; bottom: 0; width: 100%; text-align: center; }
+      .pulsante-texto { text-align: center; font-size: 3em; color: #FFF; margin-top: 100px; margin-bottom: 10px; animation: pulseText 4s infinite; }
+      @keyframes pulseText { 0% { text-shadow: 0 0 5px #FFF; } 50% { text-shadow: 0 0 25px #FFF; } 100% { text-shadow: 0 0 5px #FFF; } }
+      .pg-info { text-align: center; max-width: 100%; }
+      .pg-desc { font-size: 0.8em; color: #666; padding: 0 1rem; }
+      .img_private { pointer-events: none; touch-action: none; }
+      .links { width: 95%; height: 10em; background-color: #000; color: #FFF; background-repeat: no-repeat; background-size: fixed; background-position: center; background-size: contain; cursor: pointer; }
+      .w50 { width: 50%; }
+      #blocker { display: none; height: 100vh; width: 100vw;  background-color: #000; display: flex; align-items: center; justify-content: center; text-align: center; }
+      @media screen and (max-width: 2712px) { #app { display: block; } #blocker { display: none; } }
+      @media screen and (min-width: 1220px) { #app { display: none; } #blocker { display: flex; } }
+      @media screen and (orientation: portrait) { #app { display: block; } #blocker { display: none; } }
+      @media screen and (orientation: landscape) { #app { display: none; } #blocker { display: flex; } }
+      .rotada { transform: rotate(-90deg); transform-origin: center; display: block; }
+      @media screen and (orientation: landscape) { html, body { margin: 0;  padding: 0;  overflow: hidden;  width: 100vw; height: 100vh; } #blocker.pagina { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 999999; background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; } }
+      mt35 { margin-top: 2.3em; }
+      .btn-glow { cursor: pointer; animation: pulseBtn 2s infinite; }
+      @keyframes pulseBtn { 0% { text-shadow: 0 0 6px #FFF; } 50% { text-shadow: 0 0 15px #FFF; } 100% { text-shadow: 0 0 6px #FFF; } }
+      .contenedor { width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; }
+      .grid-botones { display: grid; grid-template-columns: repeat(3, auto); grid-gap: 12px; justify-items: center; }
+      .boton { width: 6rem; height: 4rem; background-color: #262626; border: none; padding: 0; cursor: pointer; background-size: cover; background-position: center; }
+      .boton-link { display: inline-block; }
+      .mt2 { margin-top: 2em; }
+      .boton-compra { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 12px 24px; font-size: 14px; background-color: #FF0000; color: #FFF; border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.3s ease; }
+      footer { width: 100%; text-align: center; position: absolute; bottom: calc(env(safe-area-inset-bottom) + 10px); left: 50%; transform: translateX(-50%); }
+      .w100 { width: 100%; }
+      .b1 { background-image: url('https://lh3.googleusercontent.com/d/1NdXmAeIZrelfhPacrjN8iBgFT6Jg5uGS=s3000');  background-repeat: no-repeat;  background-size: cover;  background-position: center;  background-attachment: fixed; }
+      .b2 { background-image: url('https://lh3.googleusercontent.com/d/16Bq38k73RNYH54WwmyQ9wAUa8SaVkYK-=s3000'); background-repeat: no-repeat; background-size: cover;  background-position: center; background-attachment: fixed; }
+      .b3 { background-image: url('https://lh3.googleusercontent.com/d/1cVLbDhKEkKoUgScDFaXcyr4YDe-10rcM=s2000'); background-repeat: no-repeat; background-size: cover;  background-position: center; background-attachment: fixed; }
+      .red { background-color: #FF0000; }
+      .black { background-color: #0F0F0F; }
+      .gray { background-color: #A6A6A6; }
+      .white { background-color: #FFFFFF; color: #000; }
+      .pink { background-color: #FFCCFF; }
+      .blue { background-color: #00B0F0; }
+      .orange { background-color: #FF9933; }
+      .green { background-color: #00B050; }
+      .yellow { background-color: #FFFF00; color: #000; }
+      .black2 { background-color: #262626; }
+      .close-btn { background-color: #262626; color: #FFF; width: 110px; height: 60px; font-size: 2em; border: none; border-radius: 10%; }
+      .pg-config { display:flex; width: 100%; height:100%; overflow-x: scroll; scroll-snap-type: x mandatory; }
+      .nodisp { display: none; }
+      .mb2e { margin-bottom: 2em; }
+      .mb1e { margin-bottom: 1em; }
+      .mb20e { margin-bottom: 20em; }
+      .mb600 { margin-bottom: 600px; }
     </style>
   </head>
   <body>
     <div id="blocker" class="pagina">
-      <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" alt="error" class="rotada w50">
+      <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" alt="error" class="rotada w50 img_private">
     </div>
     <div data-autor="NVIV">
       <div id="parte1" class="fullscreen center b1">
@@ -812,8 +446,8 @@
                 <img src="https://lh3.googleusercontent.com/d/19ys5AxwieUpi--Hs5hZSAlAR3DPaivrJ=s2000" class="overlay-img3 mt2" alt="info-title">
               </div>
               <div class="pg-desc img_private mb2e">
-                <img src="https://lh3.googleusercontent.com/d/1GgHXVx7ckqaMQpwvYEnfLir1-nScR1MQ=s2000" class="w100 mb1e" alt="info-1">
-                <img src="https://lh3.googleusercontent.com/d/1py9bEa_MYjJmlis3PADrTsEQMmzPN3l1=s2000" class="w100 mb20e" alt="info-2">
+                <img src="https://lh3.googleusercontent.com/d/1tYZacylho_7bwQ3ZYFwxpnG_5-slaLRr=s2000" class="w100 mb1e" alt="info-1">
+                <img src="https://lh3.googleusercontent.com/d/1WrNSFx4Hz5f_HrOkVRLpGfI0oxfs0ySm=s2000" class="w100 mb20e" alt="info-2">
               </div>
             </div>
           </div>
@@ -821,10 +455,10 @@
           <div class="pagina-principal nodisp b3" data-index="11">
             <div class="pg-info">
               <div>
-                <img src="https://lh3.googleusercontent.com/d/1HbkWaRFEah2vnDmGZJszDpZ35DBXWDrt=s2000" class="overlay-img3 mt2" alt="contact-title">
+                <img src="https://lh3.googleusercontent.com/d/1HbkWaRFEah2vnDmGZJszDpZ35DBXWDrt=s2000" class="overlay-img3 img_private mt2" alt="contact-title">
               </div>
               <div class="pg-desc">
-                <img src="https://lh3.googleusercontent.com/d/1jGPVDBG1egv-VmSJ2eJQW96AQgPr6rDy=s2000" class="w100 mb1e img_private" alt="contact-info">
+                <img src="https://lh3.googleusercontent.com/d/1quMXhVNhr0pw9Lu5sUTQe0OD131TqYZL=s2000" class="w100 mb1e img_private" alt="contact-info">
                 <div class="contenedor">
                   <div class="grid-botones">
                     <a class="boton-link" href="https://t.me/+FtH5vBZmJns0MTJh" target="_blank">
