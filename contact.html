@@ -99,28 +99,57 @@
           background-attachment: fixed;
         } 
       }
+      .nav-sp {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+      }
+      .nav-st {
+        color: #FF0000;
+        text-decoration: none;
+        font-size: 12px;
+      }
+      .email-sp {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        text-align: center;
+      }
+      .p-st {
+        margin: 40px 0;
+      }
+      .btn-st {
+        color: #FF0000;
+        background: rgba(0,0,0,0.6);
+        border: none;
+        font-size: 14px;
+        cursor: pointer;
+        padding: 10px 20px;
+        border-radius: 8px;
+      }
     </style>
   </head>
   <body>
     <div id="blocker" class="pagina">
       <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" alt="error" class="rotada w50">
     </div>
-    <div style="position:fixed; top:50%; left:50%; transform:translate(-50%,-60%); text-align:center; width:100%;">
-      <p style="margin:20px 0 10px 0; font-size:22px;">
-        <a href="mailto:inmotion.contact.info@gmail.com" style="color:#FF0000; text-decoration:none;">
-          Envía un correo
-        </a>
-      </p>
-      <p style="margin:10px 0 0 0; font-size:22px;">
-        <a href="https://t.me/+FtH5vBZmJns0MTJh" target="_blank" style="color:#FF0000; text-decoration:none;">
-          Únete al grupo
-        </a>
-      </p>
-    </div>
-    <div style="position:fixed; bottom:40px; left:50%; transform:translateX(-50%); text-align:center; width:100%;">
-      <a href="https://intellysis-dev.github.io/inmotion1.github.io/index.html" style="color:#FF0000; text-decoration:none; font-size:10px;">
+    <nav class="nav-sp">
+      <a href="https://intellysis-dev.github.io/inmotion1.github.io/index.html" class="nav-st">
         <ins>Ir al Inicio</ins>
       </a>
+    </nav>
+    <div class="email-sp">
+      <p class="p-st">
+        <button onclick="window.location.href='mailto:inmotion.contact.info@gmail.com'" class="btn-st">
+          Envía un correo
+        </button>
+      </p>
+      <p style="p-st">
+        <button onclick="window.open('https://t.me/+FtH5vBZmJns0MTJh','_blank')" class="btn-st">
+          Únete al grupo <br> (Telegram)
+        </button>
+      </p>
     </div>
   </body>
 </html>
