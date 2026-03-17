@@ -30,9 +30,7 @@
         margin-top: 40px;
         padding: 15px 30px;
         font-size: 3vw;
-        background-color: #000;
         color: #FF0000;
-        border-radius: 12px;
         text-decoration: none;
         transition: background-color 0.3s;
         touch-action: manipulation;
@@ -108,19 +106,45 @@
           background-attachment: fixed;
         } 
       }
+      .nav-sp {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        font-size: 12px;
+      }
+      .overlay-img {
+        width: 60%;
+        max-width: 240px;
+      }
+      .img_private {
+        pointer-events: none;
+        touch-action: none; 
+      }
+      footer {
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        bottom: calc(env(safe-area-inset-bottom) + 10px);
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .mb-100 {
+        margin-bottom: 100px;
+      }
     </style>
   </head>
   <body>
-    <div id="blocker" class="pagina">
-      <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" alt="error" class="rotada w50">
-    </div>
-    <div class="contenedor">
-      <img src="https://lh3.googleusercontent.com/d/1brEthXMLWbYHxWhtLh8xJ8wQ57NRc_3-=s2000" alt="faq">
+    <nav class="nav-sp">
       <a href="https://intellysis-dev.github.io/inmotion1.github.io/index.html">
         <ins>Ir al Inicio</ins>
       </a>
+    </nav>
+    <div id="blocker" class="pagina img_private">
+      <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" alt="error" class="rotada w50">
     </div>
+    <div class="contenedor img_private mb-100">
+      <img src="https://lh3.googleusercontent.com/d/1ffIIgUh7ZIF0x874269IPxCaXh3LyCuX=s2000" alt="faq">
+    </div>
+    <footer><img src="https://lh3.googleusercontent.com/d/18YSjkbc-8c0tAYAfk8gv8NRMx4O3DI8m=s2000" class="overlay-img img_private" alt="info-1.2"></footer>
   </body>
 </html>
-
-
