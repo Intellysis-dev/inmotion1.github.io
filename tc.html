@@ -1,110 +1,45 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <title>InMotion/T&C</title>
+    <title>InMotion1/TC</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://lh3.googleusercontent.com/d/1ZVbqUh4gOAcn5pDp9lHpYkyM0UMeVrGs=s2000">
     <style>
-      body {
-        margin: 0;
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        background: url('https://lh3.googleusercontent.com/d/1VtUSM0mKw5myQuThlGD-O2-_g5NtVwWo=s3000') no-repeat center center;
-        background-size: cover;
-      }
-      a {
-        display: inline-block;
-        margin-bottom: 40px;
-        padding: 15px 30px;
-        font-size: 3vw;
-        background-color: #000;
-        color: #FF0000;
-        border-radius: 12px;
-        text-decoration: none;
-        transition: background-color 0.3s;
-        touch-action: manipulation;
-      }
-      .w50 { 
-        width: 50%;
-      }
-      #blocker { 
-        display: none; 
-        height: 100vh; 
-        width: 100vw; 
-        background-color: #000; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-        text-align: center;
-      }
-      @media screen and (max-width: 2712px) { 
-        #app { 
-          display: block; 
-        } 
-        #blocker { 
-          display: none; 
-        }
-      }
-      @media screen and (min-width: 1220px) { 
-        #app { 
-          display: none;
-        }
-        #blocker { 
-          display: flex;
-        }
-      }
-      @media screen and (orientation: portrait) { 
-        #app { 
-          display: block;
-        }
-        #blocker {
-          display: none;
-        }
-      }
-      @media screen and (orientation: landscape) { 
-        #app { 
-          display: none;
-        }
-        #blocker {
-          display: flex;
-        }
-      }
-      .rotada { 
-        transform: rotate(-90deg); 
-        transform-origin: center; 
-        display: block;
-      }
-      @media screen and (orientation: landscape) {
-        html, body {
-          margin: 0; 
-          padding: 0; 
-          overflow: hidden; 
-          width: 100vw;
-          height: 100vh; 
-        } 
-        #blocker.pagina {
-          position: fixed; 
-          top: 0; 
-          left: 0; 
-          width: 100vw; 
-          height: 100vh; 
-          z-index: 999999; 
-          background-size: cover; 
-          background-position: center; 
-          background-repeat: no-repeat; 
-          background-attachment: fixed;
-        } 
-      }
+      body { margin: 0; width: 100vw; height: auto; display: block; background: url('https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s3000') no-repeat center center; background-size: cover; overflow-y: auto; }
+      .contenedor { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
+      .contenedor img { width: 80%; max-width: 600px; }
+      .contenedor img:first-child { margin-top: 70px; }
+      a { margin-top: 40px; padding: 15px 30px; font-size: 3vw; color: #FF0000; text-decoration: none; transition: background-color 0.3s; touch-action: manipulation; font-family: Arial, sans-serif; }
+      .w50 { width: 50%; }
+      #blocker { display: none;  height: 100vh;  width: 100vw;  background-color: #000;  display: flex;  align-items: center;  justify-content: center;  text-align: center; }
+      @media screen and (max-width: 2712px) { #app { display: block; } #blocker { display: none; } }
+      @media screen and (min-width: 1220px) { #app { display: none; } #blocker { display: flex; } }
+      @media screen and (orientation: portrait) { #app { display: block; } #blocker { display: none; } }
+      @media screen and (orientation: landscape) { #app { display: none; } #blocker { display: flex; } }
+      .rotada { transform: rotate(-90deg); transform-origin: center; display: block; }
+      @media screen and (orientation: landscape) { html, body { margin: 0;  padding: 0;  overflow: hidden;  width: 100vw; height: 100vh; } #blocker.pagina { position: fixed;  top: 0;  left: 0;  width: 100vw;  height: 100vh;  z-index: 999999;  background-size: cover;  background-position: center;  background-repeat: no-repeat;  background-attachment: fixed; } }
+      .nav-sp { position: fixed; top: 10px; left: 10px; font-size: 12px; }
+      .overlay-img { width: 60%; max-width: 240px; }
+      .img_private { pointer-events: none; touch-action: none; }
+      footer { width: 100%; text-align: center; position: static; transform: none; margin-bottom: 20px; }
+      .mb-100 { margin-bottom: 100px; }
     </style>
   </head>
   <body>
-    <div id="blocker" class="pagina">
-      <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" alt="error" class="rotada w50">
+    <nav class="nav-sp">
+      <a href="https://intellysis-dev.github.io/inmotion1.github.io/index.html">
+        <ins>Ir al Inicio</ins>
+      </a>
+    </nav>
+    <div id="blocker" class="pagina img_private">
+      <img src="https://lh3.googleusercontent.com/d/1m-6ccqOxpkutIDJqFz5474gwU59P7VV-=s2000" alt="error" class="rotada w50 img_private">
     </div>
-    <a href="https://intellysis-dev.github.io/inmotion1.github.io/index.html"><ins>Ir al Inicio</ins></a>
+    <div class="contenedor img_private mb-100">
+      <img src="https://lh3.googleusercontent.com/d/17vAWK87yen5XDM0llmamoW6TpHGngiPt=s2000" alt="tc-1">
+      <img src="https://lh3.googleusercontent.com/d/1w7fePLBr9409fhVRm9QGhQZ7ipSpvfuO=s2000" alt="tc-2">
+      <img src="https://lh3.googleusercontent.com/d/1vv000Qbg6s95R-zZijb-VFAsGJYiWgFL=s2000" alt="tc-3">
+    </div>
+    <footer><img src="https://lh3.googleusercontent.com/d/18YSjkbc-8c0tAYAfk8gv8NRMx4O3DI8m=s2000" class="overlay-img img_private" alt="info-1.2"></footer>
   </body>
 </html>
