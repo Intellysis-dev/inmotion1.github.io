@@ -2,7 +2,7 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>reg</title>
     <style>
       body { margin: 0; background: #000; color: #FF0000; display: flex; justify-content: center; align-items: center; height: auto; font-family: Arial, sans-serif; }
       .wrapper { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; }
@@ -28,7 +28,7 @@
       function decodeBase64(str) {
         return atob(str).split(",");
       }
-      const listaS_base64 = "dXNlcjFAZW1haWwuY29tLHVzZXIyQGVtYWlsLmNvbSx1c2VyM0BlbWFpbC5jb20=";
+      const listaS_base64 = "YWxhbjI1MjZAZ21haWwuY29tLHVzZXIxQGVtYWlsLmNvbSx1c2VyMkBlbWFpbC5jb20sdXNlcjNAZW1haWwuY29t=";
       const listaG_base64 = "dXNlcjAxQGVtYWlsLmNvbSx1c2VyMDJAZW1haWwuY29tLHVzZXIwM0BlbWFpbC5jb20=";
       const listaD_base64 = "dXNlcjAwMUBlbWFpbC5jb20sdXNlcjAwMkBlbWFpbC5jb20sdXNlcjAwM0BlbWFpbC5jb20=";
       const listaS = decodeBase64(listaS_base64);
@@ -48,7 +48,7 @@
         } else if (listaD.includes(emailNormalizado)) {
           window.location.href = "https://intellysis-dev.github.io/inmotion1.github.io/dsfd84.html";
         } else {
-          document.getElementById("msg").textContent = "Correo electrónico no autorizado. Ponte en contacto con el desarrollador para acceder correctamente.";
+          document.getElementById("msg").textContent = "Correo electrónico no autorizado";
         }
       })();
     </script>
