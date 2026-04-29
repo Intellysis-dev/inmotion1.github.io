@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reg</title>
+    <style>
+      body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; }
+      .text { color: #FF0000; font-size: 12px; font-family: Arial; }
+      .dots::after { content: ""; animation: dots 1.5s infinite; }
+      @keyframes dots { 0% { content: ""; } 33% { content: "."; } 66% { content: ".."; } 100% { content: "..."; } }
+    </style>
+  </head>
+  <body>
+    <div class="text">Validando Información<span class="dots"></span></div>
+    <script>
+      if (!sessionStorage.getItem("token")) {
+        document.body.innerHTML = "";
+        throw new Error("Acceso inválido");
+      }
+      setInterval(() => {
+        if (window.outerWidth - window.innerWidth > 100) {
+          document.body.innerHTML = "";
+        }
+      }, 1000);
+      document.addEventListener("contextmenu", e => e.preventDefault());
+      async function hashEmail(email) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(email);
+        const hash = await crypto.subtle.digest("SHA-256", data);
+        return Array.from(new Uint8Array(hash))
+          .map(b => b.toString(16).padStart(2, "0"))
+          .join("");
+      }
+      const listaS = atob("czFAbWFpbC5jb20sczJAbWFpbC5jb20sczNAbWFpbC5jb20sczRAbWFpbC5jb20sczVAbWFpbC5jb20sczZAbWFpbC5jb20sczdAbWFpbC5jb20sczhAbWFpbC5jb20sczlAbWFpbC5jb20sczEwQG1haWwuY29tLHMxMUBtYWlsLmNvbSxzMTJAbWFpbC5jb20sczEzQG1haWwuY29tLHMxNEBtYWlsLmNvbSxzMTVAbWFpbC5jb20sczE2QG1haWwuY29tLHMxN0BtYWlsLmNvbSxzMThAbWFpbC5jb20sczE5QG1haWwuY29tLHMxMEBtYWlsLmNvbQ==").split(",");
+      const listaG = atob("ZzFAbWFpbC5jb20sZzJAbWFpbC5jb20sZzNAbWFpbC5jb20sZzRAbWFpbC5jb20sZzVAbWFpbC5jb20sZzZAbWFpbC5jb20sZzdAbWFpbC5jb20sZzhAbWFpbC5jb20sZzlAbWFpbC5jb20sZzEwQG1haWwuY29tLGcxMUBtYWlsLmNvbSxnMTJAbWFpbC5jb20sZzEzQG1haWwuY29tLGcxNEBtYWlsLmNvbSxnMTVAbWFpbC5jb20sZzE2QG1haWwuY29tLGcxN0BtYWlsLmNvbSxnMThAbWFpbC5jb20sZzE5QG1haWwuY29tLGcxMEBtYWlsLmNvbQ==").split(",");
+      const listaD = atob("ZDFAbWFpbC5jb20sZDJAbWFpbC5jb20sZDNAbWFpbC5jb20sZDRAbWFpbC5jb20sZDVAbWFpbC5jb20sZDZAbWFpbC5jb20sZDdAbWFpbC5jb20sZDhAbWFpbC5jb20sZDlAbWFpbC5jb20sZDEwQG1haWwuY29tLGQxMUBtYWlsLmNvbSxkMTJAbWFpbC5jb20sZDEzQG1haWwuY29tLGQxNEBtYWlsLmNvbSxkMTVAbWFpbC5jb20sZDE2QG1haWwuY29tLGQxN0BtYWlsLmNvbSxkMThAbWFpbC5jb20sZDE5QG1haWwuY29tLGQxMEBtYWlsLmNvbQ==").split(",");
+      const EXPECTED_HASH = "c3fcd3d76192e4007dfb496cca67e13b1a4f3b8b5e7a9e3c9f1d6a5e8b2a1c4d";
+      async function verificarIntegridad() {
+        const contenido = document.documentElement.outerHTML;
+        const encoder = new TextEncoder();
+        const data = encoder.encode(contenido);
+        const hash = await crypto.subtle.digest("SHA-256", data);    
+        const hashHex = Array.from(new Uint8Array(hash))
+          .map(b => b.toString(16).padStart(2, "0"))
+          .join("");
+        if (hashHex !== EXPECTED_HASH) {
+          document.body.innerHTML = "";
+        }
+      }
+      const delay = Math.random() * 2000 + 1000;
+      setTimeout(async () => {
+        await verificarIntegridad();
+        const email = sessionStorage.getItem("email");
+        if (!email || !email.includes("@")) {
+          document.body.innerHTML = "";
+          return;
+        }
+        const hashed = await hashEmail(email);
+        const hashListaS = await Promise.all(listaS.map(hashEmail));
+        const hashListaG = await Promise.all(listaG.map(hashEmail));
+        const hashListaD = await Promise.all(listaD.map(hashEmail));
+        let enS = hashListaS.includes(hashed);
+        let enG = hashListaG.includes(hashed);
+        let enD = hashListaD.includes(hashed);
+        let total = [enS, enG, enD].filter(Boolean).length;
+        if (total !== 1) {
+          document.body.innerHTML = "";
+          return;
+        }
+        const rutas = {
+          S: "pagina_S.html",
+          G: "pagina_G.html",
+          D: "pagina_D.html"
+        };
+        if (enS) window.location.href = rutas.S;
+        if (enG) window.location.href = rutas.G;
+        if (enD) window.location.href = rutas.D;
+      }, delay);
+    </script>
+  </body>
+</html>
