@@ -8,47 +8,59 @@
       .wrapper { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; }
       .container { aspect-ratio: 9 / 16; height: 100vh; max-width: calc(100vh * 9 / 16); width: 100%; background: #000; display: flex; justify-content: center; align-items: center; }
       #msg { color: #FF0000; font-size: 15px; text-align: center; }
-      .dots::after { content: ""; animation: dotsAnim 1.5s steps(4, end) infinite; }
-      @keyframes dotsAnim { 0%   { content: ""; } 25%  { content: "."; } 50%  { content: ".."; } 75%  { content: "..."; } 100% { content: ""; } }
     </style>
   </head>
   <body>
     <div class="wrapper">
       <div class="container">
         <div id="msg"><span id="dots"></span></div>
-        <div id="msg"><span class="dots"></span></div>
       </div>
     </div>
     <script>
-      let dots = "";
-      setInterval(() => {
-        dots = dots.length < 3 ? dots + "." : "";
-        document.getElementById("dots").textContent = dots;
-      }, 500);
       function decodeBase64(str) {
-        return atob(str).split(",");
+        try {
+          return atob(str)
+            .split(",")
+            .map(e => e.trim().toLowerCase());
+        } catch (e) {
+          console.error("Error decodificando Base64:", e);
+          return [];
+        }
       }
-      const listaS_base64 = "YWxhbjI1MjZAZ21haWwuY29tLHVzZXIxQGVtYWlsLmNvbSx1c2VyMkBlbWFpbC5jb20sdXNlcjNAZW1haWwuY29t=";
-      const listaG_base64 = "dXNlcjAxQGVtYWlsLmNvbSx1c2VyMDJAZW1haWwuY29tLHVzZXIwM0BlbWFpbC5jb20=";
-      const listaD_base64 = "dXNlcjAwMUBlbWFpbC5jb20sdXNlcjAwMkBlbWFpbC5jb20sdXNlcjAwM0BlbWFpbC5jb20=";
+      const listaS_base64 = "YWxhbjI1MjZAZ21haWwuY29tLHVzZXIxQGVtYWlsLmNvbSx1c2VyMkBlbWFpbC5jb20sdXNlcjNAZW1haWwuY29t";
+      const listaG_base64 = "dXNlcjAxQGVtYWlsLmNvbSx1c2VyMDJAZW1haWwuY29tLHVzZXIwM0BlbWFpbC5jb20";
+      const listaD_base64 = "dXNlcjAwMUBlbWFpbC5jb20sdXNlcjAwMkBlbWFpbC5jb20sdXNlcjAwM0BlbWFpbC5jb20";
       const listaS = decodeBase64(listaS_base64);
       const listaG = decodeBase64(listaG_base64);
       const listaD = decodeBase64(listaD_base64);
-      (function () {
-        const email = localStorage.getItem("email");
+      function getEmail() {
+        let email = localStorage.getItem("email");
         if (!email) {
-          document.getElementById("msg").textContent = "Error: sin datos.";
+          const params = new URLSearchParams(window.location.search);
+          email = params.get("email");
+          if (email) {
+            email = email.trim().toLowerCase();
+            localStorage.setItem("email", email);
+          }
+        }
+        return email ? email.trim().toLowerCase() : null;
+      }
+      (function () {
+        const msg = document.getElementById("msg");
+        const email = getEmail();
+        if (!email) {
+          msg.textContent = "Error: sin datos.";
           return;
         }
-        const emailNormalizado = email.trim().toLowerCase();
-        if (listaS.includes(emailNormalizado)) {
+        localStorage.setItem("email", email);
+        if (listaS.includes(email)) {
           window.location.href = "https://intellysis-dev.github.io/inmotion1.github.io/index.html";
-        } else if (listaG.includes(emailNormalizado)) {
+        } else if (listaG.includes(email)) {
           window.location.href = "https://intellysis-dev.github.io/inmotion1.github.io/g8sa49.html";
-        } else if (listaD.includes(emailNormalizado)) {
+        } else if (listaD.includes(email)) {
           window.location.href = "https://intellysis-dev.github.io/inmotion1.github.io/dsfd84.html";
         } else {
-          document.getElementById("msg").textContent = "Correo electrónico no autorizado";
+          msg.textContent = "Correo electrónico no autorizado";
         }
       })();
     </script>
