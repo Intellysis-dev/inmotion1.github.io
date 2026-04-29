@@ -35,7 +35,7 @@
       const listaG = decodeBase64(listaG_base64);
       const listaD = decodeBase64(listaD_base64);
       (function () {
-        const email = sessionStorage.getItem("email");
+        const email = localStorage.getItem("email");
         if (!email) {
           document.getElementById("msg").textContent = "Error: sin datos.";
           return;
