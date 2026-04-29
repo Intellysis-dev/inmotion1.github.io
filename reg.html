@@ -2,103 +2,54 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>reg</title>
     <style>
-      body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; }
-      .text { color: #FF0000; font-size: 12px; font-family: Arial; }
-      .dots::after { content: ""; animation: dots 1.5s infinite; }
-      @keyframes dots { 0% { content: ""; } 33% { content: "."; } 66% { content: ".."; } 100% { content: "..."; } }
+      body { margin: 0; background: #000; color: #FF0000; display: flex; justify-content: center; align-items: center; height: auto; font-family: Arial, sans-serif; }
+      .wrapper { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; }
+      .container { aspect-ratio: 9 / 16; height: 100vh; max-width: calc(100vh * 9 / 16); width: 100%; background: #000; display: flex; justify-content: center; align-items: center; }
+      #msg { color: #FF0000; font-size: 15px; text-align: center; }
+      .dots::after { content: ""; animation: dotsAnim 1.5s steps(4, end) infinite; }
+      @keyframes dotsAnim { 0%   { content: ""; } 25%  { content: "."; } 50%  { content: ".."; } 75%  { content: "..."; } 100% { content: ""; } }
     </style>
   </head>
   <body>
-    <div class="text">Validando Información<span class="dots"></span></div>
-    <div contenteditable="true" id="hashInput" style=" position:fixed; bottom:10px; left:10px; font-size:10px; color:#FF0000; background:black; padding:5px; outline:none;">
-      InMotion10001
+    <div class="wrapper">
+      <div class="container">
+        <div id="msg"><span id="dots"></span></div>
+        <div id="msg"><span class="dots"></span></div>
+      </div>
     </div>
-    <div id="hashOutput" style=" position:fixed; bottom:10px; right:10px; font-size:10px; color:#FF0000;"></div>
     <script>
-      if (!sessionStorage.getItem("token")) {
-        document.body.innerHTML = "";
-        throw new Error("Acceso inválido");
-      }
+      let dots = "";
       setInterval(() => {
-        if (window.outerWidth - window.innerWidth > 100) {
-          document.body.innerHTML = "";
-        }
-      }, 1000);
-      document.addEventListener("contextmenu", e => e.preventDefault());
-      async function hashEmail(email) {
-        const encoder = new TextEncoder();
-        const data = encoder.encode(email);
-        const hash = await crypto.subtle.digest("SHA-256", data);
-        return Array.from(new Uint8Array(hash))
-          .map(b => b.toString(16).padStart(2, "0"))
-          .join("");
+        dots = dots.length < 3 ? dots + "." : "";
+        document.getElementById("dots").textContent = dots;
+      }, 500);
+      function decodeBase64(str) {
+        return atob(str).split(",");
       }
-      const listaS = atob("MDYudWVsZUBnbWFpbC5jb20sZGVqYW1lcGFzYXI3NzdAZ21haWwuY29t==").split(",");
-      const listaG = atob("Y29ycmVvMDAwMDAwMUBnbWFpbC5jb20sY29ycmVvMDAwMDAwMkBnbWFpbC5jb20sY29ycmVvMDAwMDAwM0BnbWFpbC5jb20==").split(",");
-      const listaD = atob("Y29ycmVvMDAwMDAwNEBnbWFpbC5jb20sY29ycmVvMDAwMDAwNUBnbWFpbC5jb20sY29ycmVvMDAwMDAwNkBnbWFpbC5jb20==").split(",");
-      const EXPECTED_HASH = "SW5Nb3Rpb24xMDAwMg";
-      async function verificarIntegridad() {
-        const contenido = document.documentElement.outerHTML;
-        const encoder = new TextEncoder();
-        const data = encoder.encode(contenido);
-        const hash = await crypto.subtle.digest("SHA-256", data);    
-        const hashHex = Array.from(new Uint8Array(hash))
-          .map(b => b.toString(16).padStart(2, "0"))
-          .join("");
-        if (hashHex !== EXPECTED_HASH) {
-          document.body.innerHTML = "";
-        }
-      }
-      const delay = Math.random() * 2000 + 1000;
-      setTimeout(async () => {
-        await verificarIntegridad();
+      const listaS_base64 = "dXNlcjFAZW1haWwuY29tLHVzZXIyQGVtYWlsLmNvbSx1c2VyM0BlbWFpbC5jb20=";
+      const listaG_base64 = "dXNlcjAxQGVtYWlsLmNvbSx1c2VyMDJAZW1haWwuY29tLHVzZXIwM0BlbWFpbC5jb20=";
+      const listaD_base64 = "dXNlcjAwMUBlbWFpbC5jb20sdXNlcjAwMkBlbWFpbC5jb20sdXNlcjAwM0BlbWFpbC5jb20=";
+      const listaS = decodeBase64(listaS_base64);
+      const listaG = decodeBase64(listaG_base64);
+      const listaD = decodeBase64(listaD_base64);
+      (function () {
         const email = sessionStorage.getItem("email");
-        if (!email || !email.includes("@")) {
-          document.body.innerHTML = "";
+        if (!email) {
+          document.getElementById("msg").textContent = "Error: sin datos.";
           return;
         }
-        const hashed = await hashEmail(email);
-        const hashListaS = await Promise.all(listaS.map(hashEmail));
-        const hashListaG = await Promise.all(listaG.map(hashEmail));
-        const hashListaD = await Promise.all(listaD.map(hashEmail));
-        let enS = hashListaS.includes(hashed);
-        let enG = hashListaG.includes(hashed);
-        let enD = hashListaD.includes(hashed);
-        let total = [enS, enG, enD].filter(Boolean).length;
-        if (total !== 1) {
-          document.body.innerHTML = "";
-          return;
+        const emailNormalizado = email.trim().toLowerCase();
+        if (listaS.includes(emailNormalizado)) {
+          window.location.href = "https://intellysis-dev.github.io/inmotion1.github.io/index.html";
+        } else if (listaG.includes(emailNormalizado)) {
+          window.location.href = "https://intellysis-dev.github.io/inmotion1.github.io/g8sa49.html";
+        } else if (listaD.includes(emailNormalizado)) {
+          window.location.href = "https://intellysis-dev.github.io/inmotion1.github.io/dsfd84.html";
+        } else {
+          document.getElementById("msg").textContent = "Correo no autorizado.";
         }
-        const rutas = {
-          S: "cats1.html",
-          G: "catg1.html",
-          D: "catd1.html"
-        };
-        if (enS) window.location.href = rutas.S;
-        if (enG) window.location.href = rutas.G;
-        if (enD) window.location.href = rutas.D;
-      }, delay);
-      const input = document.getElementById("hashInput");
-      const output = document.getElementById("hashOutput");
-      async function generarHash(texto) {
-        const encoder = new TextEncoder();
-        const data = encoder.encode(texto);
-        const hash = await crypto.subtle.digest("SHA-256", data);
-        return Array.from(new Uint8Array(hash))
-          .map(b => b.toString(16).padStart(2, "0"))
-          .join("");
-      }
-      input.addEventListener("input", async () => {
-        const texto = input.innerText.trim();
-        const hash = await generarHash(texto);
-        output.textContent = hash;
-      });
-      (async () => {
-        const hash = await generarHash(input.innerText.trim());
-        output.textContent = hash;
       })();
     </script>
   </body>
