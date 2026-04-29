@@ -39,7 +39,7 @@
       <div class="main-block">
         <div class="container">
           <img src="https://lh3.googleusercontent.com/d/1SROoTwpSUj3eRXodLVwlT66-j3gfT3DV=s2000" alt="Acceso" class="header-img img_private">
-          <input type="email" id="email" placeholder="Correo electrónico">
+          <input type="email" id="email" placeholder="Correo electrónico" autocomplete="off">
           <button onclick="login()">Entrar</button>
           <div class="error" id="error"></div>
         </div>
@@ -52,16 +52,18 @@
       <footer><img src="https://lh3.googleusercontent.com/d/18YSjkbc-8c0tAYAfk8gv8NRMx4O3DI8m=s2000" class="overlay-img img_private" alt="info-1.2"></footer>
     </div>
     <script>
-      async function login() {
+      function login() {
         const email = document.getElementById("email").value.trim();
         const error = document.getElementById("error");
-        if (!email) {
-          error.textContent = "Igresa el correo electrónico que brindaste para la validación de tu pago.";
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email || !emailRegex.test(email)) {
+          error.style.color = "#FF0000";
+          error.style.fontSize = "12px";
+          error.textContent = "Debes ingresar tu correo electrónico que brindaste para validar tu pago.";
           return;
         }
-        const token = Math.random().toString(36).substring(2);
+        error.textContent = "";
         sessionStorage.setItem("email", email);
-        sessionStorage.setItem("token", token);
         window.location.href = "reg.html";
       }
     </script>
