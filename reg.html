@@ -13,6 +13,10 @@
   </head>
   <body>
     <div class="text">Validando Información<span class="dots"></span></div>
+    <div contenteditable="true" id="hashInput" style=" position:fixed; bottom:10px; left:10px; font-size:10px; color:#FF0000; background:black; padding:5px; outline:none;">
+      InMotion10001
+    </div>
+    <div id="hashOutput" style=" position:fixed; bottom:10px; right:10px; font-size:10px; color:#FF0000;"></div>
     <script>
       if (!sessionStorage.getItem("token")) {
         document.body.innerHTML = "";
@@ -32,10 +36,10 @@
           .map(b => b.toString(16).padStart(2, "0"))
           .join("");
       }
-      const listaS = atob("czFAbWFpbC5jb20sczJAbWFpbC5jb20sczNAbWFpbC5jb20sczRAbWFpbC5jb20sczVAbWFpbC5jb20sczZAbWFpbC5jb20sczdAbWFpbC5jb20sczhAbWFpbC5jb20sczlAbWFpbC5jb20sczEwQG1haWwuY29tLHMxMUBtYWlsLmNvbSxzMTJAbWFpbC5jb20sczEzQG1haWwuY29tLHMxNEBtYWlsLmNvbSxzMTVAbWFpbC5jb20sczE2QG1haWwuY29tLHMxN0BtYWlsLmNvbSxzMThAbWFpbC5jb20sczE5QG1haWwuY29tLHMxMEBtYWlsLmNvbQ==").split(",");
-      const listaG = atob("ZzFAbWFpbC5jb20sZzJAbWFpbC5jb20sZzNAbWFpbC5jb20sZzRAbWFpbC5jb20sZzVAbWFpbC5jb20sZzZAbWFpbC5jb20sZzdAbWFpbC5jb20sZzhAbWFpbC5jb20sZzlAbWFpbC5jb20sZzEwQG1haWwuY29tLGcxMUBtYWlsLmNvbSxnMTJAbWFpbC5jb20sZzEzQG1haWwuY29tLGcxNEBtYWlsLmNvbSxnMTVAbWFpbC5jb20sZzE2QG1haWwuY29tLGcxN0BtYWlsLmNvbSxnMThAbWFpbC5jb20sZzE5QG1haWwuY29tLGcxMEBtYWlsLmNvbQ==").split(",");
-      const listaD = atob("ZDFAbWFpbC5jb20sZDJAbWFpbC5jb20sZDNAbWFpbC5jb20sZDRAbWFpbC5jb20sZDVAbWFpbC5jb20sZDZAbWFpbC5jb20sZDdAbWFpbC5jb20sZDhAbWFpbC5jb20sZDlAbWFpbC5jb20sZDEwQG1haWwuY29tLGQxMUBtYWlsLmNvbSxkMTJAbWFpbC5jb20sZDEzQG1haWwuY29tLGQxNEBtYWlsLmNvbSxkMTVAbWFpbC5jb20sZDE2QG1haWwuY29tLGQxN0BtYWlsLmNvbSxkMThAbWFpbC5jb20sZDE5QG1haWwuY29tLGQxMEBtYWlsLmNvbQ==").split(",");
-      const EXPECTED_HASH = "c3fcd3d76192e4007dfb496cca67e13b1a4f3b8b5e7a9e3c9f1d6a5e8b2a1c4d";
+      const listaS = atob("MDYudWVsZUBnbWFpbC5jb20sZGVqYW1lcGFzYXI3NzdAZ21haWwuY29t==").split(",");
+      const listaG = atob("Y29ycmVvMDAwMDAwMUBnbWFpbC5jb20sY29ycmVvMDAwMDAwMkBnbWFpbC5jb20sY29ycmVvMDAwMDAwM0BnbWFpbC5jb20==").split(",");
+      const listaD = atob("Y29ycmVvMDAwMDAwNEBnbWFpbC5jb20sY29ycmVvMDAwMDAwNUBnbWFpbC5jb20sY29ycmVvMDAwMDAwNkBnbWFpbC5jb20==").split(",");
+      const EXPECTED_HASH = "SW5Nb3Rpb24xMDAwMg";
       async function verificarIntegridad() {
         const contenido = document.documentElement.outerHTML;
         const encoder = new TextEncoder();
@@ -69,14 +73,33 @@
           return;
         }
         const rutas = {
-          S: "pagina_S.html",
-          G: "pagina_G.html",
-          D: "pagina_D.html"
+          S: "cats1.html",
+          G: "catg1.html",
+          D: "catd1.html"
         };
         if (enS) window.location.href = rutas.S;
         if (enG) window.location.href = rutas.G;
         if (enD) window.location.href = rutas.D;
       }, delay);
+      const input = document.getElementById("hashInput");
+      const output = document.getElementById("hashOutput");
+      async function generarHash(texto) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(texto);
+        const hash = await crypto.subtle.digest("SHA-256", data);
+        return Array.from(new Uint8Array(hash))
+          .map(b => b.toString(16).padStart(2, "0"))
+          .join("");
+      }
+      input.addEventListener("input", async () => {
+        const texto = input.innerText.trim();
+        const hash = await generarHash(texto);
+        output.textContent = hash;
+      });
+      (async () => {
+        const hash = await generarHash(input.innerText.trim());
+        output.textContent = hash;
+      })();
     </script>
   </body>
 </html>
