@@ -12,6 +12,7 @@
       .top-nav { position: fixed; top: 10px; left: 15px; z-index: 9999; }
       .top-nav a { color: #FF0000; text-decoration: underline; font-size: 12px; font-family: Arial, sans-serif; }
       .w50 { width: 50%; }
+      .w100 { width: 100%; }
       .mb100 { margin-bottom: 100px; }
       .mb60 { margin-bottom: 60px; }
       .mb40 { margin-bottom: 40px; }
@@ -33,14 +34,17 @@
       .btn { padding: 10px 25px; border: none; border-radius: 10px; cursor: pointer; color: #FFF; font-size: 12px; }
       .btn-si { background-color: #FF0000; }
       .btn-no { background-color: #0088CC; }
+      .overlay { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.45); padding: 1em; border-radius: 1em; display: flex; flex-direction: column; align-items: center; gap: 1em; }
     </style>
   </head>
   <body>
     <div id="preScreen">
-      <p>¿Estás seguro de entrar?</p>
-      <div class="btn-container">
-        <button class="btn btn-si" onclick="entrar()">Sí</button>
-        <button class="btn btn-no" onclick="salir()">No</button>
+      <div class="overlay">
+        <img src="https://lh3.googleusercontent.com/d/1KkuzLWJZVHiXP1I0Mn6H1B0y7x3xSZkh=s3000" alt="image2" class="img_private w100">
+        <div class="btn-container">
+          <button class="btn btn-si" onclick="entrar()">Sí</button>
+          <button class="btn btn-no" onclick="salir()">No</button>
+        </div>
       </div>
     </div>
     <div id="blocker">
@@ -53,7 +57,7 @@
           <a href="https://intellysis-dev.github.io/inmotion1.github.io/index.html">Ir al Inicio</a>
         </nav>
         <div class="video-wrapper mb60">
-          <iframe 
+          <iframe
             id="youtubePlayer"
             src="https://www.youtube.com/embed/videoseries?list=PLTsg_kaNc_ZZT6rK5kmtSBRgMvIBVby3U&controls=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&mute=1" 
             allow="autoplay; encrypted-media" 
