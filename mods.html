@@ -30,6 +30,9 @@
       .pagina-secundaria { width: 100vw; height: 100vh; flex-shrink: 0; scroll-snap-align: start; background-size: cover; background-position: center; background-repeat: no-repeat; position: relative; will-change: transform; contain: content; }
       .texto-secundario { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #FFF; text-shadow: 1px 1px #000; text-align: center; display: none; font-size: 1.1em; width: 80%; }
       #control-stack { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 15px; }
+      #botonR { position: fixed; right: 20px; top: 20px; }
+      #botonR { outline: none; -webkit-tap-highlight-color: transparent; }
+      #botonR:focus, #botonR:active { outline: none; box-shadow: none !important; }
       #boton12 { position: fixed; left: 20px; bottom: 20px; }
       .boton-control { width: 60px; height: 60px; border-radius: 50%; border: none; font-size: 1.4em; cursor: pointer; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); }
       .logo { position: fixed; bottom: 0; width: 100%; text-align: center; }
@@ -96,6 +99,13 @@
       #loginContainer .help-container { margin-top: 2em; display: flex; justify-content: center; width: 100%; }
       #loginContainer .help-btn { padding: 14px 28px; border: none; border-radius: 20px; background: #FF0000; color: #000; font-size: 14px; cursor: pointer; }
       #appContainer { display: none; }
+      #confirmacionBoton1Overlay { position: fixed; inset: 0; z-index: 2000000; display: none; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.72); pointer-events: auto; padding: 20px; }
+      #confirmacionBoton1Box { width: min(86vw, 420px); background: rgba(0, 0, 0, 0.92); border-radius: 12px; padding: 18px; box-shadow: 0 0 24px rgba(255, 255, 255, 0.35); }
+      #confirmacionBoton1Box img { display: block; width: 100%; height: auto; margin: 0 auto 14px auto; }
+      #confirmacionBoton1Btns { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
+      #confirmacionBoton1Si, #confirmacionBoton1No { min-width: 120px; max-width: 180px; padding: 9px 12px; border: none; border-radius: 20px; color: #FFF; font-size: 12px; line-height: 1.2; cursor: pointer; }
+      #confirmacionBoton1Si { background: #FF0000; }
+      #confirmacionBoton1No { background: #00B0F0; }
     </style>
   </head>
   <body>
@@ -868,6 +878,9 @@
               </div>
             </div>
             <div id="control-stack">
+              <button id="botonR" class="boton-control">
+                <i class="fa-solid fa-shuffle"></i>
+              </button>
               <button id="boton12" class="boton-control">
                 <i class="fa-solid fa-house"></i>
               </button>
@@ -884,8 +897,18 @@
             <div class="logo"><img src="https://lh3.googleusercontent.com/d/1YayqEdCrzfUCME3J4Zzp7w66WJT1UMNn=s2000" class="overlay-img4 img_private" alt="info-1.1"></div>
           </div>
           <div id="player"></div>
+          <div id="playerExtra"></div>
         </div>
         <iframe id="yt-random-player" style="position:fixed; width:0; height:0; opacity:0; pointer-events:none;" allow="autoplay"></iframe>
+      </div>
+      <div id="confirmacionBoton1Overlay">
+        <div id="confirmacionBoton1Box">
+          <img src="https://lh3.googleusercontent.com/d/1AXfoG8iKP3hLE5J6SuF6nqQUE5Tf-4dB=s2000" class="img_private" alt="adv-s">
+          <div id="confirmacionBoton1Btns">
+            <button id="confirmacionBoton1Si">Sí acepto, déjame entrar.</button>
+            <button id="confirmacionBoton1No">No acepto, quiero salir.</button>
+          </div>
+        </div>
       </div>
     </div>
     <script>
@@ -944,10 +967,17 @@
           8: 'PLzRvuWZjOiCD5ENbn8exj-hwpEJhDlkKa', 
           9: 'PLzRvuWZjOiCCoNKoHKNQ0CdBmWyUjwBOg', 
           10: 'PLzRvuWZjOiCBDuu_URvAwtKL1R1u6g8_-',
-          11: 'PLzRvuWZjOiCBDuu_URvAwtKL1R1u6g8_-'
+          11: 'PLzRvuWZjOiCBDuu_URvAwtKL1R1u6g8_-',
+          12: 'PLzRvuWZjOiCCL1fYH6KBePeC2AvfI1IHM',
+          13: 'PLzRvuWZjOiCAsPPEEYUmBkbtLUy86V2W6',
         };
         let currentPlaylist = '';
+        const dataIndexPlaylist12 = ['1', '2', '6', '7', '8', '9'];
+        const dataIndexPlaylist13 = ['3', '4', '5'];
         let player;
+        let playerExtra;
+        let currentExtraPlaylist = '';
+        let pendingExtraPlaylist = null;
         document.getElementById('boton1').onclick = () => {
           document.getElementById('parte1').classList.add('hidden');
           document.getElementById('parte2').classList.remove('hidden');
@@ -977,6 +1007,7 @@
             const botonNext = document.getElementById("boton13");
             const botonP = document.getElementById("botonPause");
             const botonYT = document.getElementById("botonYT");
+            const botonR = document.getElementById("botonR");
             if (botonHome) {
               botonHome.style.backgroundColor = bg;
               botonHome.style.color = color;
@@ -993,9 +1024,25 @@
               botonYT.style.backgroundColor = bg;
               botonYT.style.color = color;
             }
+            if (botonR) {
+              botonR.style.backgroundColor = bg;
+              botonR.style.color = color;
+            }
             const idx = btn.dataset.index;
             currentPlaylist = playlistIDs[idx];
             loadYouTube(currentPlaylist);
+            if (dataIndexPlaylist12.includes(idx)) {
+              currentExtraPlaylist = playlistIDs[12];
+              loadYouTubeExtra(currentExtraPlaylist);
+            } else if (dataIndexPlaylist13.includes(idx)) {
+              currentExtraPlaylist = playlistIDs[13];
+              loadYouTubeExtra(currentExtraPlaylist);
+            } else {
+              currentExtraPlaylist = "";
+              if (playerExtra && typeof playerExtra.stopVideo === "function") {
+                playerExtra.stopVideo();
+              }
+            }
             document.querySelectorAll('.pagina-principal').forEach(div => {
               div.style.display = div.dataset.index === idx ? 'flex' : 'none';
             });
@@ -1008,6 +1055,9 @@
           document.getElementById('parte3').classList.add('hidden');
           document.getElementById('parte2').classList.remove('hidden');
           if (player) player.stopVideo();
+          if (playerExtra) playerExtra.stopVideo();
+          currentExtraPlaylist = '';
+          currentPlaylist = '';
           document.querySelectorAll('.pagina-principal').forEach(div => {
             div.style.display = 'none';
           });
@@ -1042,6 +1092,29 @@
               }
             }
           });
+          playerExtra = new YT.Player('playerExtra', {
+            height: '0', width: '0',
+            playerVars: {
+              autoplay: 1,
+              controls: 0,
+              loop: 1,
+              playlist: '',
+              rel: 0
+            },
+            events: {
+              onReady: e => {
+                e.target.setVolume(20);
+                e.target.setShuffle(true);
+                if (typeof e.target.setLoop === "function") {
+                  e.target.setLoop(true);
+                }
+                if (pendingExtraPlaylist) {
+                  loadYouTubeExtra(pendingExtraPlaylist);
+                  pendingExtraPlaylist = null;
+                }
+              }
+            }
+          });
         }
         function loadYouTube(id) {
           if (!window.YT || !player || typeof player.loadPlaylist !== "function") {
@@ -1059,6 +1132,33 @@
             index: 0,
             suggestedQuality: 'large'
           });
+          if (id === playlistIDs[12] || id === playlistIDs[13]) {
+            player.setVolume(50);
+            if (typeof player.setLoop === "function") {
+              player.setLoop(true);
+            }
+          }
+        }
+        function loadYouTubeExtra(id) {
+          if (!window.YT || !playerExtra || typeof playerExtra.loadPlaylist !== "function") {
+            pendingExtraPlaylist = id;
+            if (!window.YT) {
+              const tag = document.createElement('script');
+              tag.src = 'https://www.youtube.com/iframe_api';
+              document.body.appendChild(tag);
+            }
+            return;
+          }
+          playerExtra.loadPlaylist({
+            listType: 'playlist',
+            list: id,
+            index: 0,
+            suggestedQuality: 'large'
+          });
+          playerExtra.setVolume(50);
+          if (typeof playerExtra.setLoop === "function") {
+            playerExtra.setLoop(true);
+          }
         }
         window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
         document.getElementById('boton1').addEventListener('click', () => {
@@ -1070,6 +1170,15 @@
           } else if (docEl.msRequestFullscreen) {
             docEl.msRequestFullscreen();
           }
+        });
+        document.getElementById("boton1").addEventListener("click", () => {
+          document.getElementById("confirmacionBoton1Overlay").style.display = "flex";
+        });
+        document.getElementById("confirmacionBoton1Si").addEventListener("click", () => {
+          document.getElementById("confirmacionBoton1Overlay").style.display = "none";
+        });
+        document.getElementById("confirmacionBoton1No").addEventListener("click", () => {
+          location.reload();
         });
         const paginas = document.querySelectorAll('.pagina-secundaria');
         let activeGif = null;
@@ -1139,6 +1248,47 @@
             iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
           }, 100);
         }
+        const prefijosBotonR = {
+          1: "red",
+          2: "black",
+          3: "gray",
+          4: "white",
+          5: "pink",
+          6: "blue",
+          7: "orange",
+          8: "green",
+          9: "yellow"
+        };
+        let ultimoBotonR = null;
+        function mostrarDivRandomActivo() {
+          const paginaActiva = Array.from(document.querySelectorAll(".pagina-principal")).find(div => {
+            return div.dataset.index && window.getComputedStyle(div).display !== "none";
+          });
+          if (!paginaActiva) return;
+          const prefijo = prefijosBotonR[paginaActiva.dataset.index];
+          if (!prefijo) return;
+          const candidatos = Array.from(paginaActiva.querySelectorAll(`img[alt^="${prefijo}-"]`)).filter(img => {
+            return /-[1-9][0-9]*$/.test(img.getAttribute("alt") || "");
+          });
+          if (!candidatos.length) return;
+          const disponibles = candidatos.length > 1 ? candidatos.filter(img => img !== ultimoBotonR) : candidatos;
+          const elegido = disponibles[Math.floor(Math.random() * disponibles.length)];
+          const texto = elegido.closest(".texto-secundario");
+          const pantalla = elegido.closest(".pagina-secundaria");
+          if (!texto || !pantalla) return;
+          paginaActiva.querySelectorAll(".texto-secundario").forEach(div => {
+            div.style.display = "none";
+          });
+          const bg = pantalla.getAttribute("data-bg") || pantalla.dataset.originalBg;
+          if (bg && !pantalla.style.backgroundImage) {
+            pantalla.style.backgroundImage = `url('${bg}')`;
+          }
+          pantalla.style.visibility = "visible";
+          texto.style.display = "block";
+          pantalla.scrollIntoView({ behavior: "smooth", block: "start" });
+          ultimoBotonR = elegido;
+        }
+        document.getElementById("botonR").addEventListener("click", mostrarDivRandomActivo);
         document.getElementById("botonYT").addEventListener("click", reproducirPlaylistRandom);
       })();
     </script>
