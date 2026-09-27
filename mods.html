@@ -7,7 +7,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="icon" href="https://lh3.googleusercontent.com/d/1ZVbqUh4gOAcn5pDp9lHpYkyM0UMeVrGs=s2000">
     <meta name="copyright" content="?? NVIV 2025. Todos los derechos reservados.">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
       html, body { margin: 0; padding: 0; overflow: hidden; width: 100vw; height: 100vh; background-color: #111; font-size: 15px; background-image: url('https://lh3.googleusercontent.com/d/1vj5zBMZduwk2uFZVLnamB0KlfRYPfA30=s3000'); background-repeat: no-repeat; background-size: cover; background-position: center; background-attachment: scroll; }
       * { box-sizing: border-box; }
@@ -27,27 +26,31 @@
       #parte3 { overflow: hidden; }
       [data-autor="NVIV"]::after { content: " "; font-size: 0; visibility: hidden; position: absolute; }
       .pagina-principal { width: 100vw; height: 100vh; flex-shrink: 0; display: flex; flex-direction: column; overflow-y: scroll; scroll-snap-type: y mandatory; }
-      .pagina-secundaria { width: 100vw; height: 100vh; flex-shrink: 0; scroll-snap-align: start; background-size: cover; background-position: center; background-repeat: no-repeat; position: relative; will-change: transform; contain: content; }
-      .texto-secundario { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #FFF; text-shadow: 1px 1px #000; text-align: center; display: none; font-size: 1.1em; width: 80%; }
+      .pagina-principal[data-index="11"] { height: 100vh; height: 100dvh; overflow: hidden; }
+      .pagina-secundaria { width: 100vw; height: 100vh; flex-shrink: 0; scroll-snap-align: start; background-size: cover; background-position: center; background-repeat: no-repeat; position: relative; contain: content; }
+      .texto-secundario { z-index: 1; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #FFF; text-shadow: 1px 1px #000; text-align: center; display: none; font-size: 1.1em; width: 80%; }
       #control-stack { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 15px; }
       #botonR { position: fixed; right: 20px; top: 20px; }
       #botonR { outline: none; -webkit-tap-highlight-color: transparent; }
-      #botonR:focus, #botonR:active { outline: none; box-shadow: none !important; }
+      #botonR:focus, #botonR:active { outline: none; }
       #boton12 { position: fixed; left: 20px; bottom: 20px; }
-      .boton-control { width: 60px; height: 60px; border-radius: 50%; border: none; font-size: 1.4em; cursor: pointer; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); }
+      #boton12.presionado { transform: scale(0.90); border-radius: 50%; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18); }
+      #botonDisco { position: fixed; left: 20px; top: 20px; z-index: 100; }
+      #botonDisco, #botonDisco:focus, #botonDisco:focus-visible, #botonDisco:active { outline: none !important; -webkit-tap-highlight-color: transparent; -webkit-appearance: none; appearance: none; }
+      #botonDisco:active { transform: scale(0.90); border-radius: 50%; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18); }
+      .boton-control.control-inactivo { opacity: 0.15 !important; }
+      .boton-control { width: 60px; height: 60px; border-radius: 50%; border: none; font-size: 1.4em; cursor: pointer; background-color: rgba(38, 38, 38, 0.55); background-color: color-mix(in srgb, var(--control-bg, #262626) 88%, transparent); background-image: none; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18); transition: opacity 6s ease, transform 0.12s ease, box-shadow 0.12s ease; }
       .logo { position: fixed; bottom: 0; width: 100%; text-align: center; }
       .pulsante-texto { text-align: center; font-size: 3em; color: #FFF; margin-top: 100px; margin-bottom: 10px; animation: pulseText 4s infinite; }
       @keyframes pulseText { 0% { text-shadow: 0 0 5px #FFF; } 50% { text-shadow: 0 0 25px #FFF; } 100% { text-shadow: 0 0 5px #FFF; } }
       .pg-info { text-align: center; max-width: 100%; }
       .pg-desc { font-size: 0.8em; color: #666; padding: 0 1rem; }
       .img_private { pointer-events: none; touch-action: none; }
-      .links { width: 95%; height: 10em; background-color: #000; color: #FFF; background-repeat: no-repeat; background-size: fixed; background-position: center; background-size: contain; cursor: pointer; }
+      .links { width: 95%; height: 10em; background-color: #000; color: #FFF; background-repeat: no-repeat; background-position: center; background-size: contain; cursor: pointer; }
       .w50 { width: 50%; }
-      #blocker { display: none; height: 100vh; width: 100vw;  background-color: #000; display: flex; align-items: center; justify-content: center; text-align: center; }
-      @media screen and (max-width: 2712px) { #app { display: block; } #blocker { display: none; } }
-      @media screen and (min-width: 1220px) { #app { display: none; } #blocker { display: flex; } }
-      @media screen and (orientation: portrait) { #app { display: block; } #blocker { display: none; } }
-      @media screen and (orientation: landscape) { #app { display: block; } #blocker { display: flex; } }
+      #blocker { display: none; height: 100vh; width: 100vw; background-color: #000; align-items: center; justify-content: center; text-align: center; }
+      #app { display: block; }
+      @media screen and (orientation: landscape) { #app { display: none; } #blocker { display: flex; } }
       .rotada { transform: rotate(-90deg); transform-origin: center; display: block; }
       @media screen and (orientation: landscape) { html, body { margin: 0;  padding: 0;  overflow: hidden;  width: 100vw; height: 100vh; } #blocker.pagina { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1000001; background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: scroll; } }
       mt35 { margin-top: 2.3em; }
@@ -62,31 +65,42 @@
       footer { width: 100%; text-align: center; position: absolute; bottom: calc(env(safe-area-inset-bottom) + 10px); left: 50%; transform: translateX(-50%); }
       .w100 { width: 100%; }
       .b1 { background-image: url('https://lh3.googleusercontent.com/d/1NdXmAeIZrelfhPacrjN8iBgFT6Jg5uGS=s3000'); background-repeat: no-repeat;  background-size: cover;  background-position: center;  background-attachment: scroll; }
-      .b2 { background-image: url('https://lh3.googleusercontent.com/d/16Bq38k73RNYH54WwmyQ9wAUa8SaVkYK-=s3000'); background-repeat: no-repeat; background-size: cover;  background-position: center; background-attachment: scroll; }
+      .b2 { background-image: none; position: relative; isolation: isolate; }
+      #parte2.b2::before, .pagina-principal.b2::before { content: ""; position: absolute; inset: 0; z-index: -1; background-image: url("https://lh3.googleusercontent.com/d/16Bq38k73RNYH54WwmyQ9wAUa8SaVkYK-=s3000"); background-repeat: no-repeat; background-size: cover; background-position: center; opacity: 0; transition: opacity 800ms ease; pointer-events: none; }
+      #parte2.b2.gif-bg-ready::before, .pagina-principal.b2.gif-bg-ready::before { opacity: 1; }
+      .pagina-secundaria { background-image: none !important; isolation: isolate; }
+      .pagina-secundaria::before { content: ""; position: absolute; inset: 0; z-index: -1; background-image: var(--slide-bg-image, none); background-repeat: no-repeat; background-size: cover; background-position: center; opacity: 0; transition: opacity 650ms ease; pointer-events: none; }
+      .pagina-secundaria.fondo-visible::before { opacity: 1; }
       .b3 { background-image: url('https://lh3.googleusercontent.com/d/1cVLbDhKEkKoUgScDFaXcyr4YDe-10rcM=s2000'); background-repeat: no-repeat; background-size: cover;  background-position: center; background-attachment: scroll; }
-      .red { background-color: #FF0000; }
-      .black { background-color: #0F0F0F; }
-      .gray { background-color: #A6A6A6; }
-      .white { background-color: #FFFFFF; color: #000; }
-      .pink { background-color: #FFCCFF; }
-      .blue { background-color: #00B0F0; }
-      .orange { background-color: #FF9933; }
-      .green { background-color: #00B050; }
-      .yellow { background-color: #E6E600; color: #FFF; }
-      .black2 { background-color: #262626; }
-      .close-btn { background-color: #262626; color: #FFF; width: 110px; height: 60px; font-size: 2em; border: none; border-radius: 10%; }
+      .red { --button-bg: #FF0000; background-color: #FF0000; }
+      .black { --button-bg: #0F0F0F; background-color: #0F0F0F; }
+      .gray { --button-bg: #A6A6A6; background-color: #A6A6A6; }
+      .white { --button-bg: #FFFFFF; background-color: #FFFFFF; color: #FFFFFF; }
+      .pink { --button-bg: #FFCCFF; background-color: #FFCCFF; }
+      .blue { --button-bg: #00B0F0; background-color: #00B0F0; }
+      .orange { --button-bg: #FF9933; background-color: #FF9933; }
+      .green { --button-bg: #00B050; background-color: #00B050; }
+      .yellow { --button-bg: #E6E600; background-color: #E6E600; color: #FFF; }
+      .black2 { --button-bg: #262626; background-color: #262626; }
+      .estilo-btn:active, .close-btn:active { border-radius: 10%; }
+      .close-btn { --button-bg: #262626; background-color: #262626; color: #FFF; width: 110px; height: 60px; font-size: 2em; border: none; border-radius: 10%; }
+      .estilo-btn, .close-btn { border: none; background-color: rgba(38, 38, 38, 0.55); background-color: color-mix(in srgb, var(--button-bg, #262626) 88%, transparent); background-image: none; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18); }
       .pg-config { display:flex; width: 100%; height:100%; overflow-x: scroll; scroll-snap-type: x mandatory; }
       .nodisp { display: none; }
       .mb2e { margin-bottom: 2em; }
       .mb1e { margin-bottom: 1em; }
       .mb20e { margin-bottom: 20em; }
       .mb600 { margin-bottom: 600px; }
+      button { border: none !important; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18); }
       button, .boton-control, .estilo-btn, .close-btn, .boton, .boton-compra, .botonYT { transition: transform 0.12s ease, box-shadow 0.12s ease; }
       button:active, .boton-control:active, .estilo-btn:active, .close-btn:active, .boton:active, .boton-compra:active { transform: scale(0.90); border-radius: 50%; }
+      .estilo-btn:active { transform: scale(0.90); border-radius: 10%; }
+      .pagina-principal[data-index="11"] .boton:active { transform: scale(0.90); border-radius: 0; }
       #boton12, #botonPause, #boton13, #botonYT { outline: none; -webkit-tap-highlight-color: transparent; }
-      #boton12:focus, #botonPause:focus, #boton13:focus, #boton12:active, #botonPause:active, #boton13:active, #botonYT:active { outline: none; box-shadow: none !important; }
-      .close-btn, .close-btn:active { transform: none !important; box-shadow: none !important; border-radius: 10% !important; transition: none !important; }
+      #boton12:focus, #botonPause:focus, #boton13:focus, #botonYT:focus, #boton12:active, #botonPause:active, #boton13:active, #botonYT:active { outline: none; }
+      .close-btn, .close-btn:active { transform: none !important; border-radius: 10% !important; transition: none !important; }
       #botonYT { position: fixed; left: 20px; bottom: 95px; }
+      #botonYT.is-playing, #botonYT.is-playing:disabled, #boton13.is-playing, #boton13.is-playing:disabled, #botonPause.is-playing, #botonPause.is-playing:disabled { transform: scale(0.90); box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18); opacity: 1; cursor: default; }
       #loginContainer { position: fixed; inset: 0; z-index: 1000000; margin: 0; font-family: Arial, sans-serif; background-image: url("https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s2000"); background-size: cover; background-position: center; background-repeat: no-repeat; }
       #loginContainer * { box-sizing: border-box; }
       #loginContainer .wrapper { min-height: 100dvh; display: flex; justify-content: center; align-items: center; padding: 20px; }
@@ -106,6 +120,22 @@
       #confirmacionBoton1Si, #confirmacionBoton1No { min-width: 120px; max-width: 180px; padding: 9px 12px; border: none; border-radius: 20px; color: #FFF; font-size: 12px; line-height: 1.2; cursor: pointer; }
       #confirmacionBoton1Si { background: #FF0000; }
       #confirmacionBoton1No { background: #00B0F0; }
+      @media screen and (min-width: 768px) and (orientation: landscape) {
+        html, body { width: 100%; height: 100%; overflow: hidden; background: #000 !important; background-image: none !important; }
+        #appContainer { width: 100%; height: 100%; }
+        #loginContainer { left: 50%; top: 50%; right: auto; bottom: auto; transform: translate(-50%, -50%); width: min(56.25vh, 100vw); height: min(100vh, 177.7778vw); overflow: hidden; }
+        #loginContainer .wrapper { min-height: 100%; }
+        #app { display: block !important; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(56.25vh, 100vw); height: min(100vh, 177.7778vw); aspect-ratio: 9 / 16; overflow: hidden; background: #111; }
+        #blocker { display: none !important; }
+        .fullscreen, #blocker, #parte1, #parte2, #parte3 { width: 100%; height: 100%; }
+        #parte1, #parte2, #parte3 { left: 0; top: 0; }
+        #botones-estilos { width: 100%; }
+        .pagina-principal, .pagina-secundaria { width: 100%; height: 100%; }
+        .pagina-principal[data-index="11"] { height: 100%; overflow: hidden; }
+        .contenedor { height: 100%; }
+        .pagina-principal, .pg-config { scrollbar-width: none; -ms-overflow-style: none; }
+        .pagina-principal::-webkit-scrollbar, .pg-config::-webkit-scrollbar { display: none; width: 0; height: 0; }
+      }
     </style>
   </head>
   <body>
@@ -155,7 +185,7 @@
           </div>
           <div id="parte3" class="fullscreen hidden">
             <div id="contenedor-paginas" class="pg-config">
-              <!-- 1 -->
+              
               <div class="pagina-principal nodisp" data-index="1">
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1q4HlMZSJHQ_bPFwCFXYP_WYMBOaq_lDV=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
@@ -175,7 +205,7 @@
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1Ym2Lg8gzMTbN5_nqSXbGIdMm2vsRZwgG=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
                 </div>
-                <!-- posts -->
+                
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/12DiYMEmqHYDPV7Jsxknar4ngAgg8Gdhu=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
                   <div class="texto-secundario img_private">
@@ -231,7 +261,7 @@
                   </div>
                 </div>
               </div>
-              <!-- 2 -->
+              
               <div class="pagina-principal nodisp" data-index="2">
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1351IdzbOzZq-GPH2HldZ0QwCGJsp0dvb=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
@@ -251,7 +281,7 @@
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1pcXUbxnbdlsdEL9_iqzPNcXA_uRK1kSJ=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
                 </div>
-                <!-- posts -->
+                
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1yBG2GeShxJeNI8J_q-J_UygHdgZPqGF2=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
                   <div class="texto-secundario img_private">
@@ -307,7 +337,7 @@
                   </div>
                 </div>
               </div>
-              <!-- 3 -->
+              
               <div class="pagina-principal nodisp" data-index="3">
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1HtuNerJN02HF7l9BfyHweAGLbasYilsi=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
@@ -327,7 +357,7 @@
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1SgXV0QxkuodoIhDmWHXGVUzapruALAZi=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
                 </div>
-                <!-- posts -->
+                
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1rP6t_4a6fRAMxVEjHvYRPv_wnBFib6nt=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
                   <div class="texto-secundario img_private">
@@ -383,7 +413,7 @@
                   </div>
                 </div>
               </div>
-              <!-- 4 -->
+              
               <div class="pagina-principal nodisp" data-index="4">
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/18ZKi67rgv6SXD8KfUT_nk4PA34tgdTDr=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
@@ -403,7 +433,7 @@
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1sqINvPZRlHDQZmsSLQykaME761PK3K4i=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
                 </div>
-                <!-- posts -->
+                
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1-a9YUNhx_xYf_bjZ8YHHBXNA2Y4PIBhN=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
                   <div class="texto-secundario img_private">
@@ -459,7 +489,7 @@
                   </div>
                 </div>
               </div>
-              <!-- 5 -->
+              
               <div class="pagina-principal nodisp" data-index="5">
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/18ycUCYbouAdx6rdUD4qKpDv3Y3uvE5Ts=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
@@ -479,7 +509,7 @@
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1Ln25KIDzAdfKOuE0_-EshjIK-rpyiNbk=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
                 </div>
-                <!-- posts -->
+                
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1ZTPvmMl6iUbIO2Fde7QJPDofHDapPeGl=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
                   <div class="texto-secundario img_private">
@@ -535,7 +565,7 @@
                   </div>
                 </div>
               </div>
-              <!-- 6 -->
+              
               <div class="pagina-principal nodisp" data-index="6">
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1--7Neiw4-Ffnje5UKEtIZIgIVzqgQel7=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
@@ -555,7 +585,7 @@
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1r76cDLigHCMl-vFFoJ_WOmmSzisoggOK=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
                 </div>
-                <!-- posts -->
+                
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1x9C2IJ4JDhMI4cHzdFB5Hn1Kv4JjlPUG=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
                   <div class="texto-secundario img_private">
@@ -611,7 +641,7 @@
                   </div>
                 </div>
               </div>
-              <!-- 7 -->
+              
               <div class="pagina-principal nodisp" data-index="7">
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/17pgITYh5P42Xe5SP2B78CNXpXq-GDOuI=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
@@ -631,7 +661,7 @@
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1ZrXzpEZUM8mh6S33M6ambVd9UrqZXKRk=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
                 </div>
-                <!-- posts -->
+                
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1VBwRQ7lCm3hXDFhtdtQy8fUWgu0buzdd=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
                   <div class="texto-secundario img_private">
@@ -687,7 +717,7 @@
                   </div>
                 </div>
               </div>
-              <!-- 8 -->
+              
               <div class="pagina-principal nodisp" data-index="8">
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1u0SitxT295KvGw52iybZyCCPy1-pqZOw=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
@@ -707,7 +737,7 @@
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1jh9PpWmhtJCbhN57EItQljhoWqqSxU4I=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
                 </div>
-                <!-- posts -->
+                
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1gWiSDwBNei08YcefbWrx8QB4uhXLJyx9=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
                   <div class="texto-secundario img_private">
@@ -763,7 +793,7 @@
                   </div>
                 </div>
               </div>
-              <!-- 9 -->
+              
               <div class="pagina-principal nodisp" data-index="9">
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1ON0FCMzcEZ6uEiwnbXBjiAm4bhF6uWFe=s3000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
@@ -783,7 +813,7 @@
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1rumwnIfCgXZJfegsTQQf11jB0G4_0te6=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
                 </div>
-                <!-- posts -->
+                
                 <div class="pagina-secundaria" data-bg="https://lh3.googleusercontent.com/d/1BpYfr0pOY17p_GHUVLqTjtoJxRAz-Awj=s2000" onclick="this.querySelector('.texto-secundario').style.display = 
                   this.querySelector('.texto-secundario').style.display === 'block' ? 'none' : 'block';">
                   <div class="texto-secundario img_private">
@@ -839,9 +869,9 @@
                   </div>
                 </div>
               </div>
-              <!-- 10 -->
-              <div class="pagina-principal nodisp" data-index="10">
-                <div class="pg-info img_private b3">
+              
+              <div class="pagina-principal nodisp b2" data-index="10">
+                <div class="pg-info img_private">
                   <div>
                     <img src="https://lh3.googleusercontent.com/d/19ys5AxwieUpi--Hs5hZSAlAR3DPaivrJ=s2000" class="overlay-img3 mt2" alt="info-title">
                   </div>
@@ -851,8 +881,8 @@
                   </div>
                 </div>
               </div>
-              <!-- 11 -->
-              <div class="pagina-principal nodisp b3" data-index="11">
+              
+              <div class="pagina-principal nodisp b2" data-index="11">
                 <div class="pg-info">
                   <div>
                     <img src="https://lh3.googleusercontent.com/d/1HbkWaRFEah2vnDmGZJszDpZ35DBXWDrt=s2000" class="overlay-img3 img_private mt2" alt="contact-title">
@@ -903,12 +933,15 @@
                 <i class="fa-solid fa-forward"></i>
               </button>
             </div>
+            <button id="botonDisco" class="boton-control" type="button" aria-label="Volver al inicio de la categoría" style="display:none"><i class="fa-solid fa-compact-disc" style="color: rgb(255, 255, 255);"></i></button>
             <div class="logo"><img src="https://lh3.googleusercontent.com/d/1YayqEdCrzfUCME3J4Zzp7w66WJT1UMNn=s2000" class="overlay-img4 img_private" alt="info-1.1"></div>
           </div>
           <div id="player"></div>
+          <div id="playerNext"></div>
           <div id="playerExtra"></div>
+          <div id="playerExtraNext"></div>
         </div>
-        <iframe id="yt-random-player" style="position:fixed; width:0; height:0; opacity:0; pointer-events:none;" allow="autoplay"></iframe>
+        <div id="yt-random-player" style="position:fixed; width:0; height:0; opacity:0; pointer-events:none;"></div>
       </div>
       <div id="confirmacionBoton1Overlay">
         <div id="confirmacionBoton1Box">
@@ -921,13 +954,9 @@
       </div>
     </div>
     <script>
-      const checkem = {
-      "inmotion@email.com": 1,
-      "correo2@gmail.com": 0,
-      "correo3@gmail.com": 0,
-      "correo4@gmail.com": 0,
-      "correo5@gmail.com": 0
-      };
+      const LOGIN_ENABLED = 1;
+      if (LOGIN_ENABLED === 0) entrar();
+      const checkem = { "inmotion@email.com": 1, "test1@email.com": 0, "test2@email.com": 0 };
       function validar(email) {
         if (!(email in checkem)) {
           return "no_existe";
@@ -966,50 +995,65 @@
     <script>
       (() => {
         const playlistIDs = {
-          1: 'PLzRvuWZjOiCBlhDTn5xdVoD6x1z3ML0eH', 
-          2: 'PLzRvuWZjOiCA4M3p6xVMjknupZO3LeQ1H', 
-          3: 'PLzRvuWZjOiCCorGP0R90DPC-gTUJQRdTV', 
-          4: 'PLzRvuWZjOiCDkuf8sOX-hkVbVGF7cb_No', 
-          5: 'PLzRvuWZjOiCBlr8MLjOlAwonjco-Y1hKg',
-          6: 'PLzRvuWZjOiCDR0Rlh_1EV_pLzsYXAEM5n', 
-          7: 'PLzRvuWZjOiCC5rbx5ywnXgkdfiVcNPEkf', 
-          8: 'PLzRvuWZjOiCD5ENbn8exj-hwpEJhDlkKa', 
-          9: 'PLzRvuWZjOiCCoNKoHKNQ0CdBmWyUjwBOg', 
-          10: 'PLzRvuWZjOiCBDuu_URvAwtKL1R1u6g8_-',
-          11: 'PLzRvuWZjOiCBDuu_URvAwtKL1R1u6g8_-',
-          12: 'PLzRvuWZjOiCCL1fYH6KBePeC2AvfI1IHM',
-          13: 'PLzRvuWZjOiCAsPPEEYUmBkbtLUy86V2W6',
+          1: 'PLzRvuWZjOiCBlhDTn5xdVoD6x1z3ML0eH',  2: 'PLzRvuWZjOiCA4M3p6xVMjknupZO3LeQ1H',  3: 'PLzRvuWZjOiCCorGP0R90DPC-gTUJQRdTV',  4: 'PLzRvuWZjOiCDkuf8sOX-hkVbVGF7cb_No',  5: 'PLzRvuWZjOiCBlr8MLjOlAwonjco-Y1hKg', 6: 'PLzRvuWZjOiCDR0Rlh_1EV_pLzsYXAEM5n',  7: 'PLzRvuWZjOiCC5rbx5ywnXgkdfiVcNPEkf',  8: 'PLzRvuWZjOiCD5ENbn8exj-hwpEJhDlkKa',  9: 'PLzRvuWZjOiCCoNKoHKNQ0CdBmWyUjwBOg',  10: 'PLzRvuWZjOiCBDuu_URvAwtKL1R1u6g8_-', 11: 'PLzRvuWZjOiCBDuu_URvAwtKL1R1u6g8_-', 12: 'PLzRvuWZjOiCCL1fYH6KBePeC2AvfI1IHM', 13: 'PLzRvuWZjOiCAsPPEEYUmBkbtLUy86V2W6',
         };
         let currentPlaylist = '';
+        let playlistActivaReproduciendo = false;
         const dataIndexPlaylist12 = ['1', '2', '6', '7', '8', '9'];
         const dataIndexPlaylist13 = ['3', '4', '5'];
         let player;
+        let playerReady = false;
+        let playerNext;
+        let playerNextReady = false;
         let playerExtra;
+        let playerExtraNext;
+        let playerExtraReady = false;
+        let playerExtraNextReady = false;
+        let extraMonitorTimer = null;
+        let extraFadeTimer = null;
+        let extraTransition = null;
+        let playerRandom;
+        let randomBackgroundPlayer = null;
+        let randomVolumeTimer = null;
         let currentExtraPlaylist = '';
+        let pendingPlaylist = '';
+        let youtubeApiLoading = false;
         let pendingExtraPlaylist = null;
-        document.getElementById('boton1').onclick = () => {
-          document.getElementById('parte1').classList.add('hidden');
-          document.getElementById('parte2').classList.remove('hidden');
-        };
+        let activeStyleIndex = '';
+        let controlesInactivosTimer = null;
+        const controlesConInactividad = ["botonR", "botonYT", "botonPause", "boton13", "boton12", "botonDisco"]
+          .map(id => document.getElementById(id)).filter(Boolean);
+        function reiniciarTemporizadorControles() {
+          if (controlesInactivosTimer) clearTimeout(controlesInactivosTimer);
+          controlesConInactividad.forEach(control => control.classList.remove("control-inactivo"));
+          if (!/^[1-9]$/.test(activeStyleIndex)) return;
+          controlesInactivosTimer = setTimeout(() => {
+            if (/^[1-9]$/.test(activeStyleIndex)) {
+              controlesConInactividad.forEach(control => control.classList.add("control-inactivo"));
+            }
+          }, 10000);
+        }
+        ["pointerdown", "pointermove", "touchstart", "touchmove", "wheel", "keydown"].forEach(tipo => {
+          document.addEventListener(tipo, reiniciarTemporizadorControles, { passive: true, capture: true });
+        });
+        document.addEventListener("scroll", reiniciarTemporizadorControles, { passive: true, capture: true });
+        let fadeTimer = null;
+        let volumeFadeTimer = null;
+        let fadeTransition = null;
+        function asegurarPantallaCompleta() {
+          if (document.fullscreenElement) return;
+          const elem = document.documentElement;
+          const request = elem.requestFullscreen || elem.webkitRequestFullscreen || elem.msRequestFullscreen;
+          if (request) {
+            const result = request.call(elem);
+            if (result && typeof result.catch === "function") result.catch(() => {});
+          }
+        }
+        document.querySelectorAll("#parte2 .estilo-btn").forEach(btn => {
+          btn.addEventListener("click", asegurarPantallaCompleta);
+        });
         document.querySelectorAll('.estilo-btn').forEach(btn => {
           btn.onclick = () => {
-            function asegurarPantallaCompleta() {
-              if (!document.fullscreenElement) {
-                const elem = document.documentElement;
-                if (elem.requestFullscreen) {
-                  elem.requestFullscreen();
-                } else if (elem.webkitRequestFullscreen) { 
-                  elem.webkitRequestFullscreen();
-                } else if (elem.msRequestFullscreen) { 
-                  elem.msRequestFullscreen();
-                }
-              }
-            }
-            document.querySelectorAll('#parte2 .estilo-btn').forEach(btn => {
-              btn.addEventListener('click', () => {
-                asegurarPantallaCompleta();
-              });
-            });
             const bg = window.getComputedStyle(btn).backgroundColor;
             const color = window.getComputedStyle(btn).color;
             const botonHome = document.getElementById("boton12");
@@ -1017,29 +1061,37 @@
             const botonP = document.getElementById("botonPause");
             const botonYT = document.getElementById("botonYT");
             const botonR = document.getElementById("botonR");
-            if (botonHome) {
-              botonHome.style.backgroundColor = bg;
-              botonHome.style.color = color;
+            const botonDisco = document.getElementById("botonDisco");
+            [botonHome, botonNext, botonP, botonYT, botonR, botonDisco].forEach(control => {
+              if (!control) return;
+              control.style.setProperty("--control-bg", bg);
+              control.style.backgroundColor = "";
+              control.style.color = color;
+            });
+            if (fadeTimer) { clearInterval(fadeTimer); fadeTimer = null; }
+            if (fadeTransition) {
+              fadeTransition.outgoing.setVolume(100);
+              fadeTransition.outgoing.unMute();
+              fadeTransition.incoming.stopVideo();
             }
-            if (botonNext) {
-              botonNext.style.backgroundColor = bg;
-              botonNext.style.color = color;
-            }
-            if (botonP) {
-              botonP.style.backgroundColor = bg;
-              botonP.style.color = color;
-            }
-            if (botonYT) {
-              botonYT.style.backgroundColor = bg;
-              botonYT.style.color = color;
-            }
-            if (botonR) {
-              botonR.style.backgroundColor = bg;
-              botonR.style.color = color;
-            }
+            fadeTransition = null;
             const idx = btn.dataset.index;
+            if (/^[1-9]$/.test(idx)) precalentarDisco(idx);
+            if (/^[1-9]$/.test(idx)) prepararBufferReels(idx);
+            document.getElementById("boton13").disabled = false;
+            document.getElementById("boton13").classList.remove("is-playing");
+            const ocultarControles = idx === "10" || idx === "11";
+            [botonR, botonYT, botonP, botonNext, botonDisco].forEach(control => {
+              if (control) control.style.display = ocultarControles ? "none" : "";
+            });
+            activeStyleIndex = idx;
+            reiniciarTemporizadorControles();
+            isPaused = false;
+            const pauseIcon = document.querySelector("#botonPause i");
+            if (pauseIcon) pauseIcon.className = "fa-solid fa-pause";
             currentPlaylist = playlistIDs[idx];
             loadYouTube(currentPlaylist);
+            sincronizarDiscos();
             if (dataIndexPlaylist12.includes(idx)) {
               currentExtraPlaylist = playlistIDs[12];
               loadYouTubeExtra(currentExtraPlaylist);
@@ -1048,39 +1100,393 @@
               loadYouTubeExtra(currentExtraPlaylist);
             } else {
               currentExtraPlaylist = "";
-              if (playerExtra && typeof playerExtra.stopVideo === "function") {
-                playerExtra.stopVideo();
-              }
+              detenerCicloExtra();
+              if (playerExtra && typeof playerExtra.stopVideo === "function") playerExtra.stopVideo();
             }
             document.querySelectorAll('.pagina-principal').forEach(div => {
               div.style.display = div.dataset.index === idx ? 'flex' : 'none';
             });
             document.getElementById('parte2').classList.add('hidden');
             document.getElementById('parte3').classList.remove('hidden');
-            document.getElementById('logo').style.color = btn.style.backgroundColor;
+            document.getElementById('logo').style.color = bg;
           };
         });
+        const boton12Control = document.getElementById("boton12");
+        boton12Control.addEventListener("pointerdown", () => {
+          if (!boton12Control.disabled) boton12Control.classList.add("presionado");
+        });
+        ["pointerup", "pointercancel", "pointerleave", "blur"].forEach(tipo => {
+          boton12Control.addEventListener(tipo, () => boton12Control.classList.remove("presionado"));
+        });
         document.getElementById('boton12').onclick = () => {
-          document.getElementById('parte3').classList.add('hidden');
-          document.getElementById('parte2').classList.remove('hidden');
-          if (player) player.stopVideo();
-          if (playerExtra) playerExtra.stopVideo();
-          currentExtraPlaylist = '';
-          currentPlaylist = '';
-          document.querySelectorAll('.pagina-principal').forEach(div => {
-            div.style.display = 'none';
+          const boton12 = document.getElementById("boton12");
+          if (boton12.disabled) return;
+          const reproductores = obtenerReproductoresPausa();
+          const volumenes = reproductores.map(deck => {
+            try { return { deck, volumen: deck.getVolume() }; }
+            catch (_) { return { deck, volumen: 100 }; }
           });
+          cancelarDesvanecidoVolumen();
+          boton12.disabled = true;
+          botonPause.disabled = true;
+          document.getElementById("boton13").disabled = true;
+          document.getElementById("botonYT").disabled = true;
+          isPaused = true;
+          iconPause.className = "fa-solid fa-play";
+          sincronizarDiscos();
+          const inicio = Date.now();
+          volumeFadeTimer = setInterval(() => {
+            const progreso = Math.min((Date.now() - inicio) / 3000, 1);
+            volumenes.forEach(({ deck, volumen }) => deck.setVolume(Math.round(volumen * (1 - progreso))));
+            if (progreso >= 1) {
+              cancelarDesvanecidoVolumen();
+              if (fadeTimer) { clearInterval(fadeTimer); fadeTimer = null; }
+              fadeTransition = null;
+              reproductores.forEach(deck => {
+                deck.pauseVideo();
+                deck.setVolume(0);
+              });
+              if (playerNext) playerNext.stopVideo();
+              if (playerExtra) playerExtra.stopVideo();
+              detenerCicloExtra();
+              if (playerRandom) playerRandom.stopVideo();
+              currentExtraPlaylist = "";
+              currentPlaylist = "";
+              activeStyleIndex = "";
+              reiniciarTemporizadorControles();
+              document.querySelectorAll(".pagina-principal").forEach(div => { div.style.display = "none"; });
+              document.getElementById("parte3").classList.add("hidden");
+              document.getElementById("parte2").classList.remove("hidden");
+              boton12.disabled = false;
+              botonPause.classList.remove("is-playing");
+              botonPause.disabled = false;
+              document.getElementById("boton13").classList.remove("is-playing");
+              document.getElementById("boton13").disabled = false;
+              const botonYT = document.getElementById("botonYT");
+              botonYT.classList.remove("is-playing");
+              botonYT.disabled = false;
+              sincronizarDiscos();
+            }
+          }, 50);
         };
         document.getElementById('boton13').onclick = () => {
-          if (player && typeof player.getPlaylist === 'function') {
-            const playlist = player.getPlaylist();
-            if (playlist && playlist.length > 0) {
-              const randomIndex = Math.floor(Math.random() * playlist.length);
-              player.playVideoAt(randomIndex);
-            }
+          if (document.getElementById("boton13").disabled || !player || !playerNext || !playerNextReady) return;
+          if (fadeTransition) {
+            if (fadeTransition.elapsed < 4000) return;
+            completarTransicionBoton13();
           }
+          const playlist = player.getPlaylist();
+          if (!playlist || playlist.length < 2) return;
+          const currentVideo = (player.getVideoData && player.getVideoData().video_id) || playlist[player.getPlaylistIndex()];
+          if (!currentVideo) return;
+          const candidates = playlist.filter(videoId => videoId && videoId !== currentVideo);
+          if (!candidates.length) return;
+          const nextVideo = candidates[Math.floor(Math.random() * candidates.length)];
+          const nextIndex = playlist.indexOf(nextVideo);
+          if (nextIndex < 0) return;
+          const boton13 = document.getElementById("boton13");
+          boton13.disabled = true;
+          boton13.classList.add("is-playing");
+          if (!/^[1-9]$/.test(activeStyleIndex)) {
+            player.playVideoAt(nextIndex);
+            return;
+          }
+          if (typeof player.unMute === "function") player.unMute();
+          player.setVolume(100);
+          playerNext.mute();
+          playerNext.setVolume(0);
+          fadeTransition = { outgoing: player, incoming: playerNext, startedAt: 0, elapsed: 0 };
+          playerNext.cuePlaylist(playlist, nextIndex);
         };
+        document.getElementById("botonDisco").addEventListener("click", () => {
+          const paginaActiva = document.querySelector(`.pagina-principal[data-index="${activeStyleIndex}"]`);
+          if (!paginaActiva || paginaActiva.scrollTop <= 1 || paginaActiva.dataset.fadeJump === "true") return;
+          if (typeof paginaActiva.animate !== "function") {
+            paginaActiva.scrollTo({ top: 0, behavior: "smooth" });
+            return;
+          }
+          paginaActiva.dataset.fadeJump = "true";
+          const salida = paginaActiva.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, easing: "ease", fill: "forwards" });
+          salida.onfinish = () => {
+            paginaActiva.scrollTop = 0;
+            const entrada = paginaActiva.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, easing: "ease", fill: "forwards" });
+            entrada.onfinish = () => { delete paginaActiva.dataset.fadeJump; };
+          };
+        });
+        const discoGifs = new Map();
+        function precalentarDisco(indice) {
+          const slide = document.querySelector(`.pagina-principal[data-index="${indice}"] > .pagina-secundaria:first-child`);
+          const disco = slide && discoGifs.get(slide);
+          if (!disco || disco.imageLoading || disco.image.complete && disco.image.naturalWidth) return;
+          disco.imageFailed = false;
+          disco.imageLoading = true;
+          disco.image.decoding = "async";
+          disco.image.fetchPriority = "high";
+          disco.image.src = disco.url;
+        }
+        function prepararBufferReels(indice) {
+          const pagina = document.querySelector(`.pagina-principal[data-index="${indice}"]`);
+          if (!pagina) return;
+          Array.from(pagina.querySelectorAll(".pagina-secundaria"))
+            .slice(1, 3)
+            .forEach(slide => {
+              const url = slide.dataset.bg || slide.dataset.originalBg;
+              if (!url) return;
+              slide.dataset.fondoVisible = "false";
+              precargarFondoSlide(slide, url);
+            });
+        }
+        function iniciarCapturaDisco(disco) {
+          if (disco.timer || !disco.image.complete || !disco.image.naturalWidth) return;
+          const dibujar = () => {
+            const ratio = Math.min(window.devicePixelRatio || 1, 2);
+            const width = Math.max(1, Math.round(disco.slide.clientWidth * ratio));
+            const height = Math.max(1, Math.round(disco.slide.clientHeight * ratio));
+            if (disco.canvas.width !== width || disco.canvas.height !== height) {
+              disco.canvas.width = width;
+              disco.canvas.height = height;
+            }
+            const scale = Math.max(width / disco.image.naturalWidth, height / disco.image.naturalHeight);
+            const drawWidth = disco.image.naturalWidth * scale;
+            const drawHeight = disco.image.naturalHeight * scale;
+            const ctx = disco.context;
+            ctx.clearRect(0, 0, width, height);
+            ctx.drawImage(disco.image, (width - drawWidth) / 2, (height - drawHeight) / 2, drawWidth, drawHeight);
+            try {
+              ctx.getImageData(0, 0, 1, 1);
+              disco.canFreeze = true;
+              disco.hasFrame = true;
+            } catch (_) { disco.canFreeze = false; }
+          };
+          dibujar();
+          disco.timer = setInterval(dibujar, 100);
+        }
+        function detenerCapturaDisco(disco, congelar) {
+          if (disco.timer) { clearInterval(disco.timer); disco.timer = null; }
+          if (congelar && disco.canFreeze && disco.hasFrame) {
+            disco.canvas.style.display = "block";
+          } else {
+            disco.canvas.style.display = "none";
+            if (!congelar) { disco.canvas.width = 1; disco.canvas.height = 1; disco.hasFrame = false; }
+          }
+        }
+        for (let index = 1; index <= 9; index++) {
+          const slide = document.querySelector(`.pagina-principal[data-index="${index}"] > .pagina-secundaria:first-child`);
+          if (!slide) continue;
+          const url = slide.dataset.bg;
+          slide.dataset.discoGif = "true";
+          const canvas = document.createElement("canvas");
+          canvas.className = "disco-frame";
+          Object.assign(canvas.style, { position: "absolute", inset: "0", width: "100%", height: "100%", display: "none", pointerEvents: "none", zIndex: "0" });
+          slide.appendChild(canvas);
+          const image = new Image();
+          image.crossOrigin = "anonymous";
+          image.decoding = "async";
+          const disco = { index: String(index), slide, url, canvas, context: canvas.getContext("2d"), image, timer: null, canFreeze: false, hasFrame: false, imageFailed: false, imageLoading: false };
+          discoGifs.set(slide, disco);
+          image.onload = () => { disco.imageLoading = false; disco.imageFailed = false; sincronizarDiscos(); };
+          image.onerror = () => { disco.canFreeze = false; disco.imageFailed = true; disco.imageLoading = false; };
+        }
+        document.querySelectorAll("#parte2 .estilo-btn[data-index]").forEach(btn => {
+          const preparar = () => { if (/^[1-9]$/.test(btn.dataset.index)) precalentarDisco(btn.dataset.index); };
+          btn.addEventListener("pointerenter", preparar, { passive: true });
+          btn.addEventListener("pointerdown", preparar, { passive: true });
+          btn.addEventListener("focus", preparar);
+        });
+        function sincronizarDiscos() {
+          const reproduciendo = playlistActivaReproduciendo && !isPaused && [player, fadeTransition && fadeTransition.incoming].some(deck => {
+            try { return deck && deck.getPlayerState() === YT.PlayerState.PLAYING; } catch (_) { return false; }
+          });
+          discoGifs.forEach(disco => {
+            const activo = disco.index === activeStyleIndex;
+            const imagenLista = disco.image.complete && disco.image.naturalWidth > 0;
+            if (activo) precalentarDisco(disco.index);
+            if (activo && reproduciendo) {
+              disco.slide.style.setProperty("--slide-bg-image", `url("${disco.url}")`);
+              disco.slide.classList.add("fondo-visible");
+              disco.canvas.style.display = "none";
+              if (imagenLista) iniciarCapturaDisco(disco);
+            } else {
+              disco.slide.classList.remove("fondo-visible");
+              if (activo && imagenLista && !disco.hasFrame) iniciarCapturaDisco(disco);
+              detenerCapturaDisco(disco, activo);
+            }
+          });
+        }
+        const precargasFondos = new Map();
+        const maxFondosEnCache = 6;
+        let relojFondos = 0;
+        function recortarCacheFondos() {
+          while (precargasFondos.size > maxFondosEnCache) {
+            const candidatos = [...precargasFondos.entries()]
+              .filter(([el]) => el.dataset.fondoVisible !== "true")
+              .sort((a, b) => a[1].ultimoUso - b[1].ultimoUso);
+            if (!candidatos.length) return;
+            const [el, recurso] = candidatos[0];
+            precargasFondos.delete(el);
+            delete el.dataset.fondoCargado;
+            if (recurso.image) recurso.image.src = "";
+          }
+        }
+        function mostrarFondoSlide(el, url) {
+          const recurso = precargasFondos.get(el);
+          if (el.dataset.fondoVisible === "true" && recurso && recurso.url === url) {
+            recurso.ultimoUso = ++relojFondos;
+            if (el.dataset.fondoVisible === "true" && recurso.image) recurso.image.fetchPriority = "high";
+            el.dataset.fondoCargado = url;
+            el.style.setProperty("--slide-bg-image", `url("${url}")`);
+            el.classList.add("fondo-visible");
+          }
+        }
+        function precargarFondoSlide(el, url) {
+          let recurso = precargasFondos.get(el);
+          if (recurso && recurso.url === url) {
+            recurso.ultimoUso = ++relojFondos;
+            if (el.dataset.fondoVisible === "true" && recurso.image) recurso.image.fetchPriority = "high";
+            if (el.dataset.fondoVisible === "true") mostrarFondoSlide(el, url);
+            return;
+          }
+          const imagen = new Image();
+          imagen.decoding = "async";
+          imagen.fetchPriority = el.dataset.fondoVisible === "true" ? "high" : "low";
+          recurso = { url, image: imagen, cargado: false, ultimoUso: ++relojFondos };
+          precargasFondos.set(el, recurso);
+          imagen.onload = () => {
+            if (precargasFondos.get(el) !== recurso) return;
+            recurso.cargado = true;
+            el.dataset.fondoCargado = url;
+            mostrarFondoSlide(el, url);
+          };
+          imagen.onerror = () => {
+            if (precargasFondos.get(el) === recurso) precargasFondos.delete(el);
+          };
+          imagen.src = url;
+          if (el.dataset.fondoVisible === "true") mostrarFondoSlide(el, url);
+          recortarCacheFondos();
+        }
+        const observerPrecargaFondos = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            const el = entry.target;
+            if (el.dataset.discoGif === "true") return;
+            const url = el.dataset.bg || el.dataset.originalBg;
+            if (!url) return;
+            if (entry.isIntersecting) {
+              el.dataset.originalBg = url;
+              precargarFondoSlide(el, url);
+            } else {
+              el.dataset.fondoVisible = "false";
+              el.classList.remove("fondo-visible");
+              el.style.removeProperty("--slide-bg-image");
+              const recurso = precargasFondos.get(el);
+              if (recurso) recurso.ultimoUso = ++relojFondos;
+              recortarCacheFondos();
+            }
+          });
+        }, { root: null, rootMargin: "150% 0px", threshold: 0 });
+        const observerVisibilidadFondos = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            const el = entry.target;
+            if (el.dataset.discoGif === "true") { sincronizarDiscos(); return; }
+            const url = el.dataset.bg || el.dataset.originalBg;
+            if (!url) return;
+            el.dataset.fondoVisible = entry.isIntersecting && entry.intersectionRatio >= 0.5 ? "true" : "false";
+            if (el.dataset.fondoVisible === "true") precargarFondoSlide(el, url);
+            else el.classList.remove("fondo-visible");
+          });
+        }, { root: null, rootMargin: "0px", threshold: [0, 0.5] });
+        document.querySelectorAll(".pagina-secundaria").forEach(el => {
+          observerPrecargaFondos.observe(el);
+          observerVisibilidadFondos.observe(el);
+        });
+        const fondoSelectorUrl = "https://lh3.googleusercontent.com/d/16Bq38k73RNYH54WwmyQ9wAUa8SaVkYK-=s3000";
+        const precargaFondoSelector = new Image();
+        precargaFondoSelector.decoding = "async";
+        precargaFondoSelector.fetchPriority = "high";
+        precargaFondoSelector.onload = () => {
+          document.querySelectorAll("#parte2.b2, .pagina-principal.b2").forEach(el => el.classList.add("gif-bg-ready"));
+        };
+        precargaFondoSelector.src = fondoSelectorUrl;
+        function manejarEstadoPlayerNext(event) {
+          if (event.target === player && event.data === YT.PlayerState.PLAYING) playlistActivaReproduciendo = true;
+          sincronizarDiscos();
+          if (event.target === player && !isPaused && event.data === YT.PlayerState.CUED) {
+            player.playVideo();
+            return;
+          }
+          if (!fadeTransition && event.data === YT.PlayerState.ENDED && event.target === player) {
+            finalizarBoton13();
+            return;
+          }
+          const transition = fadeTransition;
+          if (!transition || event.target !== transition.incoming) return;
+          if (event.data === YT.PlayerState.CUED) {
+            if (!isPaused) transition.incoming.playVideo();
+            return;
+          }
+          if (event.data !== YT.PlayerState.PLAYING || transition.startedAt) return;
+          transition.startedAt = Date.now();
+          transition.lastTick = transition.startedAt;
+          transition.incoming.setVolume(0);
+          transition.incoming.unMute();
+          fadeTimer = setInterval(() => {
+            if (fadeTransition !== transition) {
+              clearInterval(fadeTimer);
+              fadeTimer = null;
+              return;
+            }
+            const now = Date.now();
+            if (!isPaused) transition.elapsed += now - transition.lastTick;
+            transition.lastTick = now;
+            const fadeOutProgress = Math.min(transition.elapsed / 4000, 1);
+            const fadeInProgress = Math.min(transition.elapsed / 3000, 1);
+            if (!volumeFadeTimer) {
+              transition.outgoing.setVolume(Math.round(100 * (1 - fadeOutProgress)));
+              transition.incoming.setVolume(Math.round(100 * fadeInProgress));
+            }
+            if (transition.elapsed >= 4000 && !transition.botonDesbloqueado) {
+              transition.botonDesbloqueado = true;
+              finalizarBoton13();
+            }
+            if (transition.elapsed >= 4000) {
+              clearInterval(fadeTimer);
+              fadeTimer = null;
+              transition.outgoing.stopVideo();
+              transition.outgoing.setVolume(0);
+              transition.incoming.setVolume(100);
+              if (isPaused) transition.incoming.pauseVideo();
+              player = transition.incoming;
+              playerNext = transition.outgoing;
+              fadeTransition = null;
+            }
+          }, 100);
+        }
+        function completarTransicionBoton13() {
+          const transition = fadeTransition;
+          if (!transition) return;
+          if (fadeTimer) { clearInterval(fadeTimer); fadeTimer = null; }
+          transition.outgoing.stopVideo();
+          transition.outgoing.setVolume(0);
+          transition.incoming.setVolume(100);
+          if (isPaused) transition.incoming.pauseVideo();
+          player = transition.incoming;
+          playerNext = transition.outgoing;
+          fadeTransition = null;
+        }
+        function finalizarBoton13() {
+          const boton13 = document.getElementById("boton13");
+          boton13.classList.remove("is-playing");
+          boton13.disabled = false;
+        }
+        function manejarErrorPlayer(event) {
+          const transition = fadeTransition;
+          if (event.target === player || (transition && transition.incoming === event.target)) finalizarBoton13();
+          if (!transition || transition.incoming !== event.target) return;
+          if (fadeTimer) { clearInterval(fadeTimer); fadeTimer = null; }
+          fadeTransition = null;
+          transition.incoming.stopVideo();
+        }
         function onYouTubeIframeAPIReady() {
+          youtubeApiLoading = false;
           player = new YT.Player('player', {
             height: '0', width: '0',
             playerVars: {
@@ -1092,182 +1498,318 @@
             },
             events: {
               onReady: e => {
+                playerReady = true;
                 e.target.setVolume(100);
                 e.target.setShuffle(true);
                 if (pendingPlaylist) {
                   loadYouTube(pendingPlaylist);
                   pendingPlaylist = null;
                 }
-              }
+              },
+              onStateChange: manejarEstadoPlayerNext,
+              onError: manejarErrorPlayer
+            }
+          });
+          playerNext = new YT.Player('playerNext', {
+            height: '0', width: '0',
+            playerVars: { autoplay: 0, controls: 0, rel: 0 },
+            events: {
+              onReady: e => {
+                e.target.setVolume(0);
+                e.target.mute();
+                playerNextReady = true;
+              },
+              onStateChange: manejarEstadoPlayerNext,
+              onError: manejarErrorPlayer
+            }
+          });
+          playerRandom = new YT.Player('yt-random-player', {
+            height: '0', width: '0',
+            playerVars: { autoplay: 1, controls: 0, rel: 0 },
+            events: {
+              onStateChange: event => {
+                if (event.data === YT.PlayerState.ENDED) finalizarReproduccionYT();
+              },
+              onError: () => finalizarReproduccionYT()
             }
           });
           playerExtra = new YT.Player('playerExtra', {
             height: '0', width: '0',
-            playerVars: {
-              autoplay: 1,
-              controls: 0,
-              loop: 1,
-              playlist: '',
-              rel: 0
-            },
+            playerVars: { autoplay: 1, controls: 0, loop: 0, playlist: '', rel: 0 },
             events: {
               onReady: e => {
-                e.target.setVolume(20);
+                playerExtraReady = true;
+                e.target.setVolume(10);
                 e.target.setShuffle(true);
-                if (typeof e.target.setLoop === "function") {
-                  e.target.setLoop(true);
-                }
+                if (typeof e.target.setLoop === "function") e.target.setLoop(false);
                 if (pendingExtraPlaylist) {
                   loadYouTubeExtra(pendingExtraPlaylist);
                   pendingExtraPlaylist = null;
                 }
-              }
+                if (!extraMonitorTimer) extraMonitorTimer = setInterval(supervisarPlaylistExtra, 200);
+              },
+              onStateChange: manejarEstadoPlayerExtra,
+              onError: manejarErrorPlaylistExtra
             }
           });
+          playerExtraNext = new YT.Player('playerExtraNext', {
+            height: '0', width: '0',
+            playerVars: { autoplay: 0, controls: 0, rel: 0 },
+            events: {
+              onReady: e => {
+                playerExtraNextReady = true;
+                e.target.setVolume(0);
+                e.target.mute();
+              },
+              onStateChange: manejarEstadoPlayerExtra,
+              onError: manejarErrorPlaylistExtra
+            }
+          });
+        }
+        function solicitarAPIYouTube() {
+          if (window.YT || youtubeApiLoading) return;
+          youtubeApiLoading = true;
+          const tag = document.createElement('script');
+          tag.src = 'https://www.youtube.com/iframe_api';
+          tag.onerror = () => { youtubeApiLoading = false; };
+          document.body.appendChild(tag);
         }
         function loadYouTube(id) {
-          if (!window.YT || !player || typeof player.loadPlaylist !== "function") {
+          playlistActivaReproduciendo = false;
+          if (!window.YT || !player || !playerReady || typeof player.loadPlaylist !== "function") {
             pendingPlaylist = id;
-            if (!window.YT) {
-              const tag = document.createElement('script');
-              tag.src = 'https://www.youtube.com/iframe_api';
-              document.body.appendChild(tag);
-            }
+            solicitarAPIYouTube();
             return;
           }
-          player.loadPlaylist({
-            listType: 'playlist',
-            list: id,
-            index: 0,
-            suggestedQuality: 'large'
+          [player, playerNext].forEach(deck => {
+            try { if (deck && typeof deck.stopVideo === "function") deck.stopVideo(); } catch (_) {}
           });
-          if (id === playlistIDs[12] || id === playlistIDs[13]) {
-            player.setVolume(50);
-            if (typeof player.setLoop === "function") {
-              player.setLoop(true);
+          const esInfo = id === playlistIDs[10] || id === playlistIDs[11];
+          if (typeof player.unMute === "function") player.unMute();
+          player.setVolume(esInfo ? 70 : 100);
+          if (!esInfo && typeof player.setLoop === "function") player.setLoop(false);
+          player.loadPlaylist({ listType: 'playlist', list: id, index: 0, suggestedQuality: 'large' });
+          player.playVideo();
+
+        }
+        function cancelarCicloExtra() {
+          if (extraFadeTimer) { clearInterval(extraFadeTimer); extraFadeTimer = null; }
+          extraTransition = null;
+          if (playerExtraNext && typeof playerExtraNext.stopVideo === "function") playerExtraNext.stopVideo();
+        }
+        function detenerCicloExtra() {
+          cancelarCicloExtra();
+          if (playerExtra && typeof playerExtra.setVolume === "function") playerExtra.setVolume(0);
+          if (playerExtraNext && typeof playerExtraNext.setVolume === "function") playerExtraNext.setVolume(0);
+        }
+        function iniciarTransicionPlaylistExtra(forzar = false) {
+          if (!playerExtraNextReady || !currentExtraPlaylist || extraTransition) return;
+          extraTransition = { outgoing: playerExtra, incoming: playerExtraNext, playlist: currentExtraPlaylist, cued: false, force: forzar, started: false, elapsed: 0 };
+          extraTransition.incoming.setVolume(0);
+          extraTransition.incoming.unMute();
+          extraTransition.incoming.cuePlaylist({ listType: "playlist", list: currentExtraPlaylist, index: 0, suggestedQuality: "large" });
+        }
+        function iniciarFadePlaylistExtra(transition) {
+          if (!transition || transition.started || extraTransition !== transition) return;
+          transition.started = true;
+          transition.incoming.setVolume(0);
+          transition.incoming.unMute();
+          transition.incoming.playVideo();
+          extraFadeTimer = setInterval(() => {
+            if (extraTransition !== transition) {
+              clearInterval(extraFadeTimer);
+              extraFadeTimer = null;
+              return;
+            }
+            transition.elapsed = Math.min(transition.elapsed + 100, 5000);
+            const progress = transition.elapsed / 4000;
+            transition.outgoing.setVolume(Math.round(10 * (1 - progress)));
+            transition.incoming.setVolume(Math.round(10 * progress));
+            if (progress >= 1) {
+              clearInterval(extraFadeTimer);
+              extraFadeTimer = null;
+              transition.outgoing.pauseVideo();
+              transition.outgoing.setVolume(0);
+              transition.outgoing.mute();
+              transition.incoming.setVolume(10);
+              transition.incoming.unMute();
+              playerExtra = transition.incoming;
+              playerExtraNext = transition.outgoing;
+              currentExtraPlaylist = transition.playlist;
+              extraTransition = null;
+            }
+          }, 100);
+        }
+        function manejarEstadoPlayerExtra(event) {
+          const transition = extraTransition;
+          if (transition && event.target === transition.incoming) {
+            if (event.data === YT.PlayerState.CUED) {
+              transition.cued = true;
+              if (transition.force) iniciarFadePlaylistExtra(transition);
+            } else if (event.data === YT.PlayerState.PLAYING) {
+              iniciarFadePlaylistExtra(transition);
             }
           }
+          if (event.target === playerExtra && event.data === YT.PlayerState.ENDED) {
+            if (!extraTransition) iniciarTransicionPlaylistExtra(true);
+            else {
+              extraTransition.force = true;
+              if (extraTransition.cued) iniciarFadePlaylistExtra(extraTransition);
+            }
+          }
+        }
+        function manejarErrorPlaylistExtra(event) {
+          if (extraTransition && event.target === extraTransition.incoming) {
+            cancelarCicloExtra();
+            if (playerExtra && typeof playerExtra.setVolume === "function") playerExtra.setVolume(10);
+          }
+        }
+        function supervisarPlaylistExtra() {
+          if (!playerExtra || !playerExtraReady || !currentExtraPlaylist) return;
+          try {
+            if (extraTransition) {
+              if (!extraTransition.started && extraTransition.cued) {
+                const duracionActual = playerExtra.getDuration();
+                const restanteActual = duracionActual - playerExtra.getCurrentTime();
+                if (extraTransition.force || restanteActual <= 5000) iniciarFadePlaylistExtra(extraTransition);
+              }
+              return;
+            }
+            if (playerExtra.getPlayerState() !== YT.PlayerState.PLAYING) return;
+            const lista = playerExtra.getPlaylist();
+            const indice = playerExtra.getPlaylistIndex();
+            const duracion = playerExtra.getDuration();
+            const restante = duracion - playerExtra.getCurrentTime();
+            if (lista && lista.length && indice === lista.length - 1 && restante <= 8000) {
+              iniciarTransicionPlaylistExtra(false);
+              if (extraTransition && extraTransition.cued && restante <= 5000) iniciarFadePlaylistExtra(extraTransition);
+            }
+          } catch (_) {}
         }
         function loadYouTubeExtra(id) {
-          if (!window.YT || !playerExtra || typeof playerExtra.loadPlaylist !== "function") {
+          if (!window.YT || !playerExtra || !playerExtraReady || typeof playerExtra.loadPlaylist !== "function") {
             pendingExtraPlaylist = id;
-            if (!window.YT) {
-              const tag = document.createElement('script');
-              tag.src = 'https://www.youtube.com/iframe_api';
-              document.body.appendChild(tag);
-            }
+            solicitarAPIYouTube();
             return;
           }
-          playerExtra.loadPlaylist({
-            listType: 'playlist',
-            list: id,
-            index: 0,
-            suggestedQuality: 'large'
-          });
+          cancelarCicloExtra();
+          currentExtraPlaylist = id;
+          playerExtra.stopVideo();
+          playerExtra.unMute();
           playerExtra.setVolume(10);
-          if (typeof playerExtra.setLoop === "function") {
-            playerExtra.setLoop(true);
-          }
+          playerExtra.loadPlaylist({ listType: 'playlist', list: id, index: 0, suggestedQuality: 'large' });
+          if (typeof playerExtra.setLoop === "function") playerExtra.setLoop(false);
         }
         window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
-        document.getElementById('boton1').addEventListener('click', () => {
-          const docEl = document.documentElement;
-          if (docEl.requestFullscreen) {
-            docEl.requestFullscreen();
-          } else if (docEl.webkitRequestFullscreen) {
-            docEl.webkitRequestFullscreen();
-          } else if (docEl.msRequestFullscreen) {
-            docEl.msRequestFullscreen();
-          }
-        });
         document.getElementById("boton1").addEventListener("click", () => {
           document.getElementById("confirmacionBoton1Overlay").style.display = "flex";
         });
         document.getElementById("confirmacionBoton1Si").addEventListener("click", () => {
+          solicitarAPIYouTube();
           document.getElementById("confirmacionBoton1Overlay").style.display = "none";
+          document.getElementById("parte1").classList.add("hidden");
+          document.getElementById("parte2").classList.remove("hidden");
+          asegurarPantallaCompleta();
         });
-        document.getElementById("confirmacionBoton1No").addEventListener("click", () => {
-          location.reload();
-        });
-        const paginas = document.querySelectorAll('.pagina-secundaria');
-        let activeGif = null;
-        const observer = new IntersectionObserver(entries => {
-          entries.forEach(entry => {
-            const el = entry.target;
-            const url = el.dataset.bg || el.dataset.originalBg;
-            if (!url) return;
-            const lowerUrl = url.toLowerCase();
-            const isGif = lowerUrl.includes('.gif');
-            const isPng = lowerUrl.includes('.png');
-            if (entry.isIntersecting) {
-              if (!isGif) {
-                if (el.dataset.bg) {
-                  el.style.backgroundImage = `url('${url}')`;
-                  el.dataset.originalBg = url;
-                  el.dataset.bg = url;
-                }
-              }
-              if (isGif) {
-                el.style.backgroundImage = `url('${url}')`;
-                el.dataset.originalBg = url;
-                activeGif = el;
-              }
-            } else {
-              if (isGif) {
-                el.dataset.originalBg = url;
-              }
-            }
-          });
-        }, { root: null, rootMargin: "0px", threshold: 0.6 });
-        paginas.forEach(p => observer.observe(p));
+        document.getElementById("confirmacionBoton1No").addEventListener("click", resetear);
         let isPaused = false;
+            sincronizarDiscos();
         const botonPause = document.getElementById("botonPause");
         const iconPause = botonPause.querySelector("i");
+        function obtenerReproductoresPausa() {
+          return [...new Set([player, fadeTransition && fadeTransition.incoming].filter(Boolean))];
+        }
+        function cancelarDesvanecidoVolumen() {
+          if (volumeFadeTimer) {
+            clearInterval(volumeFadeTimer);
+            volumeFadeTimer = null;
+          }
+        }
+        function desvanecerVolumen(reproductores, volumenInicial, volumenFinal, alTerminar) {
+          cancelarDesvanecidoVolumen();
+          const inicio = Date.now();
+          volumeFadeTimer = setInterval(() => {
+            const progreso = Math.min((Date.now() - inicio) / 3000, 1);
+            const volumen = Math.round(volumenInicial + (volumenFinal - volumenInicial) * progreso);
+            reproductores.forEach(deck => deck.setVolume(volumen));
+            if (progreso >= 1) {
+              cancelarDesvanecidoVolumen();
+              alTerminar();
+            }
+          }, 50);
+        }
         botonPause.onclick = () => {
-          if (!player) return;
+          if (!player || botonPause.disabled) return;
+          cancelarDesvanecidoVolumen();
+          const reproductores = obtenerReproductoresPausa();
+          botonPause.disabled = true;
+          botonPause.classList.add("is-playing");
           if (!isPaused) {
-            player.pauseVideo();
-            iconPause.className = "fa-solid fa-play";
+            reproductores.forEach(deck => deck.setVolume(100));
             isPaused = true;
+            iconPause.className = "fa-solid fa-play";
+            sincronizarDiscos();
+            desvanecerVolumen(reproductores, 100, 0, () => {
+              reproductores.forEach(deck => {
+                deck.pauseVideo();
+                deck.setVolume(0);
+              });
+              botonPause.classList.remove("is-playing");
+              botonPause.disabled = false;
+              sincronizarDiscos();
+            });
           } else {
-            player.playVideo();
-            iconPause.className = "fa-solid fa-pause";
+            reproductores.forEach(deck => {
+              deck.setVolume(0);
+              deck.playVideo();
+            });
             isPaused = false;
+            iconPause.className = "fa-solid fa-pause";
+            sincronizarDiscos();
+            desvanecerVolumen(reproductores, 0, 100, () => {
+              reproductores.forEach(deck => deck.setVolume(100));
+              botonPause.classList.remove("is-playing");
+              botonPause.disabled = false;
+            });
           }
         };
-        const playlist12Videos = [
-          "hBz-avUwksY",
-          "4AfXqf2CE8A",
-          "8TB4XgI23uo",
-          "nIeGu4zZpiQ",
-          "ZjM-CBv_4rc",
-          "TWmOLEDW8Q8",
-          "aELPikOUJFg",
-          "D4c7ZG7r7QQ",
-          "G7-dT9cTlDQ",
-          "r9_oBKxn50Y"
-        ];
+        const playlist12Videos = [ "hBz-avUwksY", "4AfXqf2CE8A", "8TB4XgI23uo", "nIeGu4zZpiQ", "ZjM-CBv_4rc", "TWmOLEDW8Q8", "aELPikOUJFg", "D4c7ZG7r7QQ", "G7-dT9cTlDQ", "r9_oBKxn50Y" ];
         function reproducirPlaylistRandom() {
-          if (!playlist12Videos.length) return;
+          if (!playlist12Videos.length || !playerRandom || !player) return;
+          const botonYT = document.getElementById("botonYT");
+          botonYT.disabled = true;
+          botonYT.classList.add("is-playing");
+          if (randomVolumeTimer) { clearInterval(randomVolumeTimer); randomVolumeTimer = null; }
+          if (randomBackgroundPlayer && randomBackgroundPlayer !== player) randomBackgroundPlayer.setVolume(100);
+          randomBackgroundPlayer = player;
+          randomBackgroundPlayer.setVolume(80);
           const randomIndex = Math.floor(Math.random() * playlist12Videos.length);
-          const videoId = playlist12Videos[randomIndex];
-          const iframe = document.getElementById("yt-random-player");
-          iframe.src = "";
-          setTimeout(() => {
-            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+          playerRandom.loadVideoById(playlist12Videos[randomIndex]);
+        }
+        function finalizarReproduccionYT() {
+          restaurarVolumenFondo();
+          const botonYT = document.getElementById("botonYT");
+          botonYT.classList.remove("is-playing");
+          botonYT.disabled = false;
+        }
+        function restaurarVolumenFondo() {
+          if (!randomBackgroundPlayer) return;
+          if (randomVolumeTimer) clearInterval(randomVolumeTimer);
+          const playersFondo = [...new Set([randomBackgroundPlayer, player].filter(Boolean))];
+          randomBackgroundPlayer = null;
+          const inicio = Date.now();
+          randomVolumeTimer = setInterval(() => {
+            const progreso = Math.min((Date.now() - inicio) / 2000, 1);
+            const volumen = Math.round(80 + 20 * progreso);
+            playersFondo.forEach(playerFondo => playerFondo.setVolume(volumen));
+            if (progreso >= 1) {
+              playersFondo.forEach(playerFondo => playerFondo.setVolume(100));
+              clearInterval(randomVolumeTimer);
+              randomVolumeTimer = null;
+            }
           }, 100);
         }
-        const prefijosBotonR = {
-          1: "red",
-          2: "black",
-          3: "gray",
-          4: "white",
-          5: "pink",
-          6: "blue",
-          7: "orange",
-          8: "green",
-          9: "yellow"
-        };
+        const prefijosBotonR = { 1: "red", 2: "black", 3: "gray", 4: "white", 5: "pink", 6: "blue", 7: "orange", 8: "green", 9: "yellow" };
         let ultimoBotonR = null;
         function mostrarDivRandomActivo() {
           const paginaActiva = Array.from(document.querySelectorAll(".pagina-principal")).find(div => {
@@ -1289,9 +1831,7 @@
             div.style.display = "none";
           });
           const bg = pantalla.getAttribute("data-bg") || pantalla.dataset.originalBg;
-          if (bg && !pantalla.style.backgroundImage) {
-            pantalla.style.backgroundImage = `url('${bg}')`;
-          }
+          if (bg) precargarFondoSlide(pantalla, bg);
           pantalla.style.visibility = "visible";
           texto.style.display = "block";
           pantalla.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1299,68 +1839,6 @@
         }
         document.getElementById("botonR").addEventListener("click", mostrarDivRandomActivo);
         document.getElementById("botonYT").addEventListener("click", reproducirPlaylistRandom);
-      })();
-    </script>
-    <script>
-      (() => {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            const el = entry.target;
-            if (entry.isIntersecting) {
-              if (!el.style.backgroundImage) {
-                const bg = el.getAttribute("data-bg");
-                if (bg) el.style.backgroundImage = `url(${bg})`;
-              }
-            } else {
-            }
-          });
-        }, {
-          threshold: 0.6
-        });
-          document.querySelectorAll('.pagina-secundaria').forEach(el => {
-            observer.observe(el);
-          });
-      })();
-    </script>
-    <script>
-      (() => {
-        const paginas = document.querySelectorAll('.pagina-secundaria');
-          function virtualizar() {
-            paginas.forEach((el, i) => {
-              const rect = el.getBoundingClientRect();
-              const visible = rect.top < window.innerHeight * 1.5 && rect.bottom > -window.innerHeight * 0.5;
-              if (visible) {
-                el.style.visibility = "visible";
-              } else {
-                el.style.visibility = "hidden";
-              }
-            });
-          }
-          document.querySelectorAll('.pagina-principal').forEach(container => {
-            container.addEventListener('scroll', () => {
-              requestAnimationFrame(virtualizar);
-            });
-          });
-      })();
-    </script>
-    <script>
-      (() => {
-        function preloadNext() {
-          document.querySelectorAll('.pagina-principal').forEach(container => {
-            const pages = container.querySelectorAll('.pagina-secundaria');
-            pages.forEach((el, i) => {
-              const rect = el.getBoundingClientRect();
-              if (rect.top >= 0 && rect.top < window.innerHeight) {
-                const next = pages[i + 1];
-                if (next && !next.style.backgroundImage) {
-                  const bg = next.getAttribute("data-bg");
-                  if (bg) next.style.backgroundImage = `url(${bg})`;
-                }
-              }
-            });
-          });
-        }
-      setInterval(preloadNext, 1200);
       })();
     </script>
   </body>
