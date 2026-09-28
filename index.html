@@ -12,9 +12,13 @@
       .main-wrapper { width: 100%; height: 100dvh; position: relative; }
       #blocker { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 999999; align-items: center; justify-content: center; text-align: center; }
       .rotada { transform: rotate(-90deg); transform-origin: center; width: 50%; }
-      @media screen and (orientation: landscape) { #blocker { display: flex; } }
+      @media screen and (orientation: landscape) and (max-height: 600px) and (pointer: coarse) { #blocker { display: flex; } }
+      @media screen and (hover: hover) and (pointer: fine) {
+        html, body { display: flex; align-items: center; justify-content: center; background: #000; }
+        .main-wrapper { width: min(56.25dvh, 100vw); height: min(100dvh, 177.7778vw); aspect-ratio: 9 / 16; flex: none; overflow: hidden; background: #000; }
+      }
       .p1 { width: 100%; height: 100%; background: url("https://lh3.googleusercontent.com/d/1w-AxcLHJwcJOVJUKlmVKABlEo0WD8kIy=s3000") center/cover no-repeat; color: #FFF; position: absolute; top: 0; left: 0; opacity: 1; transition: opacity 0.6s ease; z-index: 2; }
-      nav { position: absolute; top: 1em; right: 1em; display: flex; gap: 1em; font-size: 0.7em; }
+      nav { position: absolute; top: 1em; left: 50%; transform: translateX(-50%); display: flex; justify-content: center; gap: 1em; font-size: 0.7em; }
       nav a { background: rgba(0,0,0,0.5); padding: 0.5em 0.8em; border-radius: 0.5em; text-decoration: none; color: #FFF; }
       .overlay { position: absolute; top: 42%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.45); padding: 2em; border-radius: 1em; display: flex; flex-direction: column; align-items: center; gap: 1.5em; }
       button { padding: 1em 2em; font-size: 0.7em; border-radius: 0.5em; border: none; background: #FF0000; color: #FFF; }
@@ -44,7 +48,7 @@
   <body>
     <div id="updateNotice" class="updateBox">
       <div class="closeUpdate" id="closeUpdate"><i class="fa-solid fa-xmark"></i></div>
-      <img src="https://lh3.googleusercontent.com/d/1cdcCsYvd8gFoP35SDvBMroiwvN5UDZEI=s2000" alt="msg1" class="w100 img_private"> <!-- Updated -->
+      <img src="https://lh3.googleusercontent.com/d/13gEtWst_sz9Po_u7YMfp3MuBfCncT7S6=s2000" alt="msg1" class="w100 img_private"> <!-- Updated -->
     </div>
     <div id="floatingMsg">Aún no disponible.</div>
     <div id="blocker">
@@ -54,7 +58,6 @@
       <div class="p1" id="p1">
         <nav>
           <a href="https://intellysis-dev.github.io/inmotion1.github.io/info.html" target="_blank">Info</a>
-          <a href="https://intellysis-dev.github.io/inmotion1.github.io/demo.html" target="_blank">Demo</a>
           <a href="https://intellysis-dev.github.io/inmotion1.github.io/teasers.html" target="_blank">Teasers</a>
           <a href="https://intellysis-dev.github.io/inmotion1.github.io/contact.html" target="_blank">Contact</a>
           <a href="https://intellysis-dev.github.io/inmotion1.github.io/faq.html" target="_blank">FAQ</a>
@@ -71,45 +74,21 @@
           <div class="screen membership s">
             <div class="card">
               <img src="https://lh3.googleusercontent.com/d/1r_CdYrlfL9-1PSei5xFVGYcwRDYTj792=s2000" class="w100 img_private">
-              <a class="button-link" s="0" data-msg="Me interesa la categoría S, plan 3 x $50">
-                <img src="https://lh3.googleusercontent.com/d/1PnbypA05an14g1qt33BP0mXwN1XBWCF7=s2000" class="w50 img_private">
-              </a>
-              <a class="button-link" s="1" data-msg="Me interesa la categoría S, plan 7 x $80">
-                <img src="https://lh3.googleusercontent.com/d/1I7GnaAM2t4ja2BTBRTCfp9N0bxKt5Rx2=s2000" class="w50 img_private">
-              </a>
-              <a class="button-link" s="1" data-msg="Me interesa la categoría S, plan 15 x $120">
-                <img src="https://lh3.googleusercontent.com/d/1FoXODlggZQ5hOCcAD8k0bhgDPdyOwLr1=s2000" class="w50 img_private">
-              </a>
+              <a class="button-link" s="0" data-msg="Me interesa la categoría S, plan 3 x $50 por 30 días">$50 MXN<br>30 días</a>
             </div>
             <button class="home-btn"><i class="fa-solid fa-house"></i></button>
           </div>
           <div class="screen membership g">
             <div class="card">
               <img src="https://lh3.googleusercontent.com/d/14fgWZtRHDbPF2bY6weRLWiF3F4vZyCxk=s2000" class="w100 img_private">
-              <a class="button-link" s="0" data-msg="Me interesa la categoría G, plan 3 x $100">
-                <img src="https://lh3.googleusercontent.com/d/1gABXYFM2kgizGkFghqzz7ISWrYjJUz4l=s2000" class="w50 img_private">
-              </a>
-              <a class="button-link" s="1" data-msg="Me interesa la categoría G, plan 7 x $150">
-                <img src="https://lh3.googleusercontent.com/d/1f6nXCkpZIpjjJD6ALY96vYNbYan7-QYW=s2000" class="w50 img_private">
-              </a>
-              <a class="button-link" s="1" data-msg="Me interesa la categoría G, plan 15 x $200">
-                <img src="https://lh3.googleusercontent.com/d/19Qq8zsH0gLyJ9Aa9mdD5M2NIlfYkzbkv=s2000" class="w50 img_private">
-              </a>
+              <a class="button-link" s="0" data-msg="Me interesa la categoría G, plan 3 x $100 por 30 días">$100 MXN<br>30 días</a>
             </div>
             <button class="home-btn"><i class="fa-solid fa-house"></i></button>
           </div>
           <div class="screen membership d">
             <div class="card">
               <img src="https://lh3.googleusercontent.com/d/1OnEp_BpeELg_qNrb5pvdRnlelBdqAxmF=s2000" class="w100 img_private">
-              <a class="button-link" s="0" data-msg="Me interesa la categoría D, plan 3 x $150">
-                <img src="https://lh3.googleusercontent.com/d/1LbBH_3IhI_e-dc5S2RJp3iuH2c_bl0l7=s2000" class="w50 img_private">
-              </a>
-              <a class="button-link" s="1" data-msg="Me interesa la categoría D, plan 7 x $200">
-                <img src="https://lh3.googleusercontent.com/d/1wSB2fqPvAdE8S2pgIH5PkTyMmU5b8W45=s2000" class="w50 img_private">
-              </a>
-              <a class="button-link" s="1" data-msg="Me interesa la categoría D, plan 15 x $250">
-                <img src="https://lh3.googleusercontent.com/d/1FFVHrU08m9R2OsTNkBOlwXBm6UDey5Ay=s2000" class="w50 img_private">
-              </a>
+              <a class="button-link" s="0" data-msg="Me interesa la categoría D, plan 3 x $150 por 30 días">$150 MXN<br>30 días</a>
             </div>
             <button class="home-btn"><i class="fa-solid fa-house"></i></button>
           </div>
@@ -161,9 +140,8 @@
         showMsg();
         return;
       }
-      const telefono="525577984626";
-      const url="https://t.me/"+telefono+"?text="+encodeURIComponent(mensaje);
-      window.open(url,"_blank");
+      const url="https://x.com/InMotionDevs";
+      window.open(url,"_blank","noopener,noreferrer");
       });
       });
       let startX=0;
